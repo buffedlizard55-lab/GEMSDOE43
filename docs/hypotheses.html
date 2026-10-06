@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypotheses and validation</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>Hypotheses and validation</h1>
+<div class="small">Five untried geological hypotheses, ranked, then measured.</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="on">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+</div></header>
+<div class="wrap">
+<div class="panel">
+<h2 style="margin-top:0;border:0">The five candidates</h2>
+<p>Full write-up with layers, physical signature, off-catalogue mechanism, novelty and cost:
+<a href="research/h43-hypotheses.html">H43 hypotheses</a> (also
+<code>docs/research/h43-hypotheses.md</code> in the repository). Summary:</p>
+<table>
+<tr><th>#</th><th>hypothesis</th><th>layers</th><th>signature</th><th>status</th></tr>
+<tr><td class="n">1</td><td>Magnetic source-edge lineaments</td>
+<td><code>tc</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>tmi</code>, <code>rtp</code></td>
+<td>analytic signal + tilt-angle edge/zero-band + Frangi line response</td>
+<td class="ok">built, measured</td></tr>
+<tr><td class="n">2</td><td>Concealed basin-bounding faults</td>
+<td><code>depth_to_base_surf</code>, <code>cond_surf</code>, <code>geod_shearrate</code></td>
+<td>3-way coincidence × <b>concealment gate</b></td><td class="ok">built, measured</td></tr>
+<tr><td class="n">3</td><td>Geothermal-fluid conduit alignment</td>
+<td>GDR thermal springs + volcanic vents</td>
+<td>locality-constrained PCA lineament through the point pattern</td>
+<td class="ok">built, measured</td></tr>
+<tr><td class="n">4</td><td>Gravity source-parameter imaging</td>
+<td>4 <code>iso_grav_anom*</code> bands</td>
+<td>tilt-depth SPI + gravity analytic signal</td><td class="ok">built, measured</td></tr>
+<tr><td class="n">5</td><td>Sub-km seismicity lineaments</td>
+<td>raw USGS FDSN catalogue</td><td>epicentres + nodal-plane strikes</td>
+<td class="no"><b>BLOCKED</b> — host unreachable here</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Is the instrument any good? (the question that has to come first)</h2>
+<p>Spearman rank correlation of each frame family against the owner-reported live scores, over the
+artifacts whose live score is already known:</p>
+<table><tr><th>frame family</th><th class="n">n</th><th class="n">ρ</th>
+<th class="n">p</th></tr><tr><td>A</td><td class="n">8</td><td class="n">+0.180</td><td class="n">0.670</td></tr><tr><td>B</td><td class="n">8</td><td class="n">+0.455</td><td class="n">0.257</td></tr><tr><td>C</td><td class="n">8</td><td class="n">+0.180</td><td class="n">0.670</td></tr></table>
+<p><b>Reference bar</b> — the best mean DTI achieved on each family by an artifact that has a known
+live score. A candidate must clear this before it is promoted:</p>
+<table><tr><th>family</th><th>artifact</th><th class="n">its live score</th>
+<th class="n">its mean DTI on this family</th></tr>
+<tr><td>A</td><td>GEMSDOE25 / GEMSDOE30 D2.8</td><td class="n">0.2600</td><td class="n">0.1087</td></tr><tr><td>B</td><td>GEMSDOE27 TGC</td><td class="n">0.2449</td><td class="n">0.0870</td></tr><tr><td>C</td><td>GEMSDOE25 / GEMSDOE30 D2.8</td><td class="n">0.2600</td><td class="n">0.1160</td></tr></table>
+<p class="small">The parent project measured ρ ≈ +0.51 (n = 12, p ≈ 0.09) for its catalogue
+instrument. A correlation of that size is a <b>screen</b>, not evidence of a leaderboard gain,
+and no submission is described here as a predicted score.</p>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Measured results — every surface × every budget</h2>
+<p>Pooled mean DW-Tversky over the four spatial blocks of each family. <b>A</b> = catalogue
+components held out by block; <b>B</b> = SGMC faults the catalogue does not contain;
+<b>C</b> = catalogue components with a 300 m flank deleted. Top 40 rows of
+14 surfaces × budgets.</p>
+<table><tr><th>surface</th><th class="n">K</th><th class="n">A</th><th class="n">B</th>
+<th class="n">C</th><th class="n">pooled</th><th class="n">K* (marginal rule)</th></tr><tr><td>lf_ext_sgmc</td><td class="n">20,000</td><td class="n">0.0942</td><td class="n">0.3977</td><td class="n">0.0985</td><td class="n"><b>0.1968</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">60,000</td><td class="n">0.1162</td><td class="n">0.3477</td><td class="n">0.1251</td><td class="n"><b>0.1963</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">56,019</td><td class="n">0.1156</td><td class="n">0.3395</td><td class="n">0.1241</td><td class="n"><b>0.1931</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">46,740</td><td class="n">0.1127</td><td class="n">0.3359</td><td class="n">0.1201</td><td class="n"><b>0.1896</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">40,000</td><td class="n">0.1094</td><td class="n">0.3398</td><td class="n">0.1161</td><td class="n"><b>0.1885</b></td><td class="n">56,019</td></tr><tr><td>sup_oof</td><td class="n">51,053</td><td class="n">0.1446</td><td class="n">0.2258</td><td class="n">0.1583</td><td class="n"><b>0.1762</b></td><td class="n">51,053</td></tr><tr><td>sup_oof</td><td class="n">40,000</td><td class="n">0.1441</td><td class="n">0.2279</td><td class="n">0.1564</td><td class="n"><b>0.1761</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">50,992</td><td class="n">0.1446</td><td class="n">0.2252</td><td class="n">0.1583</td><td class="n"><b>0.1760</b></td><td class="n">50,992</td></tr><tr><td>sup_x_fluids</td><td class="n">40,000</td><td class="n">0.1438</td><td class="n">0.2273</td><td class="n">0.1562</td><td class="n"><b>0.1758</b></td><td class="n">50,992</td></tr><tr><td>sup_x_concealed</td><td class="n">50,715</td><td class="n">0.1449</td><td class="n">0.2228</td><td class="n">0.1588</td><td class="n"><b>0.1755</b></td><td class="n">50,715</td></tr><tr><td>sup_x_concealed</td><td class="n">40,000</td><td class="n">0.1440</td><td class="n">0.2247</td><td class="n">0.1565</td><td class="n"><b>0.1751</b></td><td class="n">50,715</td></tr><tr><td>sup_oof</td><td class="n">36,293</td><td class="n">0.1426</td><td class="n">0.2283</td><td class="n">0.1541</td><td class="n"><b>0.1750</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">36,055</td><td class="n">0.1424</td><td class="n">0.2277</td><td class="n">0.1540</td><td class="n"><b>0.1747</b></td><td class="n">50,992</td></tr><tr><td>sup_oof</td><td class="n">60,000</td><td class="n">0.1427</td><td class="n">0.2223</td><td class="n">0.1571</td><td class="n"><b>0.1740</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">60,000</td><td class="n">0.1429</td><td class="n">0.2214</td><td class="n">0.1573</td><td class="n"><b>0.1739</b></td><td class="n">50,992</td></tr><tr><td>sup_x_concealed</td><td class="n">35,571</td><td class="n">0.1419</td><td class="n">0.2250</td><td class="n">0.1536</td><td class="n"><b>0.1735</b></td><td class="n">50,715</td></tr><tr><td>sup_x_concealed</td><td class="n">60,000</td><td class="n">0.1429</td><td class="n">0.2192</td><td class="n">0.1575</td><td class="n"><b>0.1732</b></td><td class="n">50,715</td></tr><tr><td>sup_oof</td><td class="n">20,000</td><td class="n">0.1285</td><td class="n">0.2138</td><td class="n">0.1365</td><td class="n"><b>0.1596</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">20,000</td><td class="n">0.1280</td><td class="n">0.2129</td><td class="n">0.1360</td><td class="n"><b>0.1590</b></td><td class="n">50,992</td></tr><tr><td>sup_x_concealed</td><td class="n">20,000</td><td class="n">0.1280</td><td class="n">0.2097</td><td class="n">0.1361</td><td class="n"><b>0.1579</b></td><td class="n">50,715</td></tr><tr><td>sup_x_multiphysics</td><td class="n">60,000</td><td class="n">0.0892</td><td class="n">0.1720</td><td class="n">0.0953</td><td class="n"><b>0.1188</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">57,194</td><td class="n">0.0890</td><td class="n">0.1713</td><td class="n">0.0950</td><td class="n"><b>0.1184</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">40,000</td><td class="n">0.0836</td><td class="n">0.1594</td><td class="n">0.0883</td><td class="n"><b>0.1104</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">36,014</td><td class="n">0.0817</td><td class="n">0.1542</td><td class="n">0.0861</td><td class="n"><b>0.1073</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">21,588</td><td class="n">0.0677</td><td class="n">0.1275</td><td class="n">0.0703</td><td class="n"><b>0.0885</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">20,000</td><td class="n">0.0653</td><td class="n">0.1225</td><td class="n">0.0678</td><td class="n"><b>0.0852</b></td><td class="n">36,014</td></tr><tr><td>lf_line_agreement</td><td class="n">60,000</td><td class="n">0.0349</td><td class="n">0.0861</td><td class="n">0.0356</td><td class="n"><b>0.0522</b></td><td class="n">45,431</td></tr><tr><td>lf_line_agreement</td><td class="n">45,431</td><td class="n">0.0317</td><td class="n">0.0773</td><td class="n">0.0322</td><td class="n"><b>0.0471</b></td><td class="n">45,431</td></tr><tr><td>lf_h431_mag_edge</td><td class="n">60,000</td><td class="n">0.0394</td><td class="n">0.0522</td><td class="n">0.0404</td><td class="n"><b>0.0440</b></td><td class="n">26,326</td></tr><tr><td>lf_line_agreement</td><td class="n">40,000</td><td class="n">0.0295</td><td class="n">0.0719</td><td class="n">0.0299</td><td class="n"><b>0.0437</b></td><td class="n">45,431</td></tr><tr><td>lf_h431_multiphysics</td><td class="n">60,000</td><td class="n">0.0270</td><td class="n">0.0693</td><td class="n">0.0274</td><td class="n"><b>0.0412</b></td><td class="n">30,331</td></tr><tr><td>lf_h432_concealed</td><td class="n">60,000</td><td class="n">0.0433</td><td class="n">0.0297</td><td class="n">0.0448</td><td class="n"><b>0.0393</b></td><td class="n">30,297</td></tr><tr><td>lf_h431_mag_edge</td><td class="n">44,150</td><td class="n">0.0348</td><td class="n">0.0452</td><td class="n">0.0355</td><td class="n"><b>0.0385</b></td><td class="n">26,326</td></tr><tr><td>lf_h432_concealed</td><td class="n">51,031</td><td class="n">0.0413</td><td class="n">0.0277</td><td class="n">0.0425</td><td class="n"><b>0.0372</b></td><td class="n">30,297</td></tr><tr><td>lf_h431_mag_edge</td><td class="n">40,000</td><td class="n">0.0335</td><td class="n">0.0428</td><td class="n">0.0341</td><td class="n"><b>0.0368</b></td><td class="n">26,326</td></tr><tr><td>sup_x_fused</td><td class="n">20,000</td><td class="n">0.0378</td><td class="n">0.0334</td><td class="n">0.0391</td><td class="n"><b>0.0368</b></td><td class="n">17,558</td></tr><tr><td>lf_h431_multiphysics</td><td class="n">45,558</td><td class="n">0.0241</td><td class="n">0.0615</td><td class="n">0.0245</td><td class="n"><b>0.0367</b></td><td class="n">30,331</td></tr><tr><td>sup_x_fused</td><td class="n">17,558</td><td class="n">0.0375</td><td class="n">0.0335</td><td class="n">0.0387</td><td class="n"><b>0.0366</b></td><td class="n">17,558</td></tr><tr><td>sup_x_fused</td><td class="n">28,758</td><td class="n">0.0373</td><td class="n">0.0326</td><td class="n">0.0388</td><td class="n"><b>0.0362</b></td><td class="n">17,558</td></tr><tr><td>lf_line_agreement</td><td class="n">29,455</td><td class="n">0.0236</td><td class="n">0.0583</td><td class="n">0.0239</td><td class="n"><b>0.0352</b></td><td class="n">45,431</td></tr></table>
+</div>
+</div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>

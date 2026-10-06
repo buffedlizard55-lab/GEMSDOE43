@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Method — metric algebra, MCLP, and the channel stack</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>Method — metric algebra, MCLP, and the channel stack</h1>
+<div class="small">Every step proved, every constant derived.</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="on">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+</div></header>
+<div class="wrap">
+<div class="panel">
+<h2 style="margin-top:0;border:0">The metric, verbatim</h2>
+<p>From <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">the
+official problem description</a>, “Performance metric”, read 2026-10-06:</p>
+<pre>k(d)  = max(1 - d/R, 0),                       R = 300 m
+TP_w  = sum_{g in G} max_{x: d(x,g) &lt;= R} p(x) k(d(x,g))
+FP_w  = sum_{x: p(x) &gt; 0} p(x) [1 - max_{g in G} k(d(x,g))]
+FN_w  = sum_{g in G} [1 - max_{x: d(x,g) &lt;= R} p(x) k(d(x,g))]
+DTI   = TP_w / (TP_w + 0.2 FP_w + 0.8 FN_w + eps)</pre>
+<p>Implemented verbatim in <code>src/gems43/metric.py</code>, and tested against
+(<b>i</b>) the organizer's own worked example
+<code>TP_w=3.00, FP_w=1.89, FN_w=2.00 → 0.60</code> and (<b>ii</b>) a brute-force
+<code>O(N·M)</code> re-derivation on random grids.</p>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Three consequences, and what each one buys</h2>
+<table>
+<tr><th>#</th><th>consequence</th><th>consequence for the design</th></tr>
+<tr><td class="n">1</td><td><code>FN_w = |G| − TP_w</code>, so
+<code>DTI = T / (0.2T + 0.2F + 0.8|G|)</code></td>
+<td>the index is a ratio of two set functions → fractional-programming tools apply</td></tr>
+<tr><td class="n">2</td><td>Adding a pixel of weight <code>p</code> raises the denominator by
+<b>exactly <code>0.2p</code></b> whatever its credit, so the move pays iff
+<code>k &gt; 0.2·DTI</code> — <b>independent of <code>p</code></b></td>
+<td><b>binary emission is optimal</b>; the stopping rule needs no tuned threshold</td></tr>
+<tr><td class="n">3</td><td><code>FP_w = |S| − Σ_i k_i</code> is <b>modular</b> in the emitted
+set; under the disjoint-credit hypothesis the index reduces to
+<code>T / (0.2|S| + 0.8|G|)</code></td>
+<td>for a fixed dot count, the problem <b>is</b> MCLP</td></tr>
+</table>
+<p class="small"><b>Correction recorded as IR-43-007:</b> the reduction in row 3 is a
+<i>hypothesis</i>, not a bound. It is pessimistic when several dots compete for the same truth
+pixel (the regime at K &gt; |G|) and optimistic when there are fewer dots than truth pixels.
+It is reported as the <i>reduction</i> everywhere, never as a guaranteed score.</p>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">From MCLP to the emitted file</h2>
+<ol>
+<li><b>Demand field.</b> A per-pixel prior <code>π(x)</code> that a hidden fault occupies
+<code>x</code>, normalised so <code>Σ π = |Ĝ|</code> (12,226, the parent project's live-anchor
+estimate). That normalisation is what puts the marginal gains on the metric's own scale.</li>
+<li><b>Coverage objective.</b> <code>T(S) = Σ_x π(x)·max_{i∈S} k(d(i,x))</code> — weighted
+max-coverage, hence <b>monotone submodular</b>.</li>
+<li><b>Church–ReVelle greedy with exact residual bookkeeping.</b> Unlike a textbook MCLP, coverage
+is a <i>graded</i> kernel, so the solver tracks <code>max(0, k(δ) − C(x))</code> at every pixel and
+two overlapping facilities are credited only once. It is the <b>exact</b> greedy (not lazy): after
+each acceptance only the candidates within 600 m can have changed, so a full pass per iteration is
+unnecessary. Worst-case guarantee <b>(1 − 1/e) = 0.6321</b>.</li>
+<li><b>Cardinality by Dinkelbach fixed point.</b> One greedy pass produces the whole marginal-gain
+path; the budget is where the marginal gain falls below <code>0.2·s</code>, solved
+self-consistently. <b>No spacing constant, no swept budget.</b></li>
+<li><b>Binary emission</b> (<code>p = 1</code> on the chosen dots), because consequence 2 makes
+<code>p &lt; 1</code> strictly dominated.</li>
+<li><b>Fail-closed write</b>, then an independent re-read audit, then the near-duplicate screen.</li>
+</ol>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Channel provenance (62 channels)</h2>
+<p>Every channel names the band and the transform it came from. Band names are read from the
+GeoTIFF's own descriptions, never assumed.</p>
+<table><tr><th class="n">#</th><th>channel</th><th>hypothesis</th><th>what it is</th></tr><tr><td class="n">1</td><td><code>raw_mag_anom</code></td><td>base</td><td class="small">official band &#x27;mag_anom&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">2</td><td><code>raw_rtp</code></td><td>base</td><td class="small">official band &#x27;rtp&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">3</td><td><code>raw_tmi</code></td><td>base</td><td class="small">official band &#x27;tmi&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">4</td><td><code>raw_tmi_hg</code></td><td>base</td><td class="small">official band &#x27;tmi_hg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">5</td><td><code>raw_tmi_vg</code></td><td>base</td><td class="small">official band &#x27;tmi_vg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">6</td><td><code>raw_tc</code></td><td>base</td><td class="small">official band &#x27;tc&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">7</td><td><code>raw_iso_grav_anom</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">8</td><td><code>raw_iso_grav_anom_hg</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom_hg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">9</td><td><code>raw_iso_grav_anom_vg</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom_vg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">10</td><td><code>raw_iso_grav_anom_slope</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom_slope&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">11</td><td><code>raw_det_elev</code></td><td>base</td><td class="small">official band &#x27;det_elev&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">12</td><td><code>raw_det_elev_slope</code></td><td>base</td><td class="small">official band &#x27;det_elev_slope&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">13</td><td><code>raw_cond_surf</code></td><td>base</td><td class="small">official band &#x27;cond_surf&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">14</td><td><code>raw_depth_to_base_surf</code></td><td>base</td><td class="small">official band &#x27;depth_to_base_surf&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">15</td><td><code>raw_geod_2ndinv</code></td><td>base</td><td class="small">official band &#x27;geod_2ndinv&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">16</td><td><code>raw_geod_shearrate</code></td><td>base</td><td class="small">official band &#x27;geod_shearrate&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">17</td><td><code>raw_geod_dilaterate</code></td><td>base</td><td class="small">official band &#x27;geod_dilaterate&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">18</td><td><code>raw_ieq_n100a15</code></td><td>base</td><td class="small">official band &#x27;ieq_n100a15&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">19</td><td><code>raw_deq_n100a15</code></td><td>base</td><td class="small">official band &#x27;deq_n100a15&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">20</td><td><code>h431_analytic_signal</code></td><td>H43-1</td><td class="small">sqrt(tmi_hg^2 + tmi_vg^2): contact locator independent of magnetization direction</td></tr><tr><td class="n">21</td><td><code>h431_asa_ridge</code></td><td>H43-1</td><td class="small">non-max-suppressed ridge of the analytic signal amplitude</td></tr><tr><td class="n">22</td><td><code>h431_tilt_grad</code></td><td>H43-1</td><td class="small">|grad tc|: the horizontal gradient of the tilt angle peaks over source edges</td></tr><tr><td class="n">23</td><td><code>h431_tilt_zero_band</code></td><td>H43-1</td><td class="small">narrow band around the tilt-angle zero contour, which outlines the source body</td></tr><tr><td class="n">24</td><td><code>h431_tilt_abs</code></td><td>H43-1</td><td class="small">|tc|: total-curvature / tilt magnitude</td></tr><tr><td class="n">25</td><td><code>line_mag</code></td><td>H43-1</td><td class="small">Frangi vesselness (both polarities) of tmi at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">26</td><td><code>line_rtp</code></td><td>H43-1</td><td class="small">Frangi vesselness (both polarities) of rtp at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">27</td><td><code>line_tilt</code></td><td>H43-1</td><td class="small">Frangi vesselness (both polarities) of tc at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">28</td><td><code>line_grav</code></td><td>H43-5</td><td class="small">Frangi vesselness (both polarities) of iso_grav_anom at sigma=(1.5, 3.0), 0.5/99.5 pct</td></tr><tr><td class="n">29</td><td><code>line_elev</code></td><td>base</td><td class="small">Frangi vesselness (both polarities) of det_elev at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">30</td><td><code>line_cond</code></td><td>H43-2</td><td class="small">Frangi vesselness (both polarities) of cond_surf at sigma=(1.5, 3.0), 0.5/99.5 pct</td></tr><tr><td class="n">31</td><td><code>line_base</code></td><td>H43-2</td><td class="small">Frangi vesselness (both polarities) of depth_to_base_surf at sigma=(1.5, 3.0), 0.5/99.5 pct</td></tr><tr><td class="n">32</td><td><code>line_shear</code></td><td>H43-2</td><td class="small">Frangi vesselness (both polarities) of geod_shearrate at sigma=(2.0, 4.0), 0.5/99.5 pct</td></tr><tr><td class="n">33</td><td><code>h431_orient_order</code></td><td>H43-1</td><td class="small">R = |sum_p w_p exp(2i theta_p)| / sum_p w_p over [&#x27;mag&#x27;, &#x27;rtp&#x27;, &#x27;tilt&#x27;, &#x27;grav&#x27;, &#x27;elev&#x27;, &#x27;cond&#x27;, &#x27;base&#x27;]: do independent physics agree on the strike?</td></tr><tr><td class="n">34</td><td><code>h431_multi_physics_fused</code></td><td>H43-1</td><td class="small">OR-fusion of the per-physics line responses, gated by strike agreement</td></tr><tr><td class="n">35</td><td><code>h432_base_step</code></td><td>H43-2</td><td class="small">|grad depth_to_base_surf|: a step in the sedimentary cover thickness = basin fault</td></tr><tr><td class="n">36</td><td><code>h432_cond_step</code></td><td>H43-2</td><td class="small">|grad log cond_surf|: MT conductivity step = buried lithologic/fluid boundary</td></tr><tr><td class="n">37</td><td><code>h432_coincidence</code></td><td>H43-2</td><td class="small">geometric mean of basement step, conductivity step and geodetic shear ridge</td></tr><tr><td class="n">38</td><td><code>h432_conceal_gate</code></td><td>H43-2</td><td class="small">1 - mean(local relief, local slope): high where no scarp could be mapped</td></tr><tr><td class="n">39</td><td><code>h432_concealed_coincidence</code></td><td>H43-2</td><td class="small">subsurface coincidence weighted by the concealment gate</td></tr><tr><td class="n">40</td><td><code>h433_seis_resid</code></td><td>H43-3</td><td class="small">|ieq - smooth(ieq, 12 px)|: the supplied band is 0.9935 self-correlated at 3 km, so only the high-pass residual can carry fault-scale information</td></tr><tr><td class="n">41</td><td><code>h433_deq_min</code></td><td>H43-3</td><td class="small">negative distance-to-earthquake: local minima line up along active structures</td></tr><tr><td class="n">42</td><td><code>h435_grav_analytic_signal</code></td><td>H43-5</td><td class="small">analytic signal amplitude of the isostatic gravity anomaly</td></tr><tr><td class="n">43</td><td><code>h435_grav_tilt_depth</code></td><td>H43-5</td><td class="small">tilt-depth SPI: 1/|grad(tilt)| estimates depth to the density contrast</td></tr><tr><td class="n">44</td><td><code>strain_second_invariant</code></td><td>base</td><td class="small">geodetic second invariant, smoothed</td></tr><tr><td class="n">45</td><td><code>strain_dilat_abs</code></td><td>base</td><td class="small">|dilatation rate|</td></tr><tr><td class="n">46</td><td><code>rad_K</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;K&#x27;</td></tr><tr><td class="n">47</td><td><code>rad_Th</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;Th&#x27;</td></tr><tr><td class="n">48</td><td><code>rad_U</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;U&#x27;</td></tr><tr><td class="n">49</td><td><code>rad_TC</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;TC&#x27;</td></tr><tr><td class="n">50</td><td><code>radx_ThK</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;ThK&#x27;</td></tr><tr><td class="n">51</td><td><code>radx_UK</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;UK&#x27;</td></tr><tr><td class="n">52</td><td><code>radx_UTh</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;UTh&#x27;</td></tr><tr><td class="n">53</td><td><code>radx_TMI_up150</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;TMI_up150&#x27;</td></tr><tr><td class="n">54</td><td><code>lidar_ex_max</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;ex_max&#x27;</td></tr><tr><td class="n">55</td><td><code>lidar_step_max</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;step_max&#x27;</td></tr><tr><td class="n">56</td><td><code>lidar_downface_max</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;downface_max&#x27;</td></tr><tr><td class="n">57</td><td><code>lidar_relief</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;relief&#x27;</td></tr><tr><td class="n">58</td><td><code>lidar_coh100</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;coh100&#x27;</td></tr><tr><td class="n">59</td><td><code>ext_sgmc_prox</code></td><td>external</td><td class="small">exp(-d/400 m) to the SGMC fault inventory (an independent compilation)</td></tr><tr><td class="n">60</td><td><code>h434_spring_density</code></td><td>H43-4</td><td class="small">GDR well/spring density weighted by measured temperature</td></tr><tr><td class="n">61</td><td><code>h434_spring_lines</code></td><td>H43-4</td><td class="small">locality-constrained PCA lineaments through clusters of &gt;=3 thermal features (radius 25 px, elongation &gt;= 0.80), extended 12 px along strike: orientation evidence that an isotropic proximity decay cannot express</td></tr><tr><td class="n">62</td><td><code>ext_vent_prox</code></td><td>external</td><td class="small">exp(-d/800 m) to GDR volcanic vents</td></tr></table>
+</div>
+</div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>
