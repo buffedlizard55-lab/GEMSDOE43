@@ -42,5 +42,7 @@ jobs:
         run: python -m pytest -q
       - name: Compile source and scripts
         run: python -m compileall -q src scripts tests
+      - name: Check repository-local public-site links
+        run: python scripts/check_site_links.py
       - name: Check whitespace errors
         run: git diff --check

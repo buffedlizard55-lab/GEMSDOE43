@@ -1,0 +1,18 @@
+{
+  "observed_on": "2026-10-06",
+  "source": "Official DrivenData GEMS Prize Challenge leaderboard",
+  "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+  "observations": [
+    {
+      "rank": 13,
+      "score": 0.2778
+    },
+    {
+      "rank": 1,
+      "score": 0.3345
+    }
+  ],
+  "interpretation": "Dated leaderboard-row observations only; neither value is attributed to this repository or a specific GeoTIFF.",
+  "file_receipt_or_hash_crosswalk": null,
+  "capture_note": "The values were recorded from a live official leaderboard check on 2026-10-06. No raw HTML, screenshot, submission receipt, or file-hash crosswalk was retained. During the later release-link review, the page-fetch view returned only a JavaScript Loading shell and a sandbox curl attempt failed TLS; therefore these values are preserved only as date-bound observations, not represented as a newly archived or currently refreshed snapshot."
+}

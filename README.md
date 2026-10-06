@@ -4,43 +4,71 @@
 
 ## Project brief
 
-Develop one genuinely new, reproducible geological-fault detector and, only if the evidence supports it, deliver a unique, easy-to-download GeoTIFF for the GEMS Prize Challenge. Do not copy a sibling submission. State the hypothesis, source provenance and caveats; compare it with a clearly defined incumbent using spatially blocked validation before considering a submission slot. A local catalogue-transfer proxy is not validation against the organizer's private test set, a leaderboard score, or proof of winning.
+Develop and document genuinely new geological-fault hypotheses for the GEMS Prize Challenge, compare a viable candidate against a defined incumbent with spatially blocked testing, and only promote an artifact when preregistered evidence supports it. Never copy a sibling submission. Preserve exact source provenance, grid/format checks, a distinct artifact name and concise form note. A local public-catalogue transfer proxy is not validation against the organizer's private set of expert-labelled new faults, not a leaderboard score, and not proof of winning.
 
-The project also maintains a clean public website with an explicit executive summary and a linked research, hypothesis, and source knowledge base. Any deliverable must include a distinct submission name, short form note, unambiguous upload instructions, and the required AI-use disclosure. The GeoTIFF must preserve the official grid, CRS, transform and dimensions, be one-band float32 with inside-footprint values in `[0,1]`, and represent outside-footprint cells correctly as nodata. No file may be described as validated or scored without the corresponding evidence. Link claims to trusted sources and manually review links. Review code and public claims in three passes before release.
+## Current decision — 2026-10-06
 
-## Current status — 2026-10-06
+**H46-B did not pass its preregistered promotion gate. Do not submit the artifact below; no submission slot has been used or authorized.**
 
-- The original leading idea, **H46-A** (USGS Northern Great Basin stream-sediment pathfinder enrichment), failed its preregistered source-coverage gates and was stopped **before holdout scoring**. The official CSV was retrieved and hashed; only 451 eligible stream samples and 447 samples with at least three usable assays intersect the competition footprint, below the frozen 1,000/500 thresholds. See [`research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md`](research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md) and the official-source check summary for Actions run `37446554478`.
-- **H46-B** (map-unit lithology/age contacts that coincide with a magnetic edge, used only as auxiliary evidence on the H42-style incumbent) passed its **source-only** audit using official USGS SGMC v1.1 CA/NV polygons and the same-release all-state age/lithology tables. All preregistered source gates passed: 100% polygon coverage, 96.33% joint lithology/age class coverage, 476,338 positive-contrast cells, and zero outside-footprint values. The latest [pinned, polygon-only source audit](https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455479306) read no labels or sample-template pixel values and did not open either Structure layer. H46-B is authorized for the blocked holdout only; that holdout has not run, so there is no validation or score yet. See the dated SGMC amendments below.
-- No candidate GeoTIFF has been generated, no H46-A or H46-B holdout has run, no submission slot has been spent, and no candidate is currently validated or scored. The source-audit workflow reads only the sample-template finite mask/grid, never its pixel values or labels.
-- The public website, completed source audit, README-linked evidence, final form note, and submission artifact remain to be completed. See [`research/PREREGISTRATION-2026-10-06.md`](research/PREREGISTRATION-2026-10-06.md) and the amendments in `research/` for the frozen protocol and subsequent decisions.
+The source-only gate for H46-B passed using official USGS SGMC v1.1 California/Nevada geology polygons and same-release lithology/age tables. During final source review, the official ScienceBase item was found to recommend a newer 2026 GeMS release (DOI [10.5066/P1A3DQZK](https://doi.org/10.5066/P1A3DQZK)); this frozen test did not audit or silently substitute that data. The frozen v1.1 recipe was then evaluated once against the registered four-fold, 20 km block public-catalogue proxy. The unchanged H42 control reproduced all four historical DTI values exactly. H46-B's proxy mean was `0.251667` versus `0.250744` for H42 (`Δ=+0.000923`); it won **2/4** folds. The gate required `Δ≥+0.005` and at least 3/4 wins. It also required no fold worse than `−0.010`; the worst H46-B fold was `−0.000051`. Thus two of the four promotion checks passed, while the mean-improvement and win-count checks failed. **This is a public-catalogue proxy result only—not private-set validation and not a DrivenData score.**
 
-## Evidence and score-attribution caution
+The run generated a distinct GeoTIFF for reproducibility, not as a promoted submission:
 
-The official DrivenData leaderboard displayed **0.2778 at rank #13** and **0.3345 at rank #1** when independently checked on **2026-10-06**. These are leaderboard-row observations only: there is no verified TIFF receipt/hash crosswalk tying the 0.2778 row to a particular file. The 0.3345 observation likewise does not identify the file that earned it. Do not infer that either score belongs to this repository or to a particular sibling artifact. [Open the official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/).
+- [Download the research-only GeoTIFF](docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif)
+- **Name:** `GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006`
+- **Size / SHA-256:** 381,558 bytes / `c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6`
+- **Format checks:** one-band float32, 3,730 × 3,292, EPSG:32611, exact 100 m transform, 40,000 positive prediction pixels, inside-footprint values finite and in `[0,1]`, outside-footprint nodata `NaN`. The receipt and a separate local Rasterio/hash verification are linked below.
+- **Submission status:** not cleared; do not upload. No private-set score, leaderboard score, or slot exists for this file.
 
-## Session-start and release discipline
+The precise form note is [`submission/FORM-NOTE.txt`](submission/FORM-NOTE.txt); its warning is intentional. Conditional instructions for a future separately authorized artifact are in [`submission/INSTRUCTIONS.md`](submission/INSTRUCTIONS.md). No further H46-B tuning on these folds is authorized; a materially different recipe needs a new dated amendment and fresh confirmation regions.
 
-At the start of every project session:
+## Hypotheses and research knowledge base
 
-1. Read this README and the current preregistration plus the latest dated amendment.
-2. Check `git status`, confirm the session branch is `arena/7bd177bc-gemsdoe43`, and inspect the newest source/experiment evidence before doing work.
-3. Do not repeat a failed audit unchanged, rerun a failed source gate as if it passed, or silently replace a hypothesis/source. File and review a dated amendment before a materially new experiment.
-4. Run tests, format/grid/independence checks, and the three review passes before release. Open a PR and merge only when the actual diff and checks are ready; report the PR/merge only if GitHub confirms it.
+The original ranked slate contains three genuinely different evidence families. Its expected-DTI ranking was a **prior**, not a measurement; see [`research/PREREGISTRATION-2026-10-06.md`](research/PREREGISTRATION-2026-10-06.md) for the full recipes, costs and source gates, and the [public research knowledge base](knowledge-base.html) for a concise summary.
 
-## Research map
+| Prior rank | Hypothesis | Prior expected proxy-DTI direction / implementation cost | Current evidence |
+|---:|---|---|---|
+| 1 | **H46-A — NGB stream-geochemistry pathfinder enrichment × TMI edge** | Highest relative prior; modest positive expectation but high uncertainty. Medium cost. | Stopped before scoring: official NGB source/coverage gates failed (451 eligible stream samples; 447 with at least three usable assays in the footprint, below frozen 1,000 / 500 gates). |
+| 2 | **H46-B — SGMC lithology/age unit-contact contrast × TMI edge** | Low-to-moderate prior. Medium cost. | Source gates passed; public-catalogue blocked proxy returned mean `ΔDTI=+0.000923`, 2/4 wins; failed promotion gate. No slot. |
+| 3 | **H46-C — persistent Landsat alteration margins × lineament agreement** | Low-to-moderate, less certain prior. High cost. | Not tested or source-verified. It was not silently substituted after H46-B. |
 
-- [`research/PREREGISTRATION-2026-10-06.md`](research/PREREGISTRATION-2026-10-06.md) — initial ranked hypothesis slate, H42 comparator, blocked-fold protocol, and promotion/stop rules.
-- [`research/AMENDMENT-2026-10-06-assays.md`](research/AMENDMENT-2026-10-06-assays.md) — locked H46-A assay-method choice.
-- [`research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md`](research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md) — official NGB coverage failure and explicit H46-B source-audit amendment.
-- [`research/AMENDMENT-2026-10-06-SGMC-table-archive.md`](research/AMENDMENT-2026-10-06-SGMC-table-archive.md) — CA/NV download receipts and the missing-age-table correction.
+A source gate or proxy result is not evidence of private-set performance. The hypotheses are not calibrated to the private labels, and no public score is inferred.
+
+## Evidence and reproducibility
+
+- **H46-B holdout decision:** [dated amendment](research/AMENDMENT-2026-10-06-H46B-holdout.md); [Actions run `37455686781`](https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455686781).
+- **Machine-readable experiment receipts:** [`evidence/h46b/experiment.json`](evidence/h46b/experiment.json), [`holdout.json`](evidence/h46b/holdout.json), [`data_manifest.json`](evidence/h46b/data_manifest.json), [`submission_receipt.json`](evidence/h46b/submission_receipt.json).
+- **Official SGMC source audit:** [Actions run `37455479306`](https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455479306), with [checked-in receipt](evidence/sgmc_source_audit.json). It verified the three pinned official archive hashes, all preregistered source gates, and did not open either Structure layer.
+- **Frozen implementation tests/compile:** [Actions run `37455479404`](https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455479404); 17 local unit/synthetic tests passed. These are engineering checks, not private-set validation.
+- **Three release-review passes:** [`research/RELEASE-REVIEW-2026-10-06.md`](research/RELEASE-REVIEW-2026-10-06.md).
+
+Competition feature and public-catalogue-label rasters came through integrity-pinned **owner-supplied mirrors**, not authenticated organizer originals. The checksums and that limitation are recorded in the data manifest. The sample template was used only for its grid/finite mask; the private challenge labels were not accessed.
+
+## Score-attribution caution
+
+The official DrivenData leaderboard displayed **0.2778 at rank #13** and **0.3345 at rank #1** when independently checked on **2026-10-06**. These are dated leaderboard-row observations only; no verified TIFF receipt/hash crosswalk ties the 0.2778 row to a file, and the 0.3345 observation likewise does not identify its file. The later link-review fetch returned a JavaScript “Loading” shell and a sandbox `curl` attempt failed TLS, so these figures are not presented as a refreshed current snapshot. See [`evidence/leaderboard_observation.json`](evidence/leaderboard_observation.json); do not attribute either number to this repository or a sibling artifact. [Open the official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/).
+
+## Website and AI-use disclosure
+
+The static public-site source is [`index.html`](index.html), with the [knowledge base](knowledge-base.html). GitHub Pages for this repository is configured at [`buffedlizard55-lab.github.io/GEMSDOE43`](https://buffedlizard55-lab.github.io/GEMSDOE43/); content from this branch is public only after it is merged and the Pages deployment completes.
+
+AI coding assistance was used for source synthesis, implementation drafting, tests, experiment orchestration and documentation. The TIFF is a deterministic output of the documented numerical workflow, not a generative image or hand-labelled fault map. Sources, access caveats, code, hashes, fold results and the no-promotion decision are recorded here. No private challenge labels were accessed.
+
+## Project map
+
+- [`knowledge-base.html`](knowledge-base.html) — public research, ranked hypotheses, official sources, access caveats and decision record.
+- [`research/PREREGISTRATION-2026-10-06.md`](research/PREREGISTRATION-2026-10-06.md) — original incumbent, spatial folds, thresholds and hypothesis recipes.
+- [`research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md`](research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md) — H46-A source-gate stop and H46-B source-audit authorization.
+- [`research/AMENDMENT-2026-10-06-SGMC-table-archive.md`](research/AMENDMENT-2026-10-06-SGMC-table-archive.md) — official SGMC archive/table irregularity, hashes and source-only results.
+- [`research/AMENDMENT-2026-10-06-H46B-holdout.md`](research/AMENDMENT-2026-10-06-H46B-holdout.md) — measured blocked-proxy outcome and no-promotion decision.
+- [`research/RELEASE-REVIEW-2026-10-06.md`](research/RELEASE-REVIEW-2026-10-06.md) — three review passes and release checklist.
 - [`data/README.md`](data/README.md) — raw-input handling and integrity policy.
-- [`docs/`](docs/) — public project website and the reviewed, downloadable candidate (to be added only after the source and validation decisions are complete).
+- [`submission/INSTRUCTIONS.md`](submission/INSTRUCTIONS.md) and [`submission/FORM-NOTE.txt`](submission/FORM-NOTE.txt) — explicit do-not-upload status and conditional future instructions.
 
-## Trusted source links
+## Official sources
 
-- Official competition: [GEMS Prize Challenge](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/).
-- Official H46-A source, stopped at the source gate: [USGS Open-File Report 2002-227 CSV](https://pubs.usgs.gov/of/2002/0227/ngb.csv), [metadata](https://pubs.usgs.gov/of/2002/0227/metadata.html), and [quality notes](https://pubs.usgs.gov/of/2002/0227/quality.html).
-- Official H46-B source, pending byte and coverage verification: [USGS SGMC download index](https://mrdata.usgs.gov/geology/state/) and [data release DOI](https://doi.org/10.5066/F7WH2N65).
+- [GEMS Prize Challenge rules and submission page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) and [official leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/).
+- H46-A source, stopped at its source gate: USGS [Open-File Report 2002-227 data](https://pubs.usgs.gov/of/2002/0227/data.html), [CSV](https://pubs.usgs.gov/of/2002/0227/ngb.csv), [metadata](https://pubs.usgs.gov/of/2002/0227/metadata.html), and [quality notes](https://pubs.usgs.gov/of/2002/0227/quality.html).
+- H46-B source, audited: USGS [SGMC v1.1 download index](https://mrdata.usgs.gov/geology/state/), [data-release DOI 10.5066/F7WH2N65](https://doi.org/10.5066/F7WH2N65), [metadata](https://mrdata.usgs.gov/geology/state/USGS_SGMC_Metadata.html), and official [polygon](https://mrdata.usgs.gov/geology/state/about.php?tblname=geol_poly), [age](https://mrdata.usgs.gov/geology/state/about.php?tblname=age), and [lithology](https://mrdata.usgs.gov/geology/state/about.php?tblname=lith) field descriptions.
 
-Competition input rasters in this repository's research workflow are integrity-pinned owner-supplied mirrors, not organizer-authenticated originals. The acquisition scripts and experiment receipts must preserve that distinction. Raw inputs, private labels, credentials, and scratch products do not belong in Git.
+Raw inputs, private labels, credentials and runner scratch files do not belong in Git. See [`data/README.md`](data/README.md) and the experiment manifest for the acquisition route and integrity checks.

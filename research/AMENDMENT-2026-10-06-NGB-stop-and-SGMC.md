@@ -1,5 +1,7 @@
 # Source-gate decision and H46-B preregistration amendment — 2026-10-06
 
+> **Status note:** This amendment records the decision before the H46-B holdout. The later outcome is in [`AMENDMENT-2026-10-06-H46B-holdout.md`](AMENDMENT-2026-10-06-H46B-holdout.md); H46-B ultimately failed its promotion gate and no submission slot was authorized.
+
 ## Decision on H46-A
 
 The source-only audit for the frozen H46-A arm completed before any holdout run. GitHub Actions run [`37446554478`](https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37446554478) fetched the official USGS Open-File Report 2002-227 CSV over HTTPS and checksum-verified the pinned sample-template mirror. The audit read only the template's finite footprint mask and georeferencing; it did not read template sample values, labels, or any fault-score layer.
@@ -39,6 +41,6 @@ The official metadata describes SGMC as a compilation of state maps with source 
 5. Compute the empirical percentile of the smoothed competition TMI horizontal-gradient feature (band 3, Gaussian sigma 1 pixel) over the finite footprint. The auxiliary contact evidence is `contact_strength × tmi_hg_percentile`. Form the H46-B candidate by combining that auxiliary surface with the unchanged H42 incumbent surface using the project's geometric mean with fixed weights `H42 = 0.75`, `contact evidence = 0.25` and the already-frozen 0.05 geometric-mean floor. No fitted weights, parameter search, catalogue masking, or post-hoc edits.
 6. Before the first H46-B fold result is computed, freeze the source-audit output, code/tests, and a same-run H42 control. Use the registered four spatial folds, 40,000 predictions per fold, 4-pixel minimum separation, 300 m fold-edge exclusion, and 2-pixel training-trace guard in `PREREGISTRATION-2026-10-06.md`. Keep the pre-existing promotion thresholds: reproduce the four historical H42 folds to within 1e-5; improve same-run mean DTI by at least 0.005; win at least three of four folds; and have no fold more than 0.010 worse. A proxy result is not private-set validation, a leaderboard score, or automatic permission to spend a submission slot.
 
-## Current ranking after the source stop
+## Ranking at the time of this source-gate amendment
 
-The original pre-data prior ranking remains preserved in the preregistration. For the next source audit only, H46-B is the highest-priority *remaining testable hypothesis* (prior expected upside low-to-moderate, implementation cost medium); H46-C, persistent Landsat alteration margins, remains second (prior upside low-to-moderate with higher uncertainty and higher acquisition/processing cost). Neither has an observed score. No replacement test is authorized if the SGMC data gate fails without a further dated amendment.
+The original pre-data prior ranking remains preserved in the preregistration. **At the time of this amendment**, H46-B was the highest-priority remaining hypothesis for the next source audit (prior expected upside low-to-moderate, medium cost); H46-C, persistent Landsat alteration margins, remained lower priority (low-to-moderate prior, higher uncertainty and cost). This status preceded H46-B's holdout. The later [H46-B holdout amendment](AMENDMENT-2026-10-06-H46B-holdout.md) records its failed promotion result; H46-B is not submission-cleared. No replacement test is authorized by this historical ranking.
