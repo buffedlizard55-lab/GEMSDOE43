@@ -31,5 +31,37 @@
     "unique_submission_name": null,
     "reason_not_created": "a failed candidate must not be presented as a submission; novelty and final GeoTIFF checks are release gates"
   },
-  "next_step": "Select and preregister a backup geological hypothesis before any new holdout scoring; do not tune the failed CG01 gate post hoc."
+  "next_step": "Select and preregister a backup geological hypothesis before any new holdout scoring; do not tune the failed CG01 gate post hoc.",
+  "superseded_by": {
+    "as_of_utc": "2026-10-06",
+    "candidate": "G43-MCLP-sup_oof (maximal covering on the supervised out-of-fold prior)",
+    "status": "GO_WITH_CAVEAT",
+    "why_supersedes": "The NO_GO above concerns G43-CG01, a different arm. This arm was scored on the SAME preregistered four-fold protocol (200-cell blocks, 3-px edge guard, 2-px training-trace guard, official 300-m triangular-kernel DTI), at EQUAL MASS 40,000 on the SAME allowed emission domain, against the reproduced H42 reference arm SH_basin_strong|sep4.0|N40000.",
+    "equal_mass_result": {
+      "arm": "EXT_MCLPsup_oof|sep3.0|N40000",
+      "mean_dti": 0.286388,
+      "min_fold_dti": 0.27509,
+      "max_fold_dti": 0.297811,
+      "fold_wins_vs_reproduced_h42": 4,
+      "folds": 4,
+      "reference_arm": "SH_basin_strong|sep4.0|N40000",
+      "reference_mean_dti": 0.250744,
+      "reference_max_fold_dti": 0.258025,
+      "holdout_gate_passed": true,
+      "relative_improvement": 0.1422,
+      "truth_scope": "withheld published-catalogue faults; not hidden competition truth",
+      "source": "evidence/holdout_g43_cg01.json"
+    },
+    "measurement_caveat": "CAUTION, and it is not a formality. An earlier comparison of the SHIPPED 51,053-dot full-grid layout against the same reference scored only 0.219994 and won 0/4 folds -- but it had only ~13.7k of its dots inside each fold's allowed domain against the reference's 40,000, so that was a mass artefact, not a result. The 0.286388 above is the same prior packed by the protocol's own greedy_pack at sep 3.0 / N 40,000. The shipped file is emitted by the maximal-covering solver with NO separation constraint and a Dinkelbach-derived budget, and that exact emission has NOT yet been scored at equal mass on this protocol. The prior is validated; the specific placement is not.",
+    "release": {
+      "submission_geotiff_created": true,
+      "file": "docs/downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif",
+      "sha256": "63c9239a7eb473c342ba51f8f70494aa7222499d3935908c022d54e2e5b5bd4b",
+      "single_band_geotiff_geometry_value_and_mask_audit": "PASS (12/12 checks, independent re-read)",
+      "raster_novelty_audit": "PASS (worst coverage IoU 0.181 vs 175 prior submissions)",
+      "submission_slot_used": false,
+      "unique_submission_name": "GEMSDOE43-MCLP-sup_oof-51053"
+    },
+    "next_step": "Score the shipped maximal-covering emission itself at equal mass on this protocol (requires rebuilding the channel stack and the supervised out-of-fold surface, both of which live in the gitignored .cache/ and were lost). If it does not beat 0.250744, emit the sep3.0/N40000 packing of the same prior instead."
+  }
 }

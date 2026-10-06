@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEMSDOE43 — H43 Hypotheses</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>GEMSDOE43 — H43 Hypotheses</h1>
+<div class="small">Research note — source of truth is the .md in the repository</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="on">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+</div></header>
+<div class="wrap"><div class="panel"><h2 style="margin-top:0;border:0">H43 Hypotheses</h2><h1>H43 — five untried geological hypotheses, ranked, with the measurement that decided each</h1>
+<p><b>Session:</b> Arena <code>arena/a4a86abd-gemsdoe43</code> · <b>Date:</b> 2026-10-06 <b>Question this file answers:</b> *what has this lineage not tried, which of it can be validated locally, which needs new external data, and what did the blocked holdout actually say?*</p>
+<p>Evidence labels used throughout:</p>
+<table><tr><th>label</th><th>meaning</th></tr><tr><td><code>[OFFICIAL]</code></td><td>read from a DrivenData / USGS / DOE page or product; link and read date given</td></tr><tr><td><code>[MEASURED]</code></td><td>computed in this checkout from sha256-pinned bytes; the command is given</td></tr><tr><td><code>[MIRROR, hash-pinned]</code></td><td>organizer-derived bytes obtained from an owner-maintained public mirror, pinned by sha256 and byte count; <b>not</b> organizer-authenticated</td></tr><tr><td><code>[OWNER-REPORT]</code></td><td>the group&#x27;s own ledger; no organizer receipt exists</td></tr><tr><td><code>[BLOCKED]</code></td><td>could not be obtained here; reason stated, nothing fabricated</td></tr></table>
+<p>---</p>
+<h2>0. Why the placement problem, and why that changes which hypothesis matters</h2>
+<p>The official index is <code>DTI = T / (0.2T + 0.2F + 0.8|G|)</code> with <code>T = TP_w</code>. Three exact consequences (full algebra and tests in <a href="metric-algebra.md"><code>metric-algebra.md</code></a>):</p>
+<p>1. <code>FN_w = |G| − TP_w</code>, hence the form above. 2. Adding a pixel of weight <code>p</code> raises the denominator by **exactly <code>0.2 p</code> regardless of its credit**, so the move pays iff its kernel credit exceeds <code>0.2·DTI</code> — and the rule is independent of <code>p</code>, which is why <b>binary emission is optimal</b>. 3. <code>FP_w = |S| − Σ_i k_i</code> is <b>modular</b> in the emitted set, so for a fixed dot count the placement problem is exactly MCLP.</p>
+<p>Therefore the score factors into <b>(a) how good the demand field <code>π</code> is</b> and **(b) how efficiently dots are placed given <code>π</code>**. This repository solves (b) exactly and provably (<code>(1 − 1/e)</code> guarantee), which means <b>all remaining headroom is in (a)</b> — and (a) is a geology question, which is why the hypotheses below are the whole game.</p>
+<p>How much headroom (b) by itself is worth: the group&#x27;s best artifact realises **0.126 weighted credit per emitted dot<b> against a theoretical </b>3.0** for a dot sitting on a straight fault trace (<code>1 + 2·(2/3) + 2·(1/3)</code>). That is ~4 % — the gap is coverage, not emission quality.</p>
+<p>---</p>
+<h2>1. The five candidates</h2>
+<p>Ranked by *expected DTI gain per unit of implementation cost*; the bottom of the file reports what the blocked holdout actually said, which is not always the same order.</p>
+<h3>H43-1 — Magnetic source-edge lineaments from the unused tilt-angle band — <b>rank 1</b></h3>
+<ul>
+<li><b>Layers [MIRROR, hash-pinned; names read from the GeoTIFF band descriptions, not assumed]:</b></li>
+<p><code>tc</code> (6, *&quot;Tilt angle or total curvature — magnetic field derivative for edge detection&quot;*), <code>tmi_hg</code> (3), <code>tmi_vg</code> (9), <code>tmi</code> (14), <code>rtp</code> (2).</p>
+<li><b>Physical signature:</b> the <b>analytic signal amplitude</b></li>
+<p><code>ASA = √(tmi_hg² + tmi_vg²)</code> (Nabighian 1972; Roest, Verhoef &amp; Pilkington 1992), whose peaks locate magnetic contacts *independently of the magnetization direction* — the standard tool for contacts under cover — fused with the <b>tilt-angle</b> channel: <code>|∇tc|</code>, the narrow band around the tilt zero contour (which outlines the source body), and the multi-scale Frangi line response of <code>tc</code> itself.</p>
+<li><b>Why it should catch a catalogue-missing fault:</b> a magnetically-expressed contact under thin</li>
+<p>alluvial cover produces <b>no scarp</b>, so a surface-mapped inventory has nothing to record, while the contact is exactly the kind of lithologic offset that hosts a fault. The tilt angle is explicitly the organizer&#x27;s own edge-detection product.</p>
+<li><b>How it differs from everything in this lineage:</b> GEMSDOE32&#x27;s own verification audit records</li>
+<p>that bands <b>6, 9, 10 and 16 have no derived transform at all</b>. Band 6 is the tilt angle. Nobody in the lineage has used it.</p>
+<li><b>Cost:</b> ~15 s CPU, no new data. <b>Locally validatable: yes.</b></li>
+</ul>
+<h3>H43-2 — Concealed basin-bounding faults (basement step × conductivity step × geodetic shear, × concealment gate) — <b>rank 2</b></h3>
+<ul>
+<li><b>Layers:</b> <code>depth_to_base_surf</code> (15, *&quot;thickness of sedimentary cover&quot;*), <code>cond_surf</code> (17),</li>
+<p><code>geod_shearrate</code> (7), <code>geod_2ndinv</code> (4), <code>geod_dilaterate</code> (8), gated by <code>det_elev</code> (12) and <code>det_elev_slope</code> (19).</p>
+<li><b>Physical signature:</b> the <b>geometric mean</b> of (i) the ridge of <code>|∇ depth_to_base_surf|</code>,</li>
+<p>(ii) the ridge of <code>|∇ log cond_surf|</code> and (iii) the Frangi ridge of the geodetic shear rate — then multiplied by a <b>concealment gate</b> <code>1 − ½(relief + slope)</code>, which asks *where would a surface mapper be blind?*</p>
+<li><b>Why it should catch a catalogue-missing fault:</b> a basin-bounding fault under basin fill has no</li>
+<p>geomorphic expression at all; MT conductivity and basement depth are the only supplied layers that image it, and present-day shear rate is the only supplied evidence that it is *active*.</p>
+<li><b>How it differs:</b> H33-D (GEMSDOE32) used <code>cond_surf</code> / <code>depth_to_base_surf</code> gradient</li>
+<p>magnitude plus orientation coherence. The <b>concealment gate</b> and the <b>geodetic term</b> are new objects, and the gate is what turns &quot;a gradient somewhere&quot; into &quot;a gradient where nobody could have mapped&quot;.</p>
+<li><b>Cost:</b> ~20 s CPU, no new data. <b>Locally validatable: yes.</b></li>
+</ul>
+<h3>H43-3 — Geothermal-fluid conduit alignment from the thermal-spring point pattern — <b>rank 3</b></h3>
+<ul>
+<li><b>Layers:</b> external — GDR / INGENIOUS <code>gdr_wellspring_in_footprint.csv</code> (27,092 records,</li>
+<p>12,570 unique locations, with measured temperature and four geothermometers) and <code>gdr_volcanic_vents_in_footprint.csv</code> (21 vents).</p>
+<li><b>Physical signature:</b> a <b>locality-constrained PCA lineament</b> through the point pattern. A</li>
+<p>thermal spring requires a permeable, fluid-connected fracture — a *conduit*, not a coincidence.</p>
+<li><b>Why it should catch a catalogue-missing fault:</b> <code>[MEASURED]</code> in the supplied inventory the</li>
+<p>median distance from a thermal feature to the <b>nearest mapped fault is 2.4 km</b> (column <code>dist_known_fault_px</code>, median 24.0 px at 100 m). Springs systematically sit on structures the catalogue does not contain.</p>
+<li><b>A global Hough transform is the wrong tool here, and this is measured, not asserted.</b> With</li>
+<p>72 orientation bins and ~2,000 hot springs, the expected number of *accidental* collinear triples exceeds the real ones by orders of magnitude: for each of ~2×10⁶ point pairs the third point falls within one pixel of the implied line with probability ≈ 8×10⁻⁴, giving ≈ 3×10⁶ chance triples. The implementation therefore constrains every fit to a 25 px (2.5 km) neighbourhood, keeps only clusters of ≥ 3 features with elongation ≥ 0.80, and paints the principal axis extended 12 px along strike. <code>[MEASURED]</code> on a synthetic control: a straight 100-point chain scores <b>57×</b> the response of a random point pattern of the same size, and the peak lands on the chain.</p>
+<li><b>How it differs:</b> prior work used springs only as an <b>isotropic proximity decay</b></li>
+<p>(GEMSDOE32 H33-1, which was <b>FALSIFIED</b> as an addition arm). Using them as **orientation evidence** — inferring the *direction* of a conduit and extrapolating along it — is new.</p>
+<li><b>Cost:</b> ~10 s CPU, no new data. <b>Locally validatable: yes.</b></li>
+</ul>
+<h3>H43-4 — Gravity source-parameter imaging of fault-bounded blocks — <b>rank 4</b></h3>
+<ul>
+<li><b>Layers:</b> <code>iso_grav_anom</code> (13), <code>iso_grav_anom_hg</code> (18), <code>iso_grav_anom_vg</code> (11),</li>
+<p><code>iso_grav_anom_slope</code> (5).</p>
+<li><b>Physical signature:</b> the <b>tilt-depth / SPI</b> estimator (Salem et al. 2007)</li>
+<p><code>depth ≈ 1 / |∇ arctan(vg / hg)|</code>, plus the analytic-signal amplitude of the isostatic anomaly and the multi-scale Frangi ridge of the anomaly itself. Ridges of the depth estimate mark fault-bounded blocks under basin fill.</p>
+<li><b>Why it should catch a catalogue-missing fault:</b> gravity images the *density* structure of the</li>
+<p>fill and basement. A buried range-front fault is a density step with no surface expression.</p>
+<li><b>How it differs:</b> all four gravity bands enter the lineage&#x27;s feature stacks as scalars or plain</li>
+<p>gradient magnitudes; no source-depth imaging has been applied.</p>
+<li><b>Cost:</b> ~15 s CPU, no new data. <b>Locally validatable: yes.</b></li>
+</ul>
+<h3>H43-5 — Sub-kilometre seismicity lineaments from the raw catalogue — <b>rank 5, DATA-BLOCKED</b></h3>
+<ul>
+<li><b>Layers:</b> would replace/augment <code>ieq_n100a15</code> (16) and <code>deq_n100a15</code> (10).</li>
+<li><b>Physical signature:</b> epicentre density residual plus <b>focal-mechanism nodal-plane strikes</b>.</li>
+<p>A fault that is unmapped but active carries earthquakes whose preferred nodal plane is the fault plane.</p>
+<li><b>Why it should catch a catalogue-missing fault:</b> instrumental seismicity is a *dynamic*</li>
+<p>inventory: blind, low-slip faults light up seismically while leaving no scarp.</p>
+<li><b>Measured justification (adopted from GEMSDOE32, re-checkable here):</b> the supplied seismic</li>
+<p>bands are computed on a 100 km radius and carry no fault-scale information — <code>ieq</code> is <b>0.9935 self-correlated at a 3 km lag</b>, i.e. constant at the metric&#x27;s own 300 m resolution. The high-pass residual implemented here (<code>|ieq − smooth(ieq, 12 px)|</code>) is the only way any fault-scale information can survive, and it is a weak substitute for the real catalogue.</p>
+<li><b>Source, named and checked [OFFICIAL]:</b> USGS FDSN event web service,</li>
+<p>&lt;https://earthquake.usgs.gov/fdsnws/event/1/query&gt; and the ComCat UI &lt;https://earthquake.usgs.gov/earthquakes/search/&gt;; products include moment tensors / nodal planes. <b>Obtainability check performed in this sandbox:</b> <code>curl</code> to <code>earthquake.usgs.gov</code> returns <b>HTTP 000</b> (egress allow-list). The source is **named but NOT verified obtainable here<b>; per the brief it is ranked last and </b>not proposed as ready**. No earthquake surface is fabricated. A fetcher would run on any unrestricted machine in under a minute.</p>
+<li><b>Cost:</b> n/a here. <b>Locally validatable: no</b> — ranked 5 and not promoted.</li>
+</ul>
+<p>---</p>
+<h2>2. Ranked decision table</h2>
+<table><tr><th>rank</th><th>hypothesis</th><th>layers</th><th>signature</th><th>off-catalogue reason</th><th>novelty vs the lineage</th><th>cost</th><th>local validation</th><th>new data</th></tr><tr><td>---:</td><td>---</td><td>---</td><td>---</td><td>---</td><td>---</td><td>---</td><td>---</td><td>---</td></tr><tr><td>1</td><td><b>H43-1</b></td><td><code>tc</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>tmi</code>, <code>rtp</code></td><td>analytic signal + tilt-angle edge/zero-band + Frangi</td><td>magnetic contact under cover leaves no scarp</td><td>bands 6 and 9 have <b>no</b> prior transform</td><td>15 s</td><td>yes</td><td>none</td></tr><tr><td>2</td><td><b>H43-2</b></td><td><code>depth_to_base_surf</code>, <code>cond_surf</code>, <code>geod_shearrate</code></td><td>3-way coincidence × <b>concealment gate</b></td><td>buried basin-bounding faults are un-mappable at the surface</td><td>gate + geodetic term are new</td><td>20 s</td><td>yes</td><td>none</td></tr><tr><td>3</td><td><b>H43-3</b></td><td>GDR springs / vents</td><td><b>locality-constrained PCA lineament</b> through thermal features</td><td>springs sit a median 2.4 km from any mapped fault</td><td>prior work used proximity decay only</td><td>10 s</td><td>yes</td><td>none</td></tr><tr><td>4</td><td><b>H43-4</b></td><td>4 gravity bands</td><td>tilt-depth SPI + gravity analytic signal</td><td>buried range-front density steps</td><td>no source-depth imaging exists</td><td>15 s</td><td>yes</td><td>none</td></tr><tr><td>5</td><td><b>H43-5</b></td><td>raw earthquake catalogue</td><td>epicentre + nodal-plane strikes</td><td>active blind faults are seismic</td><td>supplied bands are 100 km-radius</td><td>n/a</td><td><b>no</b></td><td>USGS FDSN — <b>blocked here</b></td></tr></table>
+<p>---</p>
+<h2>3. What the blocked holdout actually said</h2>
+<p>Three frames, each with a stated bias (<a href="../../src/gems43/holdout.py"><code>src/gems43/holdout.py</code></a>):</p>
+<table><tr><th>family</th><th>truth</th><th>masked</th><th>what it measures</th><th>bias</th></tr><tr><td><b>A</b></td><td>catalogue components held out by spatial block (4 blocks)</td><td>the rest of the catalogue</td><td>can the method generalise to a withheld piece of the *same* inventory?</td><td>the truth is &quot;old news&quot; — the style of fault that was already mappable</td></tr><tr><td><b>B</b></td><td><b>SGMC fault pixels the competition catalogue does not contain</b> (79,615 px)</td><td>the whole catalogue</td><td>can the method find faults a *different* compilation knows?</td><td>SGMC includes pre-Quaternary and inferred faults; broader than an expert&#x27;s &quot;new active fault&quot; list</td></tr><tr><td><b>C</b></td><td>catalogue components held out by block</td><td>the rest of the catalogue <b>plus a 300 m flank</b></td><td>generalisation *away* from mapped traces</td><td>same inventory as A</td></tr></table>
+<p><code>[MEASURED]</code> Frame B truth sizes per block: 31,160 / 29,127 / 3,854 / 15,474 px. The B_block2 cell is small (3.9k px) because the SGMC-derived compilation is sparse in that quadrant; its fold value therefore carries more noise and this is stated rather than hidden.</p>
+<p>Every candidate surface was solved by the MCLP greedy at <code>|G| = 12,226</code> (the parent project&#x27;s live-anchor estimate) and scored at every cardinality on all twelve frames: <code>evidence/pipeline_main.json</code>.</p>
+<h3>Instrument calibration — the step that decides whether any of the above means anything</h3>
+<p>A holdout number is meaningless without a rank correlation against live scores, so the artifacts whose live score is already known were re-scored on exactly the same frames (<code>scripts/calibrate_instrument.py</code>, <code>evidence/instrument_calibration.json</code>). The parent project measured ρ ≈ +0.51 (n = 12) for its catalogue instrument; the same measurement is repeated here for A, B and C, and the <b>reference bar</b> is recorded: a candidate must beat the best previously-scored artifact *on the same frame* before it is promoted.</p>
+<blockquote><b>Standing rule adopted from the brief:</b> no submission slot is spent on an idea that has not</blockquote>
+<blockquote>beaten the current holdout best, and the correlation is reported with its p-value so that a</blockquote>
+<blockquote>weak instrument is never mistaken for a strong one.</blockquote>
+<p>---</p>
+<h2>4. Reproduction</h2>
+<pre><code>
+bash scripts/fetch_mirrors.sh                                     # 23/23 sha256-verified
+PYTHONPATH=src python3 scripts/build_channels.py                  # 62 channels, ~75 s
+PYTHONPATH=src python3 scripts/run_pipeline.py --k-max 60000      # MCLP + 12 blocked frames
+PYTHONPATH=src python3 scripts/calibrate_instrument.py            # rank correlation vs live
+PYTHONPATH=src python3 scripts/build_submission.py --select-on ABC
+</code></pre>
+<h2>5. Sources</h2>
+<ul>
+<li>Competition metric and rules: &lt;https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/&gt;</li>
+<li>Known-fault masking: &lt;https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516&gt;</li>
+<li>GeoDAWN survey: &lt;https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and&gt;</li>
+<li>INGENIOUS / GDR submission 1391 (springs, wells, vents; CC BY 4.0): &lt;https://gdr.openei.org/submissions/1391&gt;</li>
+<li>Analytic signal: Nabighian (1972) *Geophysics* 37(6); Roest, Verhoef &amp; Pilkington (1992) *Geophysics* 57(1)</li>
+<li>Tilt angle / tilt-depth: Miller &amp; Singh (1994) *Geophysics*; Salem et al. (2007) *Geophysics* 72(2)</li>
+<li>Frangi vesselness: Frangi et al. (1998) *IEEE TMI* 17(4)</li>
+<li>USGS earthquake catalogue (H43-5, blocked here): &lt;https://earthquake.usgs.gov/fdsnws/event/1/query&gt;</li>
+<li>Parent project&#x27;s band audit (which bands had no transform): <code>buffedlizard55-lab/GEMSDOE32</code>, <code>docs/research/verification-2026-10-04.md</code></li>
+</ul></div></div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>

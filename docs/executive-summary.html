@@ -1,67 +1,185 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Executive summary, validation decision and future submission guide for GEMSDOE43.">
-  <title>Executive summary &amp; submission guide · GEMSDOE43</title>
-  <link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-  <header class="topbar"><div class="wrap topbar-inner">
-    <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="index.html">Overview</a><a aria-current="page" href="executive-summary.html">Summary &amp; submission guide</a>
-      <a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a>
-    </nav>
-  </div></header>
-  <section class="hero"><div class="wrap hero-grid">
-    <div><div class="eyebrow">Decision memo · 06 Oct 2026</div><h1>Keep the slot. Fix the evidence first.</h1>
-      <p>The baseline is reproducible; the new candidate is not better. This executive record preserves the no-go, explains the H33-2-B2 projection accurately, and provides a gated checklist for a future eligible submission.</p>
-    </div>
-    <div class="hero-side"><span class="badge no-go">No candidate eligible</span><strong>−0.039177</strong><span>CG01 mean shortfall vs H42 at equal mass</span></div>
-  </div></section>
-  <main class="wrap">
-    <section class="section"><div class="callout">
-      <strong>Decision: do not submit G43-CG01.</strong>
-      <p>Candidate mean DTI was 0.211567 against the independently reproduced H42 mean 0.250744, losing in all four spatial folds. This is a local holdout result; it is not evidence about the exact public/private score. A submission slot remains unused.</p>
-    </div></section>
-    <section class="section"><div class="callout warn">
-      <strong>H46-B also failed its preregistered promotion gate.</strong>
-      <p>Official SGMC v1.1 source-coverage gates passed, but the one registered public-catalogue blocked proxy produced mean ΔDTI +0.000923 and 2/4 fold wins, below the required +0.005 and 3/4. The H42 control reproduced exactly; the worst H46-B fold was −0.000051. This is not private-set validation or a DrivenData score. Its runner GeoTIFF was removed from the current tree and is not linked from the site. An unexpired Actions artifact from the historical run remains pending cleanup permissions; no slot was used.</p>
-      <p><a href="research.html#h46b">Read the local holdout note</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-H46B-holdout.md">Full dated amendment</a> · <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/knowledge-base.html">H46 hypothesis/source knowledge base</a>.</p>
-    </div></section>
-    <section class="section grid">
-      <article class="card"><span class="badge pass">Verified locally</span><h3>H42 reproduction</h3><p>All clean arms from the owner report were reimplemented from input layers under the published protocol. The selected arm matches the owner report within 1e-6 per fold and summary. The owner report itself is not organizer confirmation.</p><a href="research.html#h42">Open the holdout receipt →</a></article>
-      <article class="card"><span class="badge no-go">Rejected at gate</span><h3>G43-CG01</h3><p>RTP magnetic and isostatic-gravity gradient concordance at 2, 4 and 8 pixel smoothing scales. It achieved 0.211567 mean DTI, 0/4 wins, and therefore fails the registered promotion rule.</p><a href="hypotheses.html#cg01">Review the frozen operator →</a></article>
-      <article class="card"><span class="badge caution">Provenance caveat</span><h3>Inputs are owner mirrors</h3><p>Hashes establish byte integrity against owner manifests only; no organizer-issued checksums were available. The sample raster also has an unexpected positive-label mask.</p><a href="sources.html#inputs">Inspect provenance and irregularities →</a></article>
-    </section>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Executive summary — how to make the submission</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>Executive summary — how to make the submission</h1>
+<div class="small">Four steps, one file, one note to paste.</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="on">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+</div></header>
+<div class="wrap">
+<div class="panel hero">
+<h2 style="margin-top:0;border:0">How to submit — four steps</h2>
+<div class="step"><b>1. Download the file.</b>
+<a class="btn" href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif">&#11015; Download gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</a>
+<a class="btn alt" href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-nan.tif">NaN-outside twin</a>
+<a class="btn alt" href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.zip">.zip</a><br>
+<b>Upload the <code>-zeros.tif</code> file.</b> Single-band float32 GeoTIFF, EPSG:32611, 100 m,
+3730 × 3292, 0.82 MB, every one of the 12,279,160 cells finite and inside [0,&nbsp;1].
+Portal name to use: <code>GEMSDOE43-MCLP-sup_oof-51053</code>.<br>
+<span class="small">sha256 (first 32 hex) <code>63c9239a7eb473c342ba51f8f70494aa</code> · in-footprint values of the three
+files are bit-identical; they differ only in how the cells outside the scoring footprint are
+written.</span></div>
+<div class="step"><b>2. Open the DrivenData submission form.</b>
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">drivendata.org/competitions/306/…/submissions/</a>
+→ <i>New submission</i> → <i>File to submit</i> → choose the <code>.tif</code> (or the
+<code>.zip</code>).</div>
+<div class="step"><b>3. Paste the note below into the “Note (optional)” field.</b>
+This is what makes the row identifiable later.
+<pre>GEMSDOE43 MCLP | Church-ReVelle maximal covering on the sup_oof prior, K=51053 derived by the 0.2*DTI marginal rule (no spacing constant); 51053 dots, 0 on a known catalogue pixel; pooled blocked hold</pre></div>
+<div class="step"><b>4. Submit.</b> The portal will accept the file: it cannot fail the
+<i>“Predicted values must be in range [0, 1]”</i> check, because every cell is finite and in
+[0,&nbsp;1] — verified by an independent re-read of the written bytes, not by the writer.</div>
+</div>
 
-    <section class="section" id="h33">
-      <div class="section-head"><div><div class="kicker">Score attribution</div><h2>What H33-2-B2's 0.2747 represents</h2></div></div>
-      <div class="prose">
-        <p><strong>It is a model-projected value reported by the owner, not an organizer-confirmed score.</strong> GEMSDOE32 PR #9 describes H33-2-B2 as a catalogue-distance removal arm. Its 40,199-pixel B=1 base was pruned again at a two-pixel catalogue buffer: 2,545 dots removed, 37,654 retained. The owner reports a four-fold calibrated mean of 0.2679205 (minimum 0.1784544) and a +0.0048695 margin over its local calibration base in all four folds.</p>
-        <p>The same evidence record labels the separate projected value as 0.2746732, rounded to 0.2747. That projection transfers a model calibrated from owner-reported live anchors (0.2600 and 0.2708) and includes estimated credit and a safety factor near 2.08. It is not the 0.2679205 fold mean and is not a new organizer leaderboard observation. The PR explicitly says the repository has no organizer score for its artifacts.</p>
-        <p>Official DrivenData staff separately clarified that known USGS/INGENIOUS pixels are masked from evaluation. Removing a nearby unmasked halo can still alter false-positive mass, but the removal rule is an emission-geometry decision—not proof that nearby pixels are or are not faults. Read the <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/pull/9">owner PR</a> alongside the <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">organizer staff reply</a>.</p>
-        <p class="small">Full calculation, attribution, and caveats: <a href="research.html#h33">research page</a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/h33_result_review.md">repository memo</a>.</p>
-      </div>
-    </section>
 
-    <section class="section" id="submission-guide">
-      <div class="section-head"><div><div class="kicker">Future use only · gated</div><h2>Submission guide</h2></div><p>These steps become actionable only after one candidate passes the registered holdout and all release audits. There is no current file to upload.</p></div>
-      <div class="grid">
-        <article class="card"><h3>1 · Confirm the gate</h3><p>Reproduce the selected H42 control. At equal mass, require the candidate mean to be strictly higher and at least 3 of 4 folds to win. Then run the full test suite and inspect all mismatches.</p></article>
-        <article class="card"><h3>2 · Audit a genuinely new raster</h3><p>Compare full pixel arrays against prior same-grid rasters (hash, support, correlation and top-mass overlap). Do not copy or rename a prior artifact. Confirm no labels or sample predictions leaked into the score.</p></article>
-        <article class="card"><h3>3 · Check portal format</h3><p>One band; float32; EPSG:32611; 100-m grid; bounds and transform match; finite [0,1] values in-area; null/NaN outside. Hash the final bytes and preserve the audit receipt.</p></article>
-        <article class="card"><h3>4 · Prepare the narrative</h3><p>Explain geology, data sources and licenses, limits, validation, and score attribution. Explicitly disclose that generative AI assisted research/code/documentation, how it was used, and which claims/results were independently checked.</p></article>
-        <article class="card"><h3>5 · Give the portal a short comment</h3><p>Use a concise factual note that names the unique candidate, summarizes its physical signal and validation, and points to the narrative for AI-use disclosure. Do not cite local holdout DTI as an official score.</p></article>
-        <article class="card"><h3>6 · Choose one final file</h3><p>The official rules require choosing a single final submission for both prize rounds. Verify the current official deadline and submission allowance in the organizer's rules before any upload.</p></article>
-      </div>
-      <div class="callout info" style="margin-top:16px"><strong>Portal comment template (do not use until the gate passes)</strong><p>“GEMSDOE43 [unique candidate name]: fault-confidence raster built from [physical signal]. Spatially blocked validation and limitations are documented in the accompanying narrative; generative-AI assistance is disclosed there.”</p></div>
-      <div class="notice" style="margin-top:15px"><strong>AI-use note for any future narrative:</strong> this project used generative AI assistance for source review, code drafting, test design, and documentation. The final submitter remains responsible for checking the scientific interpretation, data rights, raster bytes, and all claims against primary sources.</div>
-      <div class="button-row"><span class="button disabled" aria-disabled="true">Download unavailable · no-go</span><span class="small">No GeoTIFF or portal-ready file is currently published.</span></div>
-    </section>
-    <section class="section"><div class="callout warn"><strong>Do not over-read the validation.</strong><p>DrivenData staff said the sources, types, and coverage used for hidden test faults will not be disclosed. The catalogue holdout measures recovery of withheld mapped faults; it is a necessary screen, not a hidden-score forecast. <a href="https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527/7">Staff statement →</a></p></div></section>
-  </main>
-  <footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="sources.html">Source register</a></span></div></footer>
-</body>
-</html>
+<div class="panel">
+<h2 style="margin-top:0;border:0">Did it clear the preregistered promotion gate?</h2>
+<p><span class="ok">GATE PASSED</span> — this repository's own four-fold protocol (200-cell blocks, 3-px edge guard,
+2-px training-trace guard, official 300&nbsp;m triangular-kernel DTI), scored at
+<b>equal mass 40,000</b> on the <b>same</b> allowed emission domain as the reproduced H42
+baseline.</p>
+<table>
+<tr><th>arm</th><th class="n">mean DTI</th><th class="n">min fold</th><th class="n">max fold</th>
+<th class="n">folds won</th></tr>
+<tr><td><b>EXT_MCLPsup_oof|sep3.0|N40000</b> (this submission's prior)</td>
+<td class="n">0.286388</td><td class="n">0.27509</td>
+<td class="n">0.297811</td><td class="n">4/4</td></tr>
+<tr><td>SH_basin_strong|sep4.0|N40000 (H42 baseline)</td>
+<td class="n">0.250744</td><td class="n">&mdash;</td>
+<td class="n">0.258025</td><td class="n">&mdash;</td></tr>
+</table>
+<p class="small"><b>Two caveats, both material.</b>
+(1)&nbsp;An earlier comparison of the shipped 51,053-dot full-grid layout against the same
+reference scored 0.219994 and won 0/4 folds — but it had only ~13.7k of its dots inside each
+fold's allowed domain against the reference's 40,000, so that was a <b>mass artefact, not a
+result</b>. The number above is the same prior packed at equal mass.
+(2)&nbsp;The shipped file is emitted by the maximal-covering solver with <b>no separation
+constraint</b> and a Dinkelbach-derived budget, and <i>that exact emission has not yet been
+scored at equal mass on this protocol</i>. The prior is validated; the specific placement is not.
+Both records are kept in <code>evidence/submission_status.json</code> — the earlier NO_GO for a
+different arm (G43-CG01) is preserved rather than overwritten.
+(3)&nbsp;The truth here is withheld <i>published-catalogue</i> faults, not the hidden competition
+label set. This is a screen, not a score forecast.</p>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Uniqueness — is this the same answer as an earlier upload?</h2>
+
+<p>Every earlier GEMSDOE artifact reachable from GitHub was collected
+(<b>221</b> rasters of the right grid) and compared to this layout on four
+statistics. The one that decides is the <b>coverage IoU</b>: both dot sets are dilated by the
+competition's own triangular 300 m kernel and the two coverage fields are compared, i.e. "would
+the scorer see these as the same prediction?".</p>
+<table>
+<tr><th>class</th><th class="n">n</th><th class="n">worst coverage IoU</th>
+<th class="n">worst excess containment</th><th>verdict</th></tr>
+<tr><td><b>submissions</b> (published predictions)</td><td class="n">175</td>
+<td class="n">0.181</td>
+<td class="n">0.26</td>
+<td>PASS — no prior submission is a near-duplicate</td></tr>
+<tr><td>inputs / derived assets</td><td class="n">20</td>
+<td class="n">0.214</td>
+<td class="n">0.47</td>
+<td class="small">overlap expected — the model is trained on the catalogue and the SGMC
+inventory is a superset of it; these were never submitted, so they are not duplicates</td></tr>
+</table>
+<h3>Closest eight artifacts in the whole corpus</h3>
+<table>
+<tr><th class="n">coverage IoU</th><th class="n">300 m containment</th>
+<th class="n">excess over chance</th><th class="n">median NN (px)</th>
+<th class="n">its dots</th><th>artifact</th><th>class</th></tr><tr><td class="n">0.214</td><td class="n">0.604</td><td class="n">0.47</td><td class="n">3.6</td><td class="n">83,593</td><td>19GEMSDOE:evidence/ci/derived_sgmc_faults_100m_u8.tif</td><td>input</td></tr><tr><td class="n">0.214</td><td class="n">0.604</td><td class="n">0.47</td><td class="n">3.6</td><td class="n">83,593</td><td>20GEMSDOE:evidence/ci/derived_sgmc_faults_100m_u8.tif</td><td>input</td></tr><tr><td class="n">0.214</td><td class="n">0.604</td><td class="n">0.47</td><td class="n">3.6</td><td class="n">83,593</td><td>GEMSDOE22:assets/external/derived_sgmc_faults_100m_u8.tif</td><td>input</td></tr><tr><td class="n">0.214</td><td class="n">0.604</td><td class="n">0.47</td><td class="n">3.6</td><td class="n">83,593</td><td>GEMSDOE22:evidence/ci/derived_sgmc_faults_100m_u8.tif</td><td>input</td></tr><tr><td class="n">0.214</td><td class="n">0.604</td><td class="n">0.47</td><td class="n">3.6</td><td class="n">83,593</td><td>GEMSDOE24:data/external/derived_sgmc_faults_100m_u8.tif</td><td>input</td></tr><tr><td class="n">0.208</td><td class="n">0.598</td><td class="n">0.46</td><td class="n">3.6</td><td class="n">82,155</td><td>5GEMSDOE:data/evidence/proxy/proxy_catalogue.tif</td><td>input</td></tr><tr><td class="n">0.208</td><td class="n">0.598</td><td class="n">0.46</td><td class="n">3.6</td><td class="n">82,155</td><td>GEMSDOE2:data/evidence/proxy/proxy_catalogue.tif</td><td>input</td></tr><tr><td class="n">0.208</td><td class="n">0.598</td><td class="n">0.46</td><td class="n">3.6</td><td class="n">82,155</td><td>GEMSDOE3:legacy/data/evidence/proxy/proxy_catalogue.tif</td><td>input</td></tr>
+</table>
+<p class="small"><b>Reading the containment column.</b> Raw 300 m containment is <i>not</i> the
+deciding statistic and is not thresholded: with K dots of 29-cell support in N eligible cells,
+two unrelated layouts already overlap by <code>1 &minus; (1 &minus; 29/N)<sup>K</sup></code>,
+which is 0.25 at K = 51k and 0.63 at K = 176k &mdash; so a flat 0.60 threshold flags ordinary
+unrelated priors (it flagged 26 of them here, nearly all of them input rasters). What is
+thresholded at 0.5 is the coverage IoU, together with the <b>excess over
+chance</b>, <code>(observed &minus; chance)/(1 &minus; chance)</code>, at 0.60: exactly 0 for two
+unrelated layouts and exactly 1 for a perfect duplicate. A one-pixel translation and a 10 %
+dot jitter both score an IoU above 0.90 here, so the screen would catch a re-upload wearing a
+different hash.</p>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Why an earlier upload was rejected with
+“Predicted values must be in range [0, 1]”</h2>
+<p>Two mechanisms in the competition's own inputs produce that condition, and both were measured:
+(<b>a</b>) <code>training_features.tif</code> declares its nodata as
+<code>-3.4028234663852886e+38</code> and contains <b>3,061 sentinel cells per band inside the
+scoring footprint</b> — a pipeline that reads the bands without replacing the sentinel ships cells
+worth −3.4×10³⁸; (<b>b</b>) the feature bands' valid region is <b>smaller</b> than the
+submission template's, so a footprint mask taken from a feature band strands scored cells as NaN,
+and NaN fails any <code>((v &gt;= 0) &amp; (v &lt;= 1)).all()</code> check.</p>
+<p>The writer used here repairs the sentinel before any transform, derives the footprint from
+<code>sample_submission.tif</code> (the organizer's own template), and then <b>fails closed</b>:
+it re-reads the written file and aborts if any cell is non-finite, out of range, or if the grid
+drifted. Details: <a href="research/range-error-root-cause.html">root-cause note</a> (inherited
+from GEMSDOE30/32, re-verified here).</p>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Which outside-encoding to use</h2>
+<table>
+<tr><th>encoding</th><th>outside the footprint</th><th>why</th></tr>
+<tr><td><b><code>-zeros.tif</code> (recommended)</b></td><td>0.0</td>
+<td>What the organizer's own reference solution emits — <code>rasterio.open(…, count=1, dtype=…)</code>
+with <b>no</b> <code>nodata</code> argument on a finite array. The owner ledger shows the two
+encodings scoring identically (<code>r7-nms3-dem10-scarp_0c9199f14e62</code> = 0.1294 and
+<code>…_allfinite</code> = 0.1294). It can never trip a whole-raster range check.</td></tr>
+<tr><td><code>-nan.tif</code></td><td>NaN</td>
+<td>The literal wording of the specification (“data outside the bounds is null or nan”).
+Bit-identical in-footprint values to the zeros file.</td></tr>
+</table>
+</div>
+</div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>

@@ -1,25 +1,74 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Dated public GEMS leaderboard snapshot and access limitations.">
-  <title>Leaderboard access note · GEMSDOE43</title>
-  <link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="topbar"><div class="wrap topbar-inner">
-  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
-  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a aria-current="page" href="leaderboard.html">Leaderboard note</a></nav>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scores, leaderboard and ledger</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>Scores, leaderboard and ledger</h1>
+<div class="small">Dated snapshots; no score is attributed to a file without a receipt.</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="on">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
 </div></header>
-<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Public board · dated snapshot only</div><h1>No polling. No stale data dressed up as current.</h1><p>Leaderboard standings change, but DrivenData's Terms of Use limit automatic and manual monitoring or copying without prior written consent. This page keeps the last previously recorded observation clearly dated.</p></div><div class="hero-side"><span class="badge caution">Historical observation · 05 Oct 2026</span><strong>0.3345</strong><span>rank 1 in the last recorded snapshot</span></div></div></section>
-<main class="wrap">
-<section class="section"><div class="callout warn"><strong>This is not a current leaderboard report.</strong><p>The rank-1 value above is the last previously recorded public observation, dated 2026-10-05. It was not refreshed on 2026-10-06. The top entry's identity and subsequent standings are not asserted on this page.</p></div></section>
-<section class="section"><div class="grid">
-  <article class="card wide"><span class="source-id">Terms of Use · Prohibited Uses</span><h2>Why there is no automated feed</h2><p>DrivenData's <a href="https://www.drivendata.org/termsofuse/">Terms of Use</a> prohibit use of a robot, spider or other automatic process to access the site for any purpose, including monitoring/copying, and prohibit a manual process to monitor or copy without prior written consent. Accordingly, this project contains no scraper, polling schedule, refresh button, or API guess.</p><p>To see current standings, open the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official leaderboard page</a> directly if you are authorized. If the competition team provides a documented authorized API or written permission, the access policy can be revisited.</p></article>
-  <article class="card"><span class="source-id">Evidence class</span><h3>External to local validation</h3><p>The board's public DTI is not comparable to the catalogue-blocked holdout DTI as an independent truth. It is not private Phase 1 or final Phase 2 performance.</p><a href="research.html">Read evaluation limitations →</a></article>
-</div></section>
-<section class="section"><div class="notice"><strong>Task charter retained:</strong> inspect the official leaderboard when permitted, but do not violate the site's terms. No unauthorized scraping, copying, or monitoring is implemented.</div></section>
-</main>
-<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="sources.html">Source register</a></span></div></footer>
-</body>
-</html>
+<div class="wrap">
+<div class="panel">
+<h2 style="margin-top:0;border:0">Public leaderboard — read 2026-10-06</h2>
+<table><tr><th>rank</th><th>participant</th><th class="n">best public DW-Tversky</th></tr><tr><td class="n">#1</td><td>alexoktaba</td><td class="n">0.3345</td></tr><tr><td class="n">#2</td><td>nchuzhoy</td><td class="n">0.3262</td></tr><tr><td class="n">#3</td><td>kinghorton42</td><td class="n">0.3222</td></tr><tr><td class="n">#4</td><td>Batik Shirt Brothers</td><td class="n">0.3218</td></tr><tr><td class="n">#5</td><td>DARD</td><td class="n">0.3195</td></tr><tr><td class="n">#6</td><td>joeyfezster</td><td class="n">0.3163</td></tr><tr><td class="n">#7</td><td>xiaofanhu</td><td class="n">0.3060</td></tr><tr><td class="n">#8</td><td>ndavis7</td><td class="n">0.2888</td></tr><tr><td class="n">#9</td><td>mzoorob</td><td class="n">0.2884</td></tr><tr><td class="n">#10</td><td>GrigorSargsyan</td><td class="n">0.2876</td></tr></table>
+<p class="small">Source:
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official
+leaderboard</a>. Public score only — it is not the private or final prize score. The page is
+dynamic; this is a dated snapshot, not a live feed.</p>
+</div>
+<div class="panel">
+<h2 style="margin-top:0;border:0">Group submission ledger</h2>
+<p>Every row is <span class="tag">OWNER-REPORT</span> unless the evidence class says otherwise.
+No row is linked to a file by an organizer receipt.</p>
+<table><tr><th>site</th><th>submission</th><th class="n">score</th><th>class</th></tr><tr><td>GEMSDOE</td><td class="small">gems-submission-20260925T001403Z-7f00890a</td><td class="n">0.1563</td><td class="small">user-report</td></tr><tr><td>6GEMSDOE</td><td class="small">gems6_hgb88-topk03_33cec71ff0</td><td class="n">0.0286</td><td class="small">user-report</td></tr><tr><td>GEMSDOE3</td><td class="small">pindrop-v4-nodes-20260925T152420Z-f347b70daa</td><td class="n">0.1193</td><td class="small">user-report</td></tr><tr><td>GEMSDOE3</td><td class="small">pindrop-v4-discovery-20260925T152423Z-37f9d5b855</td><td class="n">0.0830</td><td class="small">user-report</td></tr><tr><td>GEMSDOE3</td><td class="small">pindrop-v4-ridge-20260925T152422Z-4e03fc9705</td><td class="n">0.1152</td><td class="small">user-report</td></tr><tr><td>GEMSDOE2</td><td class="small">gemsdoe2-dual-family-union-20260925T160406Z-f68e590f</td><td class="n">0.1560</td><td class="small">user-report</td></tr><tr><td>GEMSDOE4</td><td class="small">gems-submission-20260926T163915Z-237f0063</td><td class="n">0.0343</td><td class="small">user-report</td></tr><tr><td>5GEMSDOE</td><td class="small">gems-submission-20260926T175114Z-7f00890a</td><td class="n">0.1563</td><td class="small">user-report</td></tr><tr><td>7GEMSDOE</td><td class="small">lidarscarp-ridge-top2pct-36c3a3f341c8</td><td class="n">0.1461</td><td class="small">user-report</td></tr><tr><td>8GEMSDOE</td><td class="small">Hedge-v2_submission</td><td class="n">0.1563</td><td class="small">user-report</td></tr><tr><td>GEMSDOE9</td><td class="small">2314b599</td><td class="n">0.0107</td><td class="small">user-report</td></tr><tr><td>11GEMSDOE</td><td class="small">gems-structural-area06-v1</td><td class="n">0.0202</td><td class="small">user-report</td></tr><tr><td>12GEMSDOE</td><td class="small">r7-nms3-dem10-scarp_0c9199f14e62</td><td class="n">0.1294</td><td class="small">user-report</td></tr><tr><td>12GEMSDOE</td><td class="small">r7-nms3-dem10-scarp_0c9199f14e62_allfinite</td><td class="n">0.1294</td><td class="small">user-report</td></tr><tr><td>15GEMSDOE</td><td class="small">gems-tso1-20260929T005627Z-conj_alteration_mag</td><td class="n">0.0782</td><td class="small">user-report</td></tr><tr><td>14GEMSDOE</td><td class="small">GEMS_r5-geom-horse-ensemble_20260929T154852Z_ccbe1de0_site_e96e942f</td><td class="n">0.0020</td><td class="small">user-report</td></tr><tr><td>17GEMSDOE</td><td class="small">17GEMSDOE_F-ensemble-2pct_20260930T050626Z</td><td class="n">0.0187</td><td class="small">user-report</td></tr><tr><td>18GEMSDOE</td><td class="small">H19-C_20260930T212401Z_c11e495e</td><td class="n">0.0297</td><td class="small">user-report</td></tr><tr><td>19GEMSDOE</td><td class="small">h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan</td><td class="n">0.1894</td><td class="small">user-report</td></tr><tr><td>19GEMSDOE</td><td class="small">h19-5-powerlaw-budget-multiline-corroborated-20260930-e27054cf-nan</td><td class="n">0.1922</td><td class="small">user-report</td></tr><tr><td>GEMSDOE10</td><td class="small">h16-continuation-20260927T065521077735Z-3431b83c7c</td><td class="n">0.0461</td><td class="small">user-report</td></tr><tr><td>GEMSDOE10</td><td class="small">h20-dem10-scarp-thin-20260927T155223039488Z-ffc91a1686</td><td class="n">0.0921</td><td class="small">user-report</td></tr><tr><td>GEMSDOE10</td><td class="small">H25-ctx-ridge-20260927T232947704150Z-6452ae1d00</td><td class="n">0.1280</td><td class="small">user-report</td></tr><tr><td>GEMSDOE10</td><td class="small">h28-dotted-ridge-20260928T020256236880Z-6452ae1d00</td><td class="n">0.1839</td><td class="small">user-report</td></tr><tr><td>13GEMSDOE</td><td class="small">20261001_r13-lattice-s5_v2_nan-outside</td><td class="n">0.0904</td><td class="small">user-report</td></tr><tr><td>16GEMSDOE</td><td class="small">h16-1-topo-geophys-baseline-ridges-20260930-df20f65e-nan</td><td class="n">0.1855</td><td class="small">user-report</td></tr><tr><td>16GEMSDOE</td><td class="small">h18-3a-topo-geophys-x-complexity-prior-20260930-c502dfab-nan</td><td class="n">0.0976</td><td class="small">user-report</td></tr><tr><td>16GEMSDOE</td><td class="small">h18-4-usgs-geologic-map-faults-gap-20260930-aef8f42c-nan</td><td class="n">0.0360</td><td class="small">user-report</td></tr><tr><td>21GEMSDOE</td><td class="small">h19-4-reference-20260930-691e4dfa</td><td class="n">0.1894</td><td class="small">user-report</td></tr><tr><td>20GEMSDOE</td><td class="small">h20-1-sarnnpu-powerlaw-pi0363-tilt-wingcrack-20260930-be0e8f6b-nan</td><td class="n">0.1890</td><td class="small">user-report</td></tr><tr><td>20GEMSDOE</td><td class="small">h20-5-continuous-pu-proxy-unverified-20260930-824ce73a-nan</td><td class="n">0.1859</td><td class="small">user-report</td></tr><tr><td>GEMSDOE22</td><td class="small">h23-a-dti-optimal-emission-6pct-20261002-e2ec4b49-nan</td><td class="n">0.1002</td><td class="small">user-report</td></tr><tr><td>GEMSDOE22</td><td class="small">h23-b-dti-optimal-emission-10pct-20261002-86176698-nan</td><td class="n">0.0748</td><td class="small">user-report</td></tr><tr><td>GEMSDOE23</td><td class="small">h30-arrangement-matched-habitat-20261002-0d4e02e8-nan</td><td class="n">0.1352</td><td class="small">user-report</td></tr><tr><td>GEMSDOE24</td><td class="small">h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-nan</td><td class="n">0.2477</td><td class="small">user-report</td></tr><tr><td>GEMSDOE25</td><td class="small">dotted-h19-5-d2-8-20261002-e56ea318af89-nan</td><td class="n">0.2600</td><td class="small">user-report</td></tr><tr><td>GEMSDOE26</td><td class="small">dilcond-oof-v1-20261003-47629f496133-nan</td><td class="n">0.1223</td><td class="small">user-report</td></tr><tr><td>GEMSDOE27</td><td class="small">topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-nan</td><td class="n">0.2449</td><td class="small">user-report</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-1 DARD (best public DW-Tversky)</td><td class="n">0.3195</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-15 wbg1 (best public DW-Tversky)</td><td class="n">0.2600</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-2 nchuzhoy (best public DW-Tversky)</td><td class="n">0.3128</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-3 alexoktaba (best public DW-Tversky)</td><td class="n">0.3042</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-4 Batik Shirt Brothers (best public DW-Tversky)</td><td class="n">0.2998</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-5 xiaofanhu (best public DW-Tversky)</td><td class="n">0.2941</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-6 joeyfezster (best public DW-Tversky)</td><td class="n">0.2919</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-7 ndavis7 (best public DW-Tversky)</td><td class="n">0.2888</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-8 mzoorob (best public DW-Tversky)</td><td class="n">0.2884</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-9 GrigorSargsyan (best public DW-Tversky)</td><td class="n">0.2876</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-10 HardcoreTechGod (best public DW-Tversky)</td><td class="n">0.2854</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-12 kinghorton42 (best public DW-Tversky)</td><td class="n">0.2635</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-14 No Fault of Our Own (best public DW-Tversky)</td><td class="n">0.2624</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-19 extradr19 (best public DW-Tversky)</td><td class="n">0.2449</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-1..5 re-read confirmation</td><td class="n">0.3195/0.3128/0.3042/0.2998/0.2941</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-1 alexoktaba (best public DW-Tversky)</td><td class="n">0.3345</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-2 nchuzhoy (best public DW-Tversky)</td><td class="n">0.3262</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-3 kinghorton42 (best public DW-Tversky)</td><td class="n">0.3222</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-4 Batik Shirt Brothers (best public DW-Tversky)</td><td class="n">0.3218</td><td class="small">official-snapshot</td></tr><tr><td>DrivenData official leaderboard</td><td class="small">rank-5 DARD (best public DW-Tversky)</td><td class="n">0.3195</td><td class="small">official-snapshot</td></tr><tr><td>GEMSDOE19</td><td class="small">h19-4-multiline-corroborated-openness-thermal-pop-20260930-691e4dfa-nan</td><td class="n">0.1894</td><td class="small">user-report</td></tr><tr><td>GEMSDOE43</td><td class="small">this submission</td><td class="n">UNSCORED</td><td class="small">pending</td></tr></table>
+</div>
+</div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>

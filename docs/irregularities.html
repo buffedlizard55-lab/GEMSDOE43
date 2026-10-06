@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Irregularities</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>Irregularities</h1>
+<div class="small">Flagged, not asserted. ● red = blocker, amber = caveat, green = resolved.</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="on">Irregularities</a></nav>
+</div></header>
+<div class="wrap">
+<div class="panel">
+<h2 style="margin-top:0;border:0">Flagged irregularities</h2>
+<p>Nothing below is hidden: these are the places where the brief, the data or the instrument does
+not support the claim that would otherwise be made.</p>
+<table><tr><th>id</th><th></th><th>issue</th><th>detail</th><th>evidence</th></tr><tr><td><code>IR-43-001</code></td><td class="wn">●</td><td><b>Brief is stale on the leader</b></td><td class="small">The brief states "0.3195 is the highest score right now". On the leaderboard read 2026-10-06, 0.3195 is <b>rank 5</b>; the leader is alexoktaba at 0.3345, and four teams are above 0.3195. The target used by this repository is 0.3345, not 0.3195.</td><td class="small"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a></td></tr><tr><td><code>IR-43-002</code></td><td class="wn">●</td><td><b>No DrivenData authentication</b></td><td class="small">The official data page redirects to login, so <code>training_features.tif</code>, <code>labels.tif</code> and <code>sample_submission.tif</code> cannot be downloaded from the organizer. All 23 inputs used here are owner-maintained public GitHub mirrors, accepted only because each is pinned by sha256 and byte count in <code>registry/data_manifest.json</code> and re-verified on every fetch. Every fact derived from them is labelled <span class="tag">MIRROR, hash-pinned</span> rather than <span class="tag">OFFICIAL</span>.</td><td class="small"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">data page</a></td></tr><tr><td><code>IR-43-003</code></td><td class="wn">●</td><td><b>Outbound network restricted</b></td><td class="small"><code>curl</code> to drivendata.org, usgs.gov, openei.org, docs.nlr.gov, earthquake.usgs.gov, raw.githubusercontent.com and sciencebase.gov all return HTTP 000 from this sandbox. Official pages quoted here were read through the browsing path; hosts reachable only by curl (the rules PDF, the USGS FDSN catalogue) are recorded as <span class="tag">UNVERIFIED</span> or <span class="tag">BLOCKED</span>, never assumed.</td><td class="small">measured in-sandbox, 2026-10-06</td></tr><tr><td><code>IR-43-004</code></td><td class="wn">●</td><td><b>Owner-reported scores are not organizer receipts</b></td><td class="small">Every live score in <code>docs/score-ledger.csv</code> — including the group best 0.2778 — is owner-reported. No submission receipt, submission ID, or hash-to-score crosswalk links any of them to a file. The 0.2778 attribution in the brief is therefore treated as <span class="tag">OWNER-REPORT</span>, and no leaderboard row is attributed to a file.</td><td class="small"><a href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html">GEMSDOE32</a></td></tr><tr><td><code>IR-43-005</code></td><td class="no">●</td><td><b>At n = 8 no frame is a statistically significant ranker</b></td><td class="small">Calibrated against every prior artifact that carries a known live score, de-duplicated by layout (n = 8 distinct submissions): frame A ρ = +0.18 (p = 0.67), frame B ρ = +0.46 (p = 0.26), frame C ρ = +0.18 (p = 0.67). <b>None reaches significance.</b> The parent project reported ρ ≈ +0.51 (n = 12, p ≈ 0.09), which is the same effect size seen through a larger sample. Read accordingly: these are <i>screens</i> that sort candidates, not evidence that a candidate will gain on the board. No promotion decision here is described as a leaderboard gain. An earlier run of this calibration counted duplicate copies of the same file (n = 31, B ρ = +0.67, p = 4e-5) — those numbers were an artifact of double counting and are not quoted anywhere.</td><td class="small">measured here, <code>evidence/instrument_calibration.json</code></td></tr><tr><td><code>IR-43-006</code></td><td class="wn">●</td><td><b>A global Hough transform on the spring pattern is statistically invalid</b></td><td class="small">With 72 orientation bins and ~2,000 hot springs there are ~3×10⁶ chance collinear triples — far more than real ones. H43-3 therefore uses a locality-constrained (25 px) PCA lineament fit instead. Recorded because the obvious implementation is the wrong one.</td><td class="small"><code>docs/research/h43-hypotheses.md</code> §1 H43-3</td></tr><tr><td><code>IR-43-007</code></td><td class="ok">●</td><td><b>Disjoint-credit reduction is a hypothesis, not a bound</b></td><td class="small"><code>T/(0.2K + 0.8|G|)</code> equals the true index only when each dot is credited against a distinct truth pixel. When several dots compete for the same truth pixel the reduction is <b>pessimistic</b>; when there are fewer dots than truth pixels it is <b>optimistic</b>. Reported everywhere as the <i>reduction</i>, never as a bound or a guaranteed score.</td><td class="small"><code>src/gems43/metric.py</code>, <code>tests/test_metric.py</code></td></tr><tr><td><code>IR-43-008</code></td><td class="wn">●</td><td><b>SGMC off-catalogue truth is unevenly distributed</b></td><td class="small">Frame B block 2 contains only 3,854 truth pixels against 31,160 in block 0, because the SGMC-derived compilation is sparse in that quadrant. Fold B2 is noisier and is reported individually rather than only pooled.</td><td class="small"><code>evidence/pipeline_probe.json</code></td></tr><tr><td><code>IR-43-009</code></td><td class="wn">●</td><td><b>One ledger score is unsourced</b></td><td class="small">The brief's score table lists GEMSDOE19 <code>h19-4-multiline-…</code> at 0.1894, but the owner ledger in the previous session recorded H19-4 and H19-5 together at <b>0.1922</b>, and no submission receipt distinguishes them. The 0.1894 value is carried in <code>docs/score-ledger.csv</code> tagged <span class="tag">USER-REPORT</span> and is not used in any calibration.</td><td class="small"><code>docs/score-ledger.csv</code></td></tr><tr><td><code>IR-43-010</code></td><td class="wn">●</td><td><b>No GEMSDOE team appears in the visible top 25</b></td><td class="small">The brief asserts an own-best of 0.2778. The only 0.2778 on the public board is <code>extradr19</code> at rank 13, and no GEMSDOE* team name appears in the visible top 25. The 0.2778 figure is therefore treated as an owner report about a submission whose leaderboard identity has not been established, not as a verified board position.</td><td class="small"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a></td></tr><tr><td><code>IR-43-011</code></td><td class="ok">●</td><td><b>A permuted geotransform shipped once, and its own check passed</b></td><td class="small">Found in the pass-2 review. <code>TRANSFORM</code> is stored in rasterio <code>Affine</code> order <code>(a, b, c, d, e, f)</code>; passing it to <code>Affine.from_gdal</code> permutes it into a geotransform that is silently valid but puts the raster's top-left at (100, 0) with bounds reaching 1.7&times;10<sup>10</sup>. It was not caught because the check compared <code>transform.to_gdal()</code> back against <code>TRANSFORM</code> &mdash; and <code>to_gdal</code> is the <i>inverse</i> permutation, so it round-trips the error and always matches. Both are fixed, the file was rebuilt, and the check now compares the affine members and the numeric bounds against the mirrored template, asserted by <code>tests/test_submission.py::test_transform_matches_the_template</code>. Recorded because the failure mode generalises: a check that inverts the thing it is checking verifies nothing.</td><td class="small"><code>src/gems43/grid.py</code>, <code>src/gems43/submission.py</code></td></tr></table>
+</div>
+</div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>

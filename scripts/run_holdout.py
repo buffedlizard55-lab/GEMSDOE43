@@ -65,8 +65,59 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--skip-cg01", action="store_true", help="reproduce H42 only")
+    parser.add_argument(
+        "--external-order", action="append", default=[], metavar="NAME=PATH",
+        help="score a foreign candidate given as a flat-index priority array (.npy). The array "
+             "ranks cells best-first; per fold the ranking is restricted to that fold's allowed "
+             "emission domain and truncated to each comparison budget. NOTE: this is only an "
+             "equal-mass comparison if the candidate has at least `budget` cells inside every "
+             "fold's domain -- a fixed full-grid layout has roughly a quarter of its dots in any "
+             "one fold, so it is emitted far below the reference mass. Use "
+             "--external-surface for a like-for-like comparison.")
+    parser.add_argument(
+        "--external-mclp", action="append", default=[], metavar="NAME=PATH",
+        help="score a foreign prior surface placed by THIS repository's own solver: the "
+             "Church-ReVelle maximal-covering greedy, no minimum separation, budget taken from "
+             "the Dinkelbach fixed point of the 0.2*DTI marginal rule. Compared at the same "
+             "domain as the H42 reference, with the budget it derives for itself.")
+    parser.add_argument(
+        "--external-surface", action="append", default=[], metavar="NAME=PATH",
+        help="score a foreign prior surface (.npy, full grid). Per fold it is packed by the "
+             "protocol's own greedy_pack at the same separations and budgets as the H42 "
+             "reference, so the comparison is genuinely equal-mass on the same domain.")
     args = parser.parse_args()
     root = args.root.resolve()
+
+    external_mclp: dict[str, np.ndarray] = {}
+    for spec in args.external_mclp:
+        if "=" not in spec:
+            raise SystemExit(f"--external-mclp expects NAME=PATH, got {spec!r}")
+        name, path = spec.split("=", 1)
+        external_mclp[name] = np.asarray(np.load(path), dtype=F32)
+        print(f"External MCLP surface {name}: {external_mclp[name].shape} from {path}", flush=True)
+
+    external_surfaces: dict[str, np.ndarray] = {}
+    for spec in args.external_surface:
+        if "=" not in spec:
+            raise SystemExit(f"--external-surface expects NAME=PATH, got {spec!r}")
+        name, path = spec.split("=", 1)
+        surf = np.load(path)
+        surf = np.asarray(surf, dtype=F32)
+        external_surfaces[name] = surf
+        print(f"External surface {name}: {surf.shape}, finite={int(np.isfinite(surf).sum()):,} "
+              f"from {path}", flush=True)
+
+    external_orders: dict[str, np.ndarray] = {}
+    for spec in args.external_order:
+        if "=" not in spec:
+            raise SystemExit(f"--external-order expects NAME=PATH, got {spec!r}")
+        name, path = spec.split("=", 1)
+        order = np.load(path)
+        order = np.asarray(order).ravel().astype(np.int64)
+        if order.size == 0:
+            raise SystemExit(f"external order {name} is empty")
+        external_orders[name] = order
+        print(f"External candidate {name}: {order.size:,} ranked cells from {path}", flush=True)
     started = time.time()
 
     labels, footprint, _ = read_labels_and_footprint(root)
@@ -170,6 +221,69 @@ def main() -> int:
                       "Gaussian-smoothed training catalogue density; same mass")
             del selected
         del density
+
+        for ext_name, ext_surf in external_mclp.items():
+            from gems43.mclp import greedy_cover, emission_plan
+            from gems43.surface import normalise_to_mass
+            pi = normalise_to_mass(ext_surf, footprint, float(eval_truth.sum() or 12_226.0))
+            sol = greedy_cover(pi, allowed, int(min(allowed.sum(), 60_000)),
+                               min_potential=0.0, max_candidates=700_000, verbose=False)
+            plan = emission_plan(sol)
+            k = int(plan["k_star"])
+            selected = np.zeros(labels.shape, dtype=bool)
+            selected.ravel()[sol.order[:k]] = True
+            score_arm(f"EXT_{ext_name}|MCLP|K{k}", selected,
+                      f"maximal covering, no spacing constant, Dinkelbach budget K={k} "
+                      f"(marginal bar {plan['marginal_bar']:.4f})")
+            del selected
+            for kfix in (40_000,):
+                if sol.k >= kfix:
+                    selected = np.zeros(labels.shape, dtype=bool)
+                    selected.ravel()[sol.order[:kfix]] = True
+                    score_arm(f"EXT_{ext_name}|MCLP|N{kfix}", selected,
+                              f"maximal covering, no spacing constant, fixed mass {kfix}")
+                    del selected
+            del sol
+
+        for ext_name, ext_surf in external_surfaces.items():
+            if ext_surf.shape != labels.shape:
+                raise SystemExit(f"external surface {ext_name} shape {ext_surf.shape} != "
+                                 f"{labels.shape}")
+            for separation in SEPARATIONS:
+                for budget in BUDGETS:
+                    selected = greedy_pack(ext_surf, allowed, separation, budget, H42_CAP)
+                    if int(selected.sum()) != min(budget, int(allowed.sum())):
+                        raise AssertionError(
+                            f"EXT {ext_name}|sep{separation}|N{budget}: budget not met")
+                    score_arm(f"EXT_{ext_name}|sep{separation}|N{budget}", selected,
+                              f"external prior surface, packed by the protocol's own greedy_pack "
+                              f"at sep {separation}, mass {budget}")
+                    del selected
+
+        allowed_flat = np.flatnonzero(allowed.ravel())
+        allowed_lookup = np.zeros(labels.size, dtype=bool)
+        allowed_lookup[allowed_flat] = True
+        for ext_name, ext_order in external_orders.items():
+            in_domain = ext_order[allowed_lookup[ext_order]]
+            if in_domain.size == 0:
+                print(f"  fold {fold_number}: {ext_name} has no cells in the allowed domain",
+                      flush=True)
+                continue
+            for budget in (40_000,):
+                take = in_domain[:budget]
+                selected = np.zeros(labels.shape, dtype=bool)
+                selected.ravel()[take] = True
+                score_arm(f"EXT_{ext_name}|N{budget}", selected,
+                          f"external priority ranking, top {budget} of "
+                          f"{in_domain.size:,} cells inside this fold's allowed domain")
+                del selected
+            selected = np.zeros(labels.shape, dtype=bool)
+            selected.ravel()[in_domain] = True
+            score_arm(f"EXT_{ext_name}|all-in-domain", selected,
+                      f"external priority ranking, all {in_domain.size:,} cells inside this "
+                      f"fold's allowed domain (not mass-matched)")
+            del selected
+            del in_domain, allowed_flat, allowed_lookup
 
         if cg_score is not None:
             cg_allowed = allowed & cg_valid

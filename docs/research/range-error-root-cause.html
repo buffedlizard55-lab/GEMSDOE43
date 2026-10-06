@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEMSDOE43 — Range Error Root Cause</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>GEMSDOE43 — Range Error Root Cause</h1>
+<div class="small">Research note — source of truth is the .md in the repository</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="on">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+</div></header>
+<div class="wrap"><div class="panel"><h2 style="margin-top:0;border:0">Range Error Root Cause</h2><h1>Root cause of the <code>Predicted values must be in range [0, 1]</code> rejection</h1>
+<p><b>Why this page exists.</b> A submission can be geospatially perfect and still be refused by the portal with the message <code>Predicted values must be in range [0, 1]</code>. This page is the reference for what causes that, what is verified and what is inference, and which of the two files this project publishes you should actually upload.</p>
+<p>---</p>
+<h2>What the specification says (verified)</h2>
+<p>From the official submission-format page, read 2026-10-06 (&lt;https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/&gt;):</p>
+<blockquote>Make sure your predictions are in the correct format: single band, <b>float32</b>, with predicted</blockquote>
+<blockquote>values in <b>[0, 1]</b>, in the same CRS (EPSG:32611), resolution (100m) and bounds as the training</blockquote>
+<blockquote>data. Use <b>null (NaN) values outside of the bounds</b>.</blockquote>
+<p>Three separate requirements are fused in that sentence, and they pull in different directions:</p>
+<table><tr><th>#</th><th>Requirement</th><th>Reading</th></tr><tr><td>1</td><td>one band, float32</td><td>unambiguous</td></tr><tr><td>2</td><td>EPSG:32611, 100 m, training bounds</td><td>unambiguous</td></tr><tr><td>3</td><td>predicted values in <code>[0, 1]</code></td><td><b>ambiguous — is the predicate applied to every cell, or only to predicted cells?</b></td></tr><tr><td>4</td><td>null / NaN outside the bounds</td><td><b>contradicts (3) if (3) is applied to every cell</b>, because <code>NaN</code> satisfies no range predicate</td></tr></table>
+<p>That contradiction is the root cause. Any validator that evaluates <code>(raster &gt;= 0) &amp; (raster &lt;= 1)</code> over the <b>whole array</b> will reject a file that honours requirement 4 literally, because <code>np.nan &gt;= 0</code> is <code>False</code>.</p>
+<h2>What the organizers&#x27; own reference code does (verified)</h2>
+<p>The official reference solution repository, &lt;https://github.com/drivendataorg/gems-prize-reference-solution&gt;, writes its output with <b>no nodata value at all</b> and <b>no NaN</b> — every cell in the raster is a finite float32. The reference therefore satisfies requirement 3 under *either* reading, and satisfies requirement 4 only in the weak sense that there is no predicted fault outside the bounds.</p>
+<p><b>Inference (labelled as such):</b> the safest reading is that the validator applies the range predicate to the whole array, and that the reference solution is nodata-free *because of that*. This is consistent with the reported rejection text, but I have not read the validator source, which is not public.</p>
+<h2>Failure modes observed in this lineage</h2>
+<table><tr><th>Encoding outside the footprint</th><th>Whole-array <code>(v&gt;=0)&amp;(v&lt;=1)</code></th><th>Literal-spec compliance</th><th>Outcome</th></tr><tr><td><code>0.0</code> (this project&#x27;s <b>primary</b> file)</td><td><b>passes</b></td><td>satisfies it in spirit: &quot;no fault predicted outside&quot;</td><td>accepted</td></tr><tr><td><code>NaN</code> (this project&#x27;s <b>twin</b>)</td><td><b>fails</b></td><td>satisfies it literally</td><td>rejected if the validator is whole-array</td></tr><tr><td>float32 sentinel <code>-3.4028234663852886e+38</code></td><td><b>fails</b></td><td>neither</td><td>rejected</td></tr><tr><td>unmasked model output (e.g. softmax tails outside the bounds)</td><td><b>fails</b></td><td>neither</td><td>rejected</td></tr></table>
+<p>The sentinel row matters: GDAL will happily round-trip <code>-3.4028234663852886e+38</code> as a nodata value, and a reader that replaces nodata with NaN produces the same rejection by a different route. Never pass a nodata value to the writer.</p>
+<h2>What this project does about it</h2>
+<p><code>src/gems43/submission.py</code> is written <b>fail-closed</b> and produces <b>two</b> files, byte-identical inside the footprint:</p>
+<ul>
+<li><b><code>…-zeros.tif</code></b> — outside-footprint cells are <code>0.0</code>. <b>Download this one.</b> It can never trip a</li>
+<p>whole-array range predicate, it matches the organizer&#x27;s own reference encoding, and it costs nothing in score: the official metric only sums over cells with <code>p(x) &gt; 0</code>, so an outside cell holding <code>0.0</code> contributes to neither <code>TP_w</code> nor <code>FP_w</code>.</p>
+<li><b><code>…-nan.tif</code></b> — outside-footprint cells are <code>NaN</code>, the literal wording of requirement 4. Upload</li>
+<p>this only if DrivenData support confirms the validator masks before checking the range.</p>
+</ul>
+<p>Both files are re-read from disk after writing and verified against twelve named checks (<code>single_band</code>, <code>dtype_float32</code>, <code>dimensions_3730x3292</code>, <code>crs_epsg_32611</code>, <code>transform_matches</code>, <code>in_footprint_all_finite</code>, <code>in_footprint_zero_nan</code>, <code>in_footprint_zero_inf</code>, <code>in_footprint_zero_sentinel</code>, <code>in_footprint_range_0_1</code>, <code>outside_footprint_compliant</code>), and the writer <b>raises</b> rather than emitting a file that fails. The whole-array predicate (<code>whole_raster_range_0_1</code>) is reported for both files but is *not* a required check, precisely because the NaN twin cannot satisfy it by construction — that asymmetry is recorded in <code>evidence/submission.json</code> rather than hidden.</p>
+<h2>If the portal rejects your file anyway</h2>
+<p>1. Confirm the value encoding: <code>gdalinfo -stats &lt;file&gt;</code> and check <code>Min/Max</code>. If <code>Min</code> is <code>-3.4028234663852886e+38</code> or <code>nan</code>, you uploaded a nodata-encoded file. Re-upload the <code>-zeros</code> twin. 2. Confirm the band count and dtype: <code>gdalinfo</code> must show <code>Type=Float32</code> and <code>Band 1</code> only. A 2-band or <code>Byte</code>/<code>UInt16</code> raster is rejected before the range check. 3. Confirm the grid: <code>gdalinfo</code> must show <code>Size is 3292, 3730</code> and <code>Origin = (…)</code> matching the template, with <code>Pixel Size = (100.0000000000000000,-100.0000000000000000)</code>. 4. Confirm the CRS is <code>EPSG:32611</code> (UTM zone 11N, WGS 84).</p>
+<p><code>scripts/build_submission.py</code> prints all four of these from the written bytes after every build, so the audit in <code>evidence/submission.json</code> is the first thing to check.</p>
+<h2>Line-by-line verification commands</h2>
+<pre><code>
+cd /home/user/GEMSDOE43
+gdalinfo -stats docs/downloads/*-zeros.tif | grep -Ei &#x27;size is|type=|origin|pixel size|min/max|nodata&#x27;
+PYTHONPATH=src python3 - &lt;&lt;&#x27;PY&#x27;
+import json, numpy as np, rasterio
+from gems43 import paths
+j = json.loads((paths.repo_root()/&#x27;evidence&#x27;/&#x27;submission.json&#x27;).read_text())
+print(json.dumps(j[&#x27;files&#x27;][&#x27;zeros&#x27;][&#x27;checks&#x27;], indent=1))
+PY
+</code></pre></div></div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>

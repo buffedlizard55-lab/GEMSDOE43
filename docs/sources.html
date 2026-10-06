@@ -1,64 +1,104 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Official and owner-maintained sources, provenance, claim attribution and limitations for GEMSDOE43.">
-  <title>Sources &amp; provenance · GEMSDOE43</title>
-  <link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="topbar"><div class="wrap topbar-inner">
-  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
-  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a aria-current="page" href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a></nav>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sources</title>
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
+--good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--acc)}
+header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
+padding:22px 0 14px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;margin:0 0 4px}
+h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:22px;color:var(--acc)}
+nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
+text-decoration:none;color:var(--ink);font-size:13px}
+nav a:hover{border-color:var(--acc)}
+nav a.on{background:#123047;border-color:var(--acc)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+margin:16px 0}
+.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--panel2);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+font-size:12.5px}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
+font-size:12.5px}
+.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
+padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
+.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.small{font-size:12.5px;color:var(--dim)}
+.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
+padding:1px 8px;color:var(--dim);margin-right:4px}
+.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
+.card .v{font-size:22px;font-weight:700}
+.card .k{font-size:12px;color:var(--dim)}
+ul{padding-left:20px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
+.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
+border-radius:0 8px 8px 0}
+</style></head><body>
+<header><div class="wrap">
+<h1>Sources</h1>
+<div class="small">Official first, mirrors pinned and labelled.</div>
+<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="on">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
 </div></header>
-<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Source register · attribution first</div><h1>Trust claims by their source, not by their repetition.</h1><p>Official statements, owner-maintained results, local measurements, and model projections are separated below. Full URLs and claim-by-claim limits live in the repository source register.</p></div><div class="hero-side"><span class="badge caution">Input status</span><strong>Mirror-verified</strong><span>not organizer-authenticated</span></div></div></section>
-<main class="wrap">
-<section class="section" id="inputs"><div class="section-head"><div><div class="kicker">Inputs and irregularities</div><h2>What is present in this checkout</h2></div></div>
-  <div class="callout warn"><strong>Owner mirror is not an organizer download.</strong><p>DrivenData data access required login in this environment. The restore script fetched exact SHA-pinned owner mirrors through GitHub CLI and verified final byte count/hash against prior-project manifests; this proves internal consistency only. Obtain a fresh authorized organizer download before prize submission and compare it to the mirror.</p></div>
-  <div class="table-wrap" style="margin-top:15px"><table><thead><tr><th>Input</th><th>Measured facts</th><th>Provenance / use boundary</th></tr></thead><tbody>
-    <tr><td><code>training_features.tif</code></td><td>19 float32 bands, 3730×3292, EPSG:32611, 100-m grid; SHA-256 begins <code>4371c82e</code>.</td><td>Owner-published multi-part GitHub mirror. Hash not organizer-authenticated. CG01 reads bands named <code>rtp</code> and <code>iso_grav_anom</code>.</td></tr>
-    <tr><td><code>labels.tif</code></td><td>int8 values −1/0/1; 60,988 positives, 5,106,385 zeros, 7,111,787 outside cells.</td><td>Owner-published mirror. Used for holdout truth and training guard; not used in CG01 score-surface construction.</td></tr>
-    <tr><td><code>sample_submission.tif</code></td><td>60,988 cells equal 1; these cells match all label positives exactly. NaN outside footprint.</td><td><strong>IR-DATA-01:</strong> the mirrored values conflict with the task page's statement that the sample predicts total absence. Used only for grid/footprint—not as a prediction template.</td></tr>
-    <tr><td><code>lidar_scarp_features_u8.tif</code></td><td>12 bands on the exact 3730×3292 EPSG:32611 grid; 3,894,460 validity-mask cells; SHA-256 begins <code>d580bb8b</code>.</td><td>Owner-mirrored derivative of USGS 3DEP tiles. Reproduces H42 only; tile lineage and failed-tile coverage have not been independently rebuilt. Excluded from CG01.</td></tr>
-  </tbody></table></div>
-  <p class="small" style="margin-top:12px">Machine-readable details, full checksums, bounds, transforms, band ranges and validity counts: <code>evidence/input_audit.json</code> and <code>registry/data_sources.json</code>.</p>
-</section>
-<section class="section" id="h46-sources"><div class="section-head"><div><div class="kicker">H46 source audits · separate from validation</div><h2>Official geology sources and version caveat</h2></div></div>
-  <div class="grid">
-    <article class="card"><span class="source-id">USGS · NGB</span><h3><a href="https://pubs.usgs.gov/of/2002/0227/data.html">National Geochemical Database</a></h3><p>The H46-A source-only audit assessed eligible in-footprint stream-sediment records and assay support. It failed the frozen sample-count gates (451 / 447), so no H46-A model or holdout score was run. The source metadata warns of coordinate uncertainty for some records.</p></article>
-    <article class="card"><span class="source-id">USGS · SGMC v1.1</span><h3><a href="https://mrdata.usgs.gov/geology/state/">State geologic map compilation</a></h3><p>H46-B pinned the published v1.1 CA/NV polygon components and same-release age/lithology tables. Polygon <code>unit_link</code> joined to the tables; source hash/coverage and schema reports are in <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/sgmc_source_audit.json">the SGMC audit receipt</a>. Passing these source checks did not make the candidate promotion gate pass.</p></article>
-    <article class="card"><span class="source-id">USGS · newer release notice</span><h3><a href="https://doi.org/10.5066/P1A3DQZK">2026 GeMS SGMC release</a></h3><p>The USGS v1.1 catalog record recommends this newer GeMS release. It was not fetched, opened, or audited in the frozen H46-B experiment. It is not silently substituted for the pinned v1.1 source.</p></article>
-  </div>
-  <p class="small">Complete source receipts: <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/ngb_source_audit.json">NGB</a>, <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/sgmc_source_audit.json">SGMC v1.1</a>, and <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/h46b/data_manifest.json">H46-B input manifest</a>.</p>
-</section>
-<section class="section"><div class="section-head"><div><div class="kicker">Official challenge statements</div><h2>Organizer sources</h2></div></div>
-  <div class="grid">
-    <article class="card"><span class="source-id">DD-01 · competition</span><h3><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description</a></h3><p>Task, provided bands, labels, metric and single-band GeoTIFF output contract. Public board, private Phase 1 and final Phase 2 are distinct evaluations.</p></article>
-    <article class="card"><span class="source-id">DD-02 · rules</span><h3><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">GEMS Official Rules · Sept. 2026</a></h3><p>Requires registration for competition data access; requires one 100-m single-layer GeoTIFF; generative AI is allowed but must be disclosed in the narrative; scores differ across evaluation stages.</p></article>
-    <article class="card"><span class="source-id">DD-03 · staff reply</span><h3><a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">Known-fault scoring clarification</a></h3><p>DrivenData staff state that pixels corresponding to known USGS/INGENIOUS traces are masked from evaluation, including re-evaluation.</p></article>
-    <article class="card"><span class="source-id">DD-04 · staff reply</span><h3><a href="https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527/7">Hidden-test provenance question</a></h3><p>Staff declined to disclose the sources, fault types or coverage behind hidden test faults. Do not guess their composition.</p></article>
-    <article class="card"><span class="source-id">DD-05 · site policy</span><h3><a href="https://www.drivendata.org/termsofuse/">DrivenData Terms of Use</a></h3><p>Prohibits automatic access/monitoring/copying and manual monitoring/copying without prior written consent. No leaderboard scraping or periodic feed is implemented.</p></article>
-    <article class="card"><span class="source-id">DD-06 · dynamic</span><h3><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Official leaderboard</a></h3><p>Open the official page directly if authorized. This repository does not fetch or refresh it; the 2026-10-05 snapshot is historic only.</p></article>
-    <article class="card"><span class="source-id">DD-07 · organizer-linked code</span><h3><a href="https://github.com/drivendataorg/gems-prize-reference-solution">GEMS reference solution</a></h3><p>Notebook uses a supervised U-Net/ResNet18 ensemble with random 128×128 patch MC-CV and Tversky loss. Its split design is not the same as the spatial holdout used here.</p></article>
-  </div>
-</section>
-<section class="section"><div class="section-head"><div><div class="kicker">Owner reports and literature</div><h2>Useful, but not official score evidence</h2></div></div>
-  <div class="grid">
-    <article class="card"><span class="source-id">P-01 · owner report</span><h3><a href="https://buffedlizard55-lab.github.io/GEMSDOE41/">GEMSDOE41 / H42</a></h3><p>Prior H42 protocol and owner-reported local DTI 0.250744, independently reproduced by G43. Neither value is a DrivenData score.</p></article>
-    <article class="card"><span class="source-id">P-02 · owner PR</span><h3><a href="https://github.com/buffedlizard55-lab/GEMSDOE32/pull/9">GEMSDOE32 PR #9 · H33-2-B2</a></h3><p>Owner calls 0.2747 a projected live value; PR states no organizer score exists for its artifacts. Full attribution in the <a href="executive-summary.html#h33">executive summary</a>.</p></article>
-    <article class="card"><span class="source-id">LIT-01 · peer reviewed</span><h3><a href="https://doi.org/10.1029/2003JB002716">Gallardo &amp; Meju (2004)</a></h3><p>Cross-gradient structural coupling precedent. It supports operator plausibility, not an expected score increase for CG01.</p></article>
-  </div>
-</section>
-<section class="section"><div class="section-head"><div><div class="kicker">Potential external data</div><h2>Availability does not equal coverage</h2></div></div>
-  <div class="table-wrap"><table><thead><tr><th>Source</th><th>Slate use</th><th>Unresolved check</th></tr></thead><tbody>
-    <tr><td><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></td><td>Drainage topology / DEM geomorphology</td><td>Exact competition-footprint 1-m tiles and valid coverage are not acquired here.</td></tr>
-    <tr><td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN</a> · <a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7">ScienceBase record</a></td><td>Radiometric ratios and structural boundaries</td><td>Exact grids/channels, footprint overlap and resampling are unverified; the release metadata indicates CC0.</td></tr>
-    <tr><td><a href="https://earthquake.usgs.gov/fdsnws/event/1/">USGS FDSN</a></td><td>Hypocenter-plane coherence</td><td>One broad M≥2.5 query returned 4,260 events; this is not proof of complete or uniform catalog coverage.</td></tr>
-    <tr><td><a href="https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b">USGS conductance product</a> · <a href="https://doi.org/10.5066/P9TWT2LU">DOI</a></td><td>Depth-persistent electrical conductance</td><td>Metadata lists five depth intervals (2–200 km); files, grid, and overlap were not verified.</td></tr>
-  </tbody></table></div>
-</section>
-<section class="section"><div class="notice">Complete source register with claim-level limits, prior-method links and local receipt identifiers: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/source_register.md">research/source_register.md</a>.</div></section>
-</main>
-<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="research.html">Validation</a></span></div></footer>
-</body>
-</html>
+<div class="wrap">
+<div class="panel">
+<h2 style="margin-top:0;border:0">Official sources</h2>
+<table><tr><th>fact</th><th>source</th></tr>
+<tr><td>Metric, submission format, prize structure</td>
+<td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a>
+— read 2026-10-06</td></tr>
+<tr><td>Public leaderboard</td>
+<td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a>
+— read 2026-10-06</td></tr>
+<tr><td>Known USGS/INGENIOUS faults are masked from scoring</td>
+<td>DrivenData staff <code>chrisk-dd</code>,
+<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">forum thread 11516</a></td></tr>
+<tr><td>Official rules PDF</td>
+<td><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">docs.nlr.gov/docs/fy26osti/96647.pdf</a>
+— <span class="wn">host unreachable from this sandbox; URL recorded, contents UNVERIFIED</span></td></tr>
+<tr><td>Reference solution (writes an all-finite, nodata-free raster)</td>
+<td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">drivendataorg/gems-prize-reference-solution</a></td></tr>
+<tr><td>GeoDAWN survey — the study area</td>
+<td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS data page</a>;
+<a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7">ScienceBase item</a></td></tr>
+<tr><td>INGENIOUS / GDR submission 1391 (spring, well, vent, paleo-geothermal data; CC BY 4.0)</td>
+<td><a href="https://gdr.openei.org/submissions/1391">gdr.openei.org/submissions/1391</a>;
+<a href="https://gbcge.org/current-projects/ingenious/">Great Basin Center for Geothermal Energy</a></td></tr>
+<tr><td>Church &amp; ReVelle (1974), maximal covering location problem</td>
+<td><a href="https://link.springer.com/article/10.1007/BF01942293">Papers of the Regional Science Association 32: 101–118</a></td></tr>
+<tr><td>Analytic signal for contact mapping</td>
+<td>Nabighian (1972) <i>Geophysics</i> 37(6); Roest, Verhoef &amp; Pilkington (1992) <i>Geophysics</i> 57(1)</td></tr>
+<tr><td>Tilt angle / tilt-depth (SPI)</td>
+<td>Miller &amp; Singh (1994) <i>Geophysics</i>; Salem et al. (2007) <i>Geophysics</i> 72(2)</td></tr>
+<tr><td>Frangi vesselness</td><td>Frangi et al. (1998) <i>IEEE TMI</i> 17(4)</td></tr>
+<tr><td>Submodular greedy guarantee</td>
+<td>Nemhauser, Wolsey &amp; Fisher (1978) <i>Mathematical Programming</i> 14</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h2 style="margin-top:0;border:0">Inputs — every byte pinned and re-verified</h2>
+<p class="small">The DrivenData data page requires a login this environment does not have. All 23
+inputs below are owner-maintained public GitHub mirrors, accepted <b>only</b> because each is
+pinned by sha256 and byte count in <code>registry/data_manifest.json</code> and re-verified by
+<code>scripts/fetch_mirrors.sh</code> on every fetch (it exits non-zero on any mismatch). They are
+labelled <span class="tag">MIRROR, hash-pinned</span>, never <span class="tag">OFFICIAL</span>.</p>
+<table><tr><th>id</th><th class="n">bytes</th><th>sha256</th><th>source</th></tr><tr><td class="small">training_features</td><td class="n">418,912,844</td><td class="small"><code>4371c82e3b8339b807bdffcf4ef59a22…</code></td><td class="small">buffedlizard55-lab/GEMSDOE@c0c06ac82178</td></tr><tr><td class="small">labels</td><td class="n">425,830</td><td class="small"><code>7ba308ccdc4418b31a178f4f1ef21aaa…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">existing_faults</td><td class="n">425,830</td><td class="small"><code>7ba308ccdc4418b31a178f4f1ef21aaa…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">sample_submission</td><td class="n">1,599,597</td><td class="small"><code>2176d08e485aa2cd2860ce8df539db4f…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_lidar_scarp_features_u8</td><td class="n">36,943,606</td><td class="small"><code>d580bb8bdcdb941e32fefb8b38044bc5…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_geodawn_rad_u8</td><td class="n">26,612,970</td><td class="small"><code>c22420f75999030d7cc65c9e31e50d23…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_geodawn_extensions_u8</td><td class="n">27,132,925</td><td class="small"><code>a35a9c6d2a14786f4dab85481ee59769…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_derived_sgmc_faults_100m_u8</td><td class="n">198,602</td><td class="small"><code>643cbe992ef4ba37588fb469163ed829…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_gdr_wellspring_in_footprint</td><td class="n">2,146,771</td><td class="small"><code>122718e65bdf55aab0ee12ad20d80062…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_gdr_qfaults_traces</td><td class="n">126,177</td><td class="small"><code>9702f2e5c382a4f472ae834d22b94990…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">ext_gdr_volcanic_vents_in_footprint</td><td class="n">672</td><td class="small"><code>f91bafbaccaaf2754e71d60434fc0f9e…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">scored_h19_5</td><td class="n">1,712,322</td><td class="small"><code>ec1f9b56b83ce33cad781ceb9f104b18…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">scored_h19_4</td><td class="n">1,716,768</td><td class="small"><code>89109a3bd2cd3b12e7a0f388113c5198…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">scored_h16_1</td><td class="n">1,718,028</td><td class="small"><code>055309694ed499ca3d87e76b3f5e81c2…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">scored_d15_scored</td><td class="n">1,632,732</td><td class="small"><code>68d0e2e4fcc594f9a23f56c44b885fee…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">scored_d28_unscored</td><td class="n">1,603,424</td><td class="small"><code>91eae1ca42ec845eaa8c2ba32da49806…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">calib_13gems_20261001_r13-lattice-s5_v2_nan-ou</td><td class="n">1,706,456</td><td class="small"><code>b4570b406efec198eb2f4d142ad8d0d6…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">calib_8GEMSDOE_Hedge-v2_submission</td><td class="n">736,494</td><td class="small"><code>052688eafbc7a55d90caab72252a5030…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">calib_gems10-h25-ctx-ridge-20260927T2329477041</td><td class="n">1,772,935</td><td class="small"><code>1381e784fb8b8340beffd0e735ac9eea…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">calib_gems10-h28-dotted-ridge-20260928T0202562</td><td class="n">1,620,739</td><td class="small"><code>7637b72d4c6c3e10226bf46bd72a2027…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">calib_gemsdoe-ens12-adopted-7f00890a</td><td class="n">570,890</td><td class="small"><code>7f00890a62878d612fb5eef67a9a364a…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">calib_gemsdoe9-PLACEHOLDER-2314b599</td><td class="n">439,456</td><td class="small"><code>2314b59920bfeeaf6a592d4868b25eca…</code></td><td class="small">buffedlizard55-lab/GEMSDOE24@07345ea06049</td></tr><tr><td class="small">scored_gems27_tgc_v2_d15</td><td class="n">1,635,084</td><td class="small"><code>33003374335d84bf885f2d8f5e9dd4c5…</code></td><td class="small">buffedlizard55-lab/GEMSDOE27@main</td></tr></table>
+</div>
+</div>
+<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
+rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
+</body></html>
