@@ -52,10 +52,13 @@ def _fields(reader: shapefile.Reader) -> dict[str, str]:
 
 
 def _find_csv(root: Path, stem: str) -> Path:
+    aliases = {"lith": {"lith", "lithology"}, "lithology": {"lith", "lithology"}}
+    expected = aliases.get(stem.casefold(), {stem.casefold()})
     hits = sorted(
         p for p in root.rglob("*")
         if p.is_file() and p.suffix.casefold() == ".csv"
-        and (p.stem.casefold() == stem.casefold() or p.stem.casefold().endswith("_" + stem.casefold()))
+        and any(p.stem.casefold() == value or p.stem.casefold().endswith("_" + value)
+                for value in expected)
     )
     if not hits:
         raise ValueError(f"SGMC archive is missing {stem}.csv")
