@@ -1,0 +1,104 @@
+name: H46-B blocked holdout and candidate build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  experiment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out the registered branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install the frozen experiment dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Restore checksum-pinned competition inputs (raw files stay in runner temp)
+        shell: bash
+        run: bash scripts/download_inputs.sh "$RUNNER_TEMP/gems-inputs"
+      - name: Restore checksum-pinned official SGMC sources
+        shell: bash
+        run: bash scripts/download_sgmc.sh "$RUNNER_TEMP/gems-sgmc"
+      - name: Build label-free H42 and H46-B surfaces, then run the locked holdout
+        env:
+          PYTHONPATH: src
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+        run: |
+          python scripts/run_experiment.py \
+            --features "$RUNNER_TEMP/gems-inputs/competition/training_features.tif" \
+            --labels "$RUNNER_TEMP/gems-inputs/competition/labels.tif" \
+            --template "$RUNNER_TEMP/gems-inputs/competition/sample_submission.tif" \
+            --lidar "$RUNNER_TEMP/gems-inputs/external/lidar_scarp_features_u8.tif" \
+            --sgmc-ca "$RUNNER_TEMP/gems-sgmc/CA.zip" \
+            --sgmc-nv "$RUNNER_TEMP/gems-sgmc/NV.zip" \
+            --sgmc-tables "$RUNNER_TEMP/gems-sgmc/USGS_SGMC_Tables_CSV.zip" \
+            --submission-out docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif \
+            --evidence-dir evidence/h46b
+      - name: Publish holdout metrics and file receipt in this check summary
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! -f evidence/h46b/experiment.json ]]; then
+            echo '## H46-B run incomplete' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Inspect source-download, checksum, and experiment-step logs. No candidate may be called scored or validated.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          exp = json.loads(Path('evidence/h46b/experiment.json').read_text())
+          h = exp['holdout']
+          f = exp['submission']
+          print('## H46-B public-catalogue blocked proxy')
+          print()
+          print(h['score_interpretation'])
+          print()
+          print('| Fold | H42 incumbent DTI | H46-B DTI | Delta |')
+          print('|---:|---:|---:|---:|')
+          for row in h['folds']:
+              fold = row['fold']
+              print(f"| {fold} | {row['arms']['incumbent']['dti']:.6f} | {row['arms']['h46b']['dti']:.6f} | {h['h46b']['fold_deltas'][fold]:.6f} |")
+          print()
+          print(f"Mean H42: **{h['incumbent_prior_reference']['same_run_mean_dti']:.6f}**; mean H46-B: **{h['h46b']['mean_dti']:.6f}**; mean delta: **{h['h46b']['mean_delta_vs_same_run_incumbent']:.6f}**.")
+          print()
+          print(f"Promotion gate: **{'PASS' if h['promotion_gate']['gate_passed'] else 'FAIL'}**. Submission slot authorized: **{h['promotion_gate']['submission_slot_authorized']}**.")
+          print()
+          print(f"GeoTIFF: {f['path']}; {f['bytes']} bytes; SHA-256 {f['sha256']}; {f['prediction_pixels']} positive cells.")
+          print('Not private-set validated and not a DrivenData leaderboard score. Full receipts are under evidence/h46b/.')
+          PY
+      - name: Upload compact experiment receipts and the unique GeoTIFF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006
+          path: |
+            docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif
+            evidence/h46b/*.json
+          if-no-files-found: warn
+          retention-days: 90
+      - name: Commit only the generated GeoTIFF and aggregate experiment receipts to this branch
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif evidence/h46b
+          if git diff --cached --quiet; then
+            echo 'Generated artifact and receipts are unchanged; no additional commit is needed.'
+          else
+            git commit -m 'Add H46-B proxy receipt and unique GeoTIFF'
+            git push origin HEAD:arena/7bd177bc-gemsdoe43
+          fi

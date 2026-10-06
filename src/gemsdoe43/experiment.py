@@ -1,4 +1,4 @@
-"""Reproduce H42 incumbent and evaluate the preregistered H46-A signal."""
+"""H42 comparator primitives and the stopped H46-A draft; current experiment is H46-B."""
 from __future__ import annotations
 
 import hashlib
@@ -69,6 +69,8 @@ def _read_footprint(template_path: Path) -> tuple[np.ndarray, dict]:
         shape = (ds.height, ds.width)
         report = {"shape": list(shape), "crs": ds.crs.to_string() if ds.crs else None,
                   "transform": [float(x) for x in tuple(ds.transform)[:6]],
+                  "bounds": [float(ds.bounds.left), float(ds.bounds.bottom),
+                             float(ds.bounds.right), float(ds.bounds.top)],
                   "finite_footprint_cells": int(footprint.sum()),
                   "template_nodata": None if ds.nodata is None else str(ds.nodata)}
     return footprint, {"profile": profile, **report}
@@ -277,7 +279,11 @@ def _write_submission(selected: np.ndarray, footprint: np.ndarray, profile: dict
 def run_experiment(*, features_path: Path, labels_path: Path, template_path: Path,
                    lidar_path: Path, csv_path: Path, submission_path: Path,
                    evidence_dir: Path) -> dict:
-    """Run source gates, same-fold baseline/candidate scoring, and write a fresh TIFF."""
+    """Disabled legacy H46-A entry point: its frozen source-count gates failed."""
+    raise RuntimeError(
+        "H46-A is stopped before holdout because its official NGB footprint sample-count gates failed; "
+        "no labels are read here. Use the source-gated H46-B entry point in experiment_sgmc.py."
+    )
     paths = {"features": features_path, "labels": labels_path,
              "template": template_path, "lidar": lidar_path}
     for name, path in paths.items():

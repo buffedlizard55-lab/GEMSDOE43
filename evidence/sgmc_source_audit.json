@@ -1,0 +1,181 @@
+{
+  "all_data_viability_gates_pass": true,
+  "archive_receipts": {
+    "CA": {
+      "bytes": 24977406,
+      "path": "intake/CA.zip",
+      "sha256": "78765ba4428df9f25a84f86e0b2529bd0508fc8a2cf65d2f41a830e82bccfd58",
+      "url": "https://mrdata.usgs.gov/geology/state/shp/CA.zip"
+    },
+    "NV": {
+      "bytes": 69056094,
+      "path": "intake/NV.zip",
+      "sha256": "3b333ac025e59aae7f0d827db45ba32c425cf867eb341561a788af1de186b76b",
+      "url": "https://mrdata.usgs.gov/geology/state/shp/NV.zip"
+    }
+  },
+  "attribute_table_archive": {
+    "bytes": 1573709,
+    "path": "intake/USGS_SGMC_Tables_CSV.zip",
+    "sha256": "8859dd1f00ec6ec3d397634dc86fa288e440b432aad8a98a5fb0c7f9b6bc0bde",
+    "url": "https://www.sciencebase.gov/catalog/file/get/5888bf4fe4b05ccb964bab9d?name=USGS_SGMC_Tables_CSV.zip"
+  },
+  "contact_contrast_audit": {
+    "both_class_coverage_fraction": 0.9632885026879229,
+    "cells_with_major_lith1_and_era_pair": 4977671,
+    "contrast_definition": "mean of available major-lith1 and min/max-era categorical differences across four-neighbour unit boundaries; max incident contrast per cell",
+    "contrast_max": 1.0,
+    "distinct_rasterized_unit_ids": 86,
+    "footprint_cells": 5167373,
+    "known_age_comparisons": 1022040,
+    "known_lithology_comparisons": 956953,
+    "mapped_unit_cells": 5167373,
+    "outside_footprint_nonzero_cells": 0,
+    "positive_contrast_cells": 476338,
+    "unit_boundary_adjacency_pairs": 1034158,
+    "unit_coverage_fraction": 1.0
+  },
+  "data_viability_gates": {
+    "at_least_5000_positive_contrast_cells": true,
+    "at_least_60_percent_cells_have_lith_and_age": true,
+    "at_least_90_percent_polygon_coverage": true,
+    "outside_footprint_contact_strength_zero": true
+  },
+  "github_actions_run_id": 37454306845,
+  "github_check_run_id": 112238031452,
+  "interpretation": "Official-source, schema, polygon-coverage and support audit only; not a fault score or holdout result.",
+  "label_access": "No labels or sample-template pixel values were read; finite mask and grid metadata only.",
+  "polygon_rasterization": {
+    "attribute_table_archive": {
+      "member_count": 6,
+      "members": [
+        "USGS_SGMC_Tables_CSV/",
+        "USGS_SGMC_Tables_CSV/SGMC_Age.csv",
+        "USGS_SGMC_Tables_CSV/SGMC_Lithology.csv",
+        "USGS_SGMC_Tables_CSV/SGMC_References.csv",
+        "USGS_SGMC_Tables_CSV/SGMC_Units.csv",
+        "USGS_SGMC_Tables_CSV/SGMC_Unit_Ref_Link.csv"
+      ],
+      "name": "USGS_SGMC_Tables_CSV.zip"
+    },
+    "polygon_bboxes_intersecting_grid": 12469,
+    "polygon_geometries_transformed": 12469,
+    "polygon_geometry_transform_errors": 0,
+    "polygon_shape_count_total": 41228,
+    "polygons_missing_unit_link_in_grid_bounds": 0,
+    "rasterization_warnings": 0,
+    "states": {
+      "CA": {
+        "age_rows": 6624,
+        "age_table": "SGMC_Age.csv",
+        "age_units_with_era_pair": 6269,
+        "archive": "CA.zip",
+        "archive_member_count": 11,
+        "class_fields": {
+          "age": [
+            "age.min_era",
+            "age.max_era"
+          ],
+          "lithology": "lith.lith1"
+        },
+        "geometry_transform_errors": 0,
+        "lith_rank_filter": "major only; exact case-insensitive match",
+        "lith_rows": 18418,
+        "lith_table": "SGMC_Lithology.csv",
+        "missing_unit_link_bboxes_intersecting_grid": 0,
+        "polygon_bboxes_intersecting_grid": 647,
+        "polygon_fields": [
+          "generalize",
+          "orig_label",
+          "ref_id",
+          "sgmc_label",
+          "src_url",
+          "state",
+          "unit_link",
+          "url"
+        ],
+        "polygon_geometries_transformed": 647,
+        "polygon_shape_count": 10465,
+        "polygon_shapefile": "CA_geol_poly.shp",
+        "rasterization_warnings": 0,
+        "source_crs": "EPSG:4326",
+        "units_with_major_lith1": 6569
+      },
+      "NV": {
+        "age_rows": 6624,
+        "age_table": "SGMC_Age.csv",
+        "age_units_with_era_pair": 6269,
+        "archive": "NV.zip",
+        "archive_member_count": 11,
+        "class_fields": {
+          "age": [
+            "age.min_era",
+            "age.max_era"
+          ],
+          "lithology": "lith.lith1"
+        },
+        "geometry_transform_errors": 0,
+        "lith_rank_filter": "major only; exact case-insensitive match",
+        "lith_rows": 18418,
+        "lith_table": "SGMC_Lithology.csv",
+        "missing_unit_link_bboxes_intersecting_grid": 0,
+        "polygon_bboxes_intersecting_grid": 11822,
+        "polygon_fields": [
+          "generalize",
+          "orig_label",
+          "ref_id",
+          "sgmc_label",
+          "src_url",
+          "state",
+          "unit_link",
+          "url"
+        ],
+        "polygon_geometries_transformed": 11822,
+        "polygon_shape_count": 30763,
+        "polygon_shapefile": "NV_geol_poly.shp",
+        "rasterization_warnings": 0,
+        "source_crs": "EPSG:4326",
+        "units_with_major_lith1": 6569
+      }
+    },
+    "target_crs": "EPSG:32611",
+    "target_shape": [
+      3730,
+      3292
+    ],
+    "target_transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "unit_key_count_in_grid_bounds": 130
+  },
+  "source": "USGS State Geologic Map Compilation (SGMC), version 1.1; state polygon/attribute archives",
+  "source_metadata": "https://mrdata.usgs.gov/geology/state/USGS_SGMC_Metadata.html",
+  "source_release_doi": "https://doi.org/10.5066/F7WH2N65",
+  "template_grid": {
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "crs": "EPSG:32611",
+    "footprint_cells": 5167373,
+    "height": 3730,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "width": 3292
+  },
+  "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+  "workflow_url": "https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37454306845"
+}

@@ -184,11 +184,18 @@ def load_sgmc_unit_raster(
         tables_root = temp_root / "tables"
         tables_root.mkdir(parents=True, exist_ok=True)
         with zipfile.ZipFile(tables_archive) as tables_zip:
-            bad_member = tables_zip.testzip()
-            if bad_member:
-                raise ValueError(f"Corrupt SGMC tables ZIP member: {bad_member}")
             table_archive_members = tables_zip.namelist()
-            tables_zip.extractall(tables_root)
+            class_table_members = [
+                member for member in table_archive_members
+                if Path(member).suffix.casefold() == ".csv"
+                and Path(member).stem.casefold() in {"sgmc_age", "sgmc_lithology", "age", "lith", "lithology"}
+            ]
+            if not any(Path(member).stem.casefold() in {"sgmc_age", "age"} for member in class_table_members):
+                raise ValueError("Official SGMC table archive has no Age table CSV")
+            if not any(Path(member).stem.casefold() in {"sgmc_lithology", "lith", "lithology"} for member in class_table_members):
+                raise ValueError("Official SGMC table archive has no Lithology table CSV")
+            for member in class_table_members:
+                tables_zip.extract(member, tables_root)
         for state, archive in sorted(archive_paths.items()):
             state = state.upper()
             archive = Path(archive)
@@ -197,11 +204,28 @@ def load_sgmc_unit_raster(
             extracted = temp_root / state
             extracted.mkdir(parents=True, exist_ok=True)
             with zipfile.ZipFile(archive) as zf:
-                bad_member = zf.testzip()
-                if bad_member:
-                    raise ValueError(f"Corrupt ZIP member in {archive.name}: {bad_member}")
-                zf.extractall(extracted)
                 archive_members = zf.namelist()
+                polygon_base_names = {
+                    Path(member).with_suffix("").as_posix().casefold()
+                    for member in archive_members
+                    if Path(member).suffix.casefold() == ".shp"
+                    and "geol_poly" in Path(member).stem.casefold()
+                    and not any(token in Path(member).stem.casefold() for token in ("complex", "tiled"))
+                }
+                if len(polygon_base_names) != 1:
+                    raise ValueError(f"SGMC {state} archive has {len(polygon_base_names)} candidate geol_poly layers")
+                polygon_base = next(iter(polygon_base_names))
+                polygon_members = [
+                    member for member in archive_members
+                    if Path(member).with_suffix("").as_posix().casefold() == polygon_base
+                    and Path(member).suffix.casefold() in {".shp", ".shx", ".dbf", ".prj"}
+                ]
+                required_components = {".shp", ".shx", ".dbf", ".prj"}
+                present_components = {Path(member).suffix.casefold() for member in polygon_members}
+                if present_components != required_components:
+                    raise ValueError(f"SGMC {state} geol_poly components missing: {sorted(required_components - present_components)}")
+                for member in polygon_members:
+                    zf.extract(member, extracted)
             poly_path = _find_polygon_shapefile(extracted)
             prj_candidates = [p for p in poly_path.parent.iterdir()
                               if p.stem.casefold() == poly_path.stem.casefold()
@@ -283,6 +307,11 @@ def load_sgmc_unit_raster(
                 "archive": archive.name,
                 "archive_member_count": len(archive_members),
                 "polygon_shapefile": poly_path.relative_to(extracted).as_posix(),
+                "geometry_layer_used": "geol_poly polygons only",
+                "structure_layer_opened": False,
+                "structure_layer_member_count_not_opened": sum(
+                    "structure" in Path(member).stem.casefold() for member in archive_members
+                ),
                 "source_crs": source_crs.to_string(),
                 "polygon_fields": sorted(field_map),
                 "polygon_shape_count": state_features_seen,

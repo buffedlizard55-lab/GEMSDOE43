@@ -12,9 +12,9 @@ The source-only audit for the frozen H46-A arm completed before any holdout run.
 
 **H46-A is stopped before holdout.** The source/coverage promotion gate is false. No H46-A candidate raster, fold score, or submission artifact was generated, and no submission slot was spent. This is an explicit recorded source failure, not an implicit switch to another dataset. The full machine-readable counts and schema diagnostics are in the check summary for the run above.
 
-## H46-B: explicit next hypothesis, pending source gate
+## H46-B: explicit next hypothesis, source gate passed
 
-Because H46-A failed its frozen source gate, H46-B is promoted to the first *eligible-to-audit* hypothesis; this is a documented re-ranking, not evidence that H46-B is better. H46-C remains lower-priority and is not being silently substituted. H46-B remains **not yet viable** until its own direct-source, schema, and footprint gates pass.
+Because H46-A failed its frozen source gate, H46-B was promoted to the first *eligible-to-audit* hypothesis; this was a documented re-ranking, not evidence that H46-B is better. H46-C remains lower-priority and was not silently substituted. The separately downloaded official SGMC source/schema/footprint gates have since passed; see [`AMENDMENT-2026-10-06-SGMC-table-archive.md`](AMENDMENT-2026-10-06-SGMC-table-archive.md). H46-B is now eligible for its preregistered blocked holdout after the implementation/tests are frozen, but no holdout score is available yet.
 
 ### Official source and availability verified from USGS pages
 

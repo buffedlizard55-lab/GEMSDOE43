@@ -48,6 +48,9 @@ jobs:
             'https://www.sciencebase.gov/catalog/file/get/5888bf4fe4b05ccb964bab9d?name=USGS_SGMC_Tables_CSV.zip'
           file intake/CA.zip intake/NV.zip intake/USGS_SGMC_Tables_CSV.zip
           sha256sum intake/CA.zip intake/NV.zip intake/USGS_SGMC_Tables_CSV.zip
+          echo '78765ba4428df9f25a84f86e0b2529bd0508fc8a2cf65d2f41a830e82bccfd58  intake/CA.zip' | sha256sum --check
+          echo '3b333ac025e59aae7f0d827db45ba32c425cf867eb341561a788af1de186b76b  intake/NV.zip' | sha256sum --check
+          echo '8859dd1f00ec6ec3d397634dc86fa288e440b432aad8a98a5fb0c7f9b6bc0bde  intake/USGS_SGMC_Tables_CSV.zip' | sha256sum --check
       - name: Restore and checksum the owner-mirrored grid and footprint template
         shell: bash
         run: |

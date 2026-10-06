@@ -97,6 +97,9 @@ def test_load_sgmc_state_archive_reprojects_and_joins_attributes(tmp_path):
     with zipfile.ZipFile(archive, "w") as zf:
         for path in state_dir.iterdir():
             zf.write(path, path.name)
+        # Deliberately malformed Structure members prove the loader neither extracts nor opens them.
+        zf.writestr("CA_structure.shp", b"not a shapefile and must remain unused")
+        zf.writestr("CA_structure.dbf", b"unused public fault-table bytes")
     tables_archive = tmp_path / "USGS_SGMC_Tables_CSV.zip"
     with zipfile.ZipFile(tables_archive, "w") as zf:
         zf.write(state_dir / "age.csv", "SGMC_Age.csv")
@@ -115,6 +118,8 @@ def test_load_sgmc_state_archive_reprojects_and_joins_attributes(tmp_path):
     assert geology.unit_id[0, 0] != geology.unit_id[0, 2]
     assert geology.lithology_signature[geology.unit_id[0, 0]] == ("granite",)
     assert geology.age_signature[geology.unit_id[0, 2]] == ("mesozoic", "mesozoic")
+    assert geology.report["states"]["CA"]["structure_layer_opened"] is False
+    assert geology.report["states"]["CA"]["structure_layer_member_count_not_opened"] == 2
     strength, report = contact_contrast(
         geology.unit_id, geology, np.ones(geology.unit_id.shape, dtype=bool)
     )

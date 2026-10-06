@@ -1,6 +1,6 @@
 # GEMSDOE43 — preregistered experiment slate (2026-10-06)
 
-**Status at freeze:** before any GEMSDOE43 candidate raster or holdout score was generated. The repository began as a one-line README. All three are hypotheses, not validated findings. H46-A is the only arm authorized for the first holdout run, and only after its source-data gate passes. No submission slot is authorized by this document.
+**Original status at freeze:** before any GEMSDOE43 candidate raster or holdout score was generated. The repository began as a one-line README. All three were hypotheses, not validated findings. At that initial freeze, H46-A was the only arm authorized for the first holdout run, and only after its source-data gate passed. H46-A has since failed its source gate; a later explicit amendment re-ranked H46-B and recorded that its separate USGS source gate passed. The H46-B holdout is still not run. No submission slot is authorized by this document or its amendments.
 
 ## Objective and decision rule
 
