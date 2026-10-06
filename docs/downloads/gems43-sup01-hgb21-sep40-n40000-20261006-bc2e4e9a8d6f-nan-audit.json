@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "file": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif",
+  "sha256": "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38",
+  "bytes": 341846,
+  "profile": {
+    "driver": "GTiff",
+    "dtype": "float32",
+    "nodata": "nan",
+    "width": "3292",
+    "height": "3730",
+    "count": "1",
+    "crs": "EPSG:32611",
+    "transform": "| 100.00, 0.00, 243350.00|\n| 0.00,-100.00, 4508550.00|\n| 0.00, 0.00, 1.00|",
+    "blockxsize": "3292",
+    "blockysize": "1",
+    "tiled": "False",
+    "compress": "deflate",
+    "interleave": "band"
+  },
+  "ones": 40000,
+  "checks": [
+    {
+      "check": "file_exists",
+      "pass": true,
+      "detail": "/home/user/GEMSDOE43/docs/downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif"
+    },
+    {
+      "check": "single_band",
+      "pass": true,
+      "detail": "count=1"
+    },
+    {
+      "check": "dtype_float32",
+      "pass": true,
+      "detail": "dtypes=('float32',)"
+    },
+    {
+      "check": "crs_epsg_32611",
+      "pass": true,
+      "detail": "EPSG:32611"
+    },
+    {
+      "check": "shape_matches",
+      "pass": true,
+      "detail": "shape=(3730, 3292)"
+    },
+    {
+      "check": "transform_matches",
+      "pass": true,
+      "detail": "transform=(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)"
+    },
+    {
+      "check": "named_variant",
+      "pass": true,
+      "detail": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif"
+    },
+    {
+      "check": "nan_outside_matches_footprint",
+      "pass": true,
+      "detail": "nan=7111787 outside=7111787"
+    },
+    {
+      "check": "nodata_is_nan",
+      "pass": true,
+      "detail": "nodata=nan"
+    },
+    {
+      "check": "finite_inside",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "range_inside_01",
+      "pass": true,
+      "detail": "min=0.0 max=1.0"
+    },
+    {
+      "check": "binary_inside",
+      "pass": true,
+      "detail": "unique=[0. 1.]"
+    },
+    {
+      "check": "emission_budget",
+      "pass": true,
+      "detail": "ones=40000 budget=40000"
+    },
+    {
+      "check": "zero_on_catalogue",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "novelty_jaccard_vs_g25_d28_nan",
+      "pass": true,
+      "detail": "jaccard=0.0107"
+    },
+    {
+      "check": "novelty_overlap_vs_g25_d28_nan",
+      "pass": true,
+      "detail": "overlap=0.0222"
+    },
+    {
+      "check": "novelty_hash_vs_g25_d28_nan",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "novelty_jaccard_vs_g28_h361_nan",
+      "pass": true,
+      "detail": "jaccard=0.0109"
+    },
+    {
+      "check": "novelty_overlap_vs_g28_h361_nan",
+      "pass": true,
+      "detail": "overlap=0.0222"
+    },
+    {
+      "check": "novelty_hash_vs_g28_h361_nan",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "novelty_jaccard_vs_g32_h332b2_nan",
+      "pass": true,
+      "detail": "jaccard=0.0116"
+    },
+    {
+      "check": "novelty_overlap_vs_g32_h332b2_nan",
+      "pass": true,
+      "detail": "overlap=0.0236"
+    },
+    {
+      "check": "novelty_hash_vs_g32_h332b2_nan",
+      "pass": true,
+      "detail": ""
+    }
+  ],
+  "novelty_vs_corpus": [
+    {
+      "prior": "g25_d28_nan.tif",
+      "prior_ones": 44090,
+      "intersection": 889,
+      "jaccard": 0.010685,
+      "overlap_coefficient": 0.022225,
+      "same_sha256": false
+    },
+    {
+      "prior": "g28_h361_nan.tif",
+      "prior_ones": 37660,
+      "intersection": 835,
+      "jaccard": 0.010869,
+      "overlap_coefficient": 0.022172,
+      "same_sha256": false
+    },
+    {
+      "prior": "g32_h332b2_nan.tif",
+      "prior_ones": 37654,
+      "intersection": 889,
+      "jaccard": 0.011581,
+      "overlap_coefficient": 0.02361,
+      "same_sha256": false
+    }
+  ],
+  "result": "PASS"
+}

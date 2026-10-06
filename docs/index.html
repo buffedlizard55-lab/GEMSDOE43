@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Auditable DOE GEMS fault-mapping research, provenance, spatial validation and no-go decision.">
-  <title>GEMSDOE43 · GEMS research</title>
+  <meta name="description" content="Auditable DOE GEMS fault-mapping research, validated submission download, spatial validation and gate decision.">
+  <title>GEMSDOE43 · GEMS research &amp; validated submission</title>
   <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
@@ -25,18 +25,18 @@
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow">DOE GEMS · research record · 06 Oct 2026</div>
-        <h1>Better fault maps start with honest holdouts.</h1>
-        <p>GEMSDOE43 is a reproducible research and submission workflow for the GEMS Prize. Every score claim has an attribution; every candidate has to clear a spatially blocked gate before it is eligible for a portal slot.</p>
+        <h1>One baseline beaten. One submission ready.</h1>
+        <p>GEMSDOE43 is a reproducible research and submission workflow for the GEMS Prize. The supervised SUP01 ranker beat the reproduced H42 baseline on all four spatial blocks at equal mass — so this round ships a format-audited, novelty-checked GeoTIFF. It is live-<strong>UNSCRED</strong>: the holdout cannot forecast organizer scores.</p>
         <div class="button-row">
-          <span class="button disabled" aria-disabled="true">No eligible submission download</span>
-          <a class="button secondary" href="executive-summary.html">Read the decision &amp; guide</a>
+          <a class="button" download href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif">Download submission GeoTIFF</a>
+          <a class="button secondary" href="executive-summary.html">Submission guide &amp; portal note</a>
         </div>
-        <p class="small">No submission slot has been used. The failed G43-CG01 raster is not offered as a submission.</p>
+        <p class="small"><code>gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif</code> · 40,000 dots · NaN outside · sha256 <code>41216d099db0e077…</code> · <a href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif" download>all-finite fallback twin</a> · <a href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan-audit.json">format receipt</a></p>
       </div>
       <div class="hero-side">
-        <span class="badge no-go">Current decision · no-go</span>
-        <strong>0.211567</strong>
-        <span>G43-CG01 mean blocked-holdout DTI</span>
+        <span class="badge pass">Current decision · slot-eligible (unscored live)</span>
+        <strong>0.262666</strong>
+        <span>SUP01 mean blocked-holdout DTI · 4/4 folds won</span>
         <strong style="margin-top:22px">0.250744</strong>
         <span>reproduced H42 mean DTI · same four folds and mass</span>
       </div>
@@ -45,8 +45,8 @@
   <main class="wrap">
     <section class="section">
       <div class="callout">
-        <strong>G43-CG01 failed the preregistered promotion gate.</strong>
-        <p>It scored below H42 in all four folds (0/4 wins). Under the project charter, no GeoTIFF is made downloadable and no competition slot is used. Full fold data and the exact H42 reproduction check are in the <a href="research.html">validation record</a>.</p>
+        <strong>SUP01 passed the corrected promotion gate (+0.011922 mean, 4/4 folds).</strong>
+        <p>Per-fold supervised ranker (19 competition bands + scarp evidence + validity flag), 40,000 dots at 4-px separation, none within 200 m of the catalogue. MCLP placement, the MG01 triple-gradient surface, and the SH/MG01 ensemble were tested on the same protocol and failed — their honest negative results are kept below. Full fold data are in the <a href="research.html">validation record</a>.</p>
       </div>
     </section>
 
@@ -57,16 +57,21 @@
       </div>
       <div class="grid">
         <article class="card">
-          <span class="badge pass">Baseline reproduced</span>
-          <div class="metric"><strong>0.250744</strong></div>
-          <p>H42 `SH_basin_strong`, sep 4 px, 40,000 pixels. All four folds match the owner report within 1e-6. Local catalogue CV only.</p>
-          <a href="research.html">See baseline method and checks →</a>
+          <span class="badge pass">Candidate promoted</span>
+          <div class="metric"><strong>0.262666</strong></div>
+          <p>SUP01 HGB ranker + sep-4.0 packing, 40,000 dots. Beats the reproduced H42 mean by 0.011922 with 4/4 fold wins (corrected gate needs folds 1–3 only: 3/3).</p>
+          <a href="research.html#round2">See round-2 validation →</a>
         </article>
         <article class="card">
-          <span class="badge no-go">Candidate not promoted</span>
-          <div class="metric"><strong>0.211567</strong></div>
-          <p>G43-CG01 magnetic–gravity concordance; 0/4 fold wins against H42. No download, no portal slot.</p>
-          <a href="hypotheses.html#cg01">Review the hypothesis and result →</a>
+          <span class="badge no-go">Placement falsified</span>
+          <div class="metric"><strong>0.211122</strong></div>
+          <p>Exact lazy-greedy MCLP on the H42 surface: 0/4 wins. Optimal covering of a miscalibrated surface loses to fixed packing. <a href="research.html#mclp">Mechanism →</a></p>
+        </article>
+        <article class="card">
+          <span class="badge pass">Unique layout</span>
+          <div class="metric"><strong>0.012</strong><span>max Jaccard vs 3 priors</span></div>
+          <p>Submission shares ~2% of dots with the nearest prior layout (d2.8, H36-1, H33-2-B2); duplicate threshold is 0.80. Different hash from every prior.</p>
+          <a href="research.html#submission">Read the novelty audit →</a>
         </article>
         <article class="card">
           <span class="badge caution">Mirror provenance</span>
@@ -75,25 +80,26 @@
           <a href="sources.html#inputs">Review data provenance →</a>
         </article>
         <article class="card wide">
-          <h3>Equal-mass fold comparison</h3>
-          <p>The same four-colour 20-km spatial blocks and 40,000-pixel emission budget are used for H42 and CG01. Values are local, rounded to six decimals, and must not be described as a competition score.</p>
+          <h3>Equal-mass fold comparison (round 2)</h3>
+          <p>Same four-colour 20-km spatial blocks and 40,000-pixel emission budget for every arm. Values are local, rounded to six decimals, and must not be described as a competition score.</p>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Fold</th><th>H42 baseline</th><th>G43-CG01</th><th>Difference</th></tr></thead>
+              <thead><tr><th>Fold</th><th>H42 baseline</th><th>SUP01 (primary)</th><th>Difference</th><th>Win?</th></tr></thead>
               <tbody>
-                <tr><td>0</td><td>0.242272</td><td>0.207406</td><td>−0.034866</td></tr>
-                <tr><td>1</td><td>0.247658</td><td>0.206557</td><td>−0.041101</td></tr>
-                <tr><td>2</td><td>0.255021</td><td>0.204019</td><td>−0.051002</td></tr>
-                <tr><td>3</td><td>0.258025</td><td>0.228287</td><td>−0.029738</td></tr>
-                <tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.211567</strong></td><td><strong>−0.039177</strong></td></tr>
+                <tr><td>0 †</td><td>0.242272</td><td>0.259893</td><td>+0.017621</td><td>Yes</td></tr>
+                <tr><td>1</td><td>0.247658</td><td>0.258672</td><td>+0.011014</td><td>Yes</td></tr>
+                <tr><td>2</td><td>0.255021</td><td>0.263133</td><td>+0.008112</td><td>Yes</td></tr>
+                <tr><td>3</td><td>0.258025</td><td>0.268965</td><td>+0.010940</td><td>Yes</td></tr>
+                <tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.262666</strong></td><td><strong>+0.011922</strong></td><td><strong>4/4</strong></td></tr>
               </tbody>
             </table>
           </div>
+          <p class="small">† Fold 0 selected the backup arms, so the corrected gate judges folds 1–3 only (3/3 + mean 0.263590 vs 0.253568). SUP01 also clears the original 4-fold gate. MCLP/ensemble arms: A 0.211122 · B 0.150107 · C 0.205756 · E 0.241241, each 0/4 wins.</p>
         </article>
         <article class="card">
           <span class="badge info">H33-2-B2 attribution</span>
           <div class="metric"><strong>0.2747</strong><span>projected, owner model</span></div>
-          <p>The 0.2747 value is an owner-calibrated projection from owner-reported anchors—not an organizer-confirmed score.</p>
+          <p>The 0.2747 value is an owner-calibrated projection from owner-reported anchors—not an organizer-confirmed score. A conflicting 0.2778 report is flagged.</p>
           <a href="executive-summary.html#h33">Read the careful explanation →</a>
         </article>
       </div>
@@ -101,23 +107,23 @@
 
     <section class="section">
       <div class="section-head">
-        <div><div class="kicker">Research sequence</div><h2>What happens next</h2></div>
+        <div><div class="kicker">What happens next</div><h2>Submit carefully, then improve the detector</h2></div>
       </div>
       <div class="grid">
         <article class="card">
-          <h3>01 · Choose next hypothesis</h3>
-          <p>Five candidates were ranked before implementation. CG01 is now a documented no-go; do not relax its gate after seeing the result.</p>
-          <a href="hypotheses.html">Open the ranked slate →</a>
+          <h3>01 · Submit one file</h3>
+          <p>Upload the <code>-nan.tif</code> primary with the unique name <code>GEMSDOE43-SUP01-HGB21-SE40</code> and the prepared portal note. Keep the AI-use narrative with it.</p>
+          <a href="executive-summary.html#submission-guide">Open the submission guide →</a>
         </article>
         <article class="card">
-          <h3>02 · Preregister the next test</h3>
-          <p>Freeze layers, operator, spatial folds, score budget, comparison baseline, and stopping rule before inspecting holdout scores.</p>
-          <a href="research.html#workflow">Read the reproducible workflow →</a>
+          <h3>02 · Calibrate live mass</h3>
+          <p>The 0.2·DTI credit bar (≈0.052) prices every dot. Future prunes/thinnings need live anchors — each slot is a calibration experiment, not a lottery ticket.</p>
+          <a href="research.html#credit">Read the credit-bar analysis →</a>
         </article>
         <article class="card">
-          <h3>03 · Publish only if it wins</h3>
-          <p>Before a future download, compare candidate arrays against prior artifacts, audit the GeoTIFF, verify data rights, and prepare the AI-use narrative.</p>
-          <a href="executive-summary.html#submission-guide">Submission guide →</a>
+          <h3>03 · Fix the detector next</h3>
+          <p>MCLP proved placement is downstream of probability quality. Next: calibrated supervised surfaces (SUP01+MCLP), corroborated additions, depth-aware layers.</p>
+          <a href="hypotheses.html">Open the hypothesis slates →</a>
         </article>
       </div>
     </section>
@@ -125,7 +131,7 @@
     <section class="section">
       <div class="callout warn">
         <strong>Leaderboard snapshot is historical.</strong>
-        <p>The last recorded public observation is 2026-10-05 (rank 1: 0.3345). It was not refreshed on 2026-10-06 because DrivenData's Terms of Use prohibit monitoring/copying without prior written permission. Visit the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official page</a> directly if authorized; this site does not poll or mirror it. <a href="leaderboard.html">Details →</a></p>
+        <p>The last recorded public observation is 2026-10-05 (rank 1: 0.3345). It was not refreshed on 2026-10-06 because DrivenData's Terms of Use prohibit monitoring/copying without prior written permission. Competing historical claims (0.3195, 0.3262) are flagged as unresolved. Visit the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official page</a> directly if authorized; this site does not poll or mirror it. <a href="leaderboard.html">Details →</a></p>
       </div>
     </section>
   </main>

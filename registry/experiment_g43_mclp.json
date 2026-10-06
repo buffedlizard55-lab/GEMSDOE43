@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "experiment_id": "G43-MCLP01+MG01",
+  "status": "evaluated_gate_passed_primary_D_SUP01",
+  "preregistration_status": "frozen_before_round2_holdout_evaluation",
+  "registered_utc": "2026-10-06",
+  "question": "Does lazy-greedy maximum expected coverage placement (Church-ReVelle MCLP) beat fixed-separation packing on the same surface, and does a new magnetic triple-gradient surface add further gains?",
+  "hypotheses": {
+    "G43-MCLP01": "Covering a continuous [0,1] surface with the official 300-m triangular kernel via submodular greedy maximizes expected kernel credit per dot and beats any fixed spacing constant on the same surface.",
+    "G43-MG01": "Locations strong in TMI horizontal gradient, |vertical gradient|, and RTP edge simultaneously mark fault-juxtaposed susceptibility contacts, including weak/deep ones absent from the catalogue."
+  },
+  "inputs": {
+    "feature_raster": "data/training_features.tif",
+    "mg01_bands": [
+      "tmi_hg",
+      "tmi_vg",
+      "rtp"
+    ],
+    "h42_surface": "SH_basin_strong rebuilt exactly as in round 1 (slope, detrended elev, tmi_hg, lidar scarp)",
+    "valid_domain": "finite cells within sample_submission.tif footprint intersected with per-arm band validity",
+    "not_used_in_score_construction": [
+      "labels.tif",
+      "leaderboard values",
+      "previous submission rasters"
+    ]
+  },
+  "frozen_operators": {
+    "mg01_surface": {
+      "smoothing": "mask-aware Gaussian sigma=2.0 px on each input (normalized convolution over valid cells; nearest boundary mode)",
+      "terms": [
+        "norm01(smoothed tmi_hg over valid, 99th percentile)",
+        "norm01(abs(smoothed tmi_vg) over valid, 99th percentile)",
+        "norm01(hypot(gradient(smoothed rtp)) over valid, 99th percentile)"
+      ],
+      "aggregation": "weighted geometric mean with 0.05 floor, equal weights (H42 convention); output clipped to [0,1]; 0 outside valid",
+      "range_floor": 0.05
+    },
+    "mclp_placement": {
+      "objective": "maximize sum_j p_j * max_{i in S} k(d_ij) with k(d)=max(1-d/3,0), d in grid cells; |S|=40000",
+      "solver": "exact lazy (accelerated) greedy with a max-heap; deterministic tie-break by ascending flat index; cached gains are upper bounds (min of cached and recomputed on push-back)",
+      "candidate_set": "top 300000 eligible cells by initial coverage gain g0 (exact 7x7 triangular-kernel convolution); all eligible cells if fewer",
+      "demand_domain_holdout": "evaluation-domain cells (held-fold interior after 3-px guard) intersected with surface validity",
+      "demand_domain_submission": "full-footprint valid cells (footprint & band-valid), including catalogue-adjacent cells, so boundary dots can cover them",
+      "eligible_holdout": "evaluation cells more than 2 px from training traces, intersected with surface validity",
+      "eligible_submission": "footprint cells more than 2 px from any catalogue positive, intersected with surface validity (on-catalogue masked pixels excluded; consistent with the 2-px holdout training guard)",
+      "budget": 40000,
+      "safety": "abort with an error (no partial selection) if total marginal-gain recomputes exceed 20000000 in one fold/build"
+    },
+    "arm_c_packing": "existing stable greedy_pack with min_sep=4.0 px, budget 40000, candidate_cap 2000000"
+  },
+  "holdout": {
+    "protocol_source": "same frozen protocol as registry/experiment.json (round 1): 4 folds, 200-px blocks, (row//200 + 2*(col//200)) % 4, 3-px edge guard, 2-px training guard",
+    "equal_mass": 40000,
+    "metric": "official 300-m triangular-kernel DTI, no known-mask (held-out positives are truth)",
+    "arms": [
+      "REF recomputed SH_basin_strong|sep4.0|N40000 (protocol-drift guard; must match round-1 receipt within 1e-6 mean/min/max)",
+      "A SH_basin_strong surface + MCLP N40000",
+      "B MG01 surface + MCLP N40000",
+      "C MG01 surface + sep4.0 packing N40000",
+      "D SUP01 HGB + sep4.0 N40000 (corrected gate folds 1-3)",
+      "E ENS(SH,MG01) + sep4.0 N40000 (corrected gate folds 1-3)"
+    ]
+  },
+  "promotion_gate": {
+    "reference_match_required_within_1e-6": true,
+    "candidate_mean_must_strictly_exceed_recomputed_H42_mean": true,
+    "candidate_must_win_at_least_3_of_4_folds": true,
+    "must_pass_tests_and_input_integrity_audit": true,
+    "must_pass_raster_novelty_comparison_before_download_or_submission": true,
+    "must_pass_single_band_geotiff_geometry_value_and_mask_audit": true,
+    "must_review_rules_and_disclose_AI_use": true,
+    "primary_selection": "highest-mean passing arm; tie within 1e-6 prefers the new-geology arm (B over A)",
+    "holdout_is_not_a_public_score_forecast": true
+  },
+  "submission_build_if_gate_passes": {
+    "surface": "winning arm surface rebuilt on the full footprint",
+    "eligible": "footprint & band-valid & catalogue_distance_gt_2px",
+    "emission": "MCLP (arms A/B) or sep4.0 packing (arm C, only if C alone passes) at N=40000, binary {0,1}",
+    "normalization": "prediction values are binary 1/0, hence within [0,1]; NaN outside footprint; nodata=NaN",
+    "artifacts": [
+      "docs/downloads/<unique>-nan.tif (primary, NaN outside)",
+      "docs/downloads/<unique>-zeros.tif (all-finite fallback twin, identical inside footprint)",
+      "docs/downloads/<unique>-audit.json (independent re-read format receipt)"
+    ]
+  },
+  "owner_directed_artifact_policy": "The owner explicitly requires an easy-to-download unique TIF. The file is published with honest validation labeling either way: if the gate passes it is slot-eligible (still live-UNSCRED); if the gate fails it is published as a research artifact that is NOT recommended for slot use, with the failed gate stated next to the download. No live score is ever claimed without an organizer receipt.",
+  "guarantee_scope": "(1-1/e) is relative to the optimum over the preregistered 300k candidate set for covering the SURFACE, not for covering hidden truth. It is a placement-quality floor, not a DTI forecast.",
+  "official_data_and_leaderboard_policy": {
+    "current_inputs_are_owner_mirrors_and_are_not_organizer_authenticated": true,
+    "no_automated_leaderboard_access_or_polling_without_authorized_api_or_written_permission": true,
+    "do_not_refresh_or_copy_leaderboard_without_written_permission": true
+  },
+  "outcome": {
+    "receipt": "evidence/holdout_g43_mclp.json",
+    "drift_guard": "PASS",
+    "summary_4fold_mean": {
+      "A_SH_MCLP|N40000": 0.211122,
+      "B_MG01_MCLP|N40000": 0.150107,
+      "C_MG01_sep4.0|N40000": 0.205756,
+      "D_SUP01_HGB|sep4.0|N40000": 0.262666,
+      "E_ENS_SH_MG01|sep4.0|N40000": 0.241241,
+      "REF_SH_basin_strong|sep4.0|N40000": 0.250744
+    },
+    "passing_arms": [
+      "D_SUP01_HGB|sep4.0|N40000"
+    ],
+    "primary_arm": "D_SUP01_HGB|sep4.0|N40000",
+    "primary_gate": {
+      "gate_definition": "corrected round-2b: folds 1-3 mean strictly greater + 3/3 wins (fold 0 excluded as selection fold)",
+      "candidate_mean_folds1_3": 0.26359,
+      "reference_mean_folds1_3": 0.253568,
+      "candidate_mean_beats_reference": true,
+      "fold_wins_folds1_3": 3,
+      "minimum_fold_wins_required": 3,
+      "candidate_mean_4fold": 0.262666,
+      "passes_holdout_promotion_gate": true
+    },
+    "mclp_verdict": "Arms A/B fail (0/4 wins each): exact lazy-greedy max-coverage placement trails fixed sep-4 packing on the same surface; placement optimization cannot fix a miscalibrated surface. See research/amendment_round2b.md and research/mclp_strategy.md.",
+    "submission_build": {
+      "arm": "D_SUP01_HGB|sep4.0|N40000",
+      "budget": 40000,
+      "slot_eligible_per_gate": true,
+      "live_status": "UNSCRED"
+    },
+    "submission_files": {
+      "nan": {
+        "name": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif",
+        "sha256": "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38",
+        "bytes": 341846
+      },
+      "zeros": {
+        "name": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif",
+        "sha256": "224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65",
+        "bytes": 288706
+      }
+    },
+    "submission_candidate": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f",
+    "interpretation": "SUP01 passes the corrected gate (3/3 clean folds + mean) and the original 4-fold gate; slot use is authorized by the gate but the file is live-UNSCRED and the holdout does not forecast organizer scores"
+  },
+  "amendment_round2b": {
+    "date_utc": "2026-10-06",
+    "memo": "research/amendment_round2b.md",
+    "reason": "fold-0 full-budget exploration falsified all MCLP placement variants (best: calibrated demand, -0.037 DTI vs packing); preregistered Arms A/B/C run unchanged on the original gate; backup Arms D (supervised HGB ranker + sep4) and E (SH/MG01 50-50 ensemble + sep4) added, judged on folds 1-3 only (3/3 wins + mean required) because fold 0 selected them",
+    "added_arms": {
+      "D_SUP01_HGB|sep4.0|N40000": "HistGradientBoostingClassifier(max_iter=200, learning_rate=0.06, max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0, class_weight=balanced, early_stopping=True, validation_fraction=0.1, n_iter_no_change=20, random_state=20261006) on 21 features (19 bands + scarp evidence + scarp-valid flag); greedy_pack sep4.0 N40000",
+      "E_ENS_SH_MG01|sep4.0|N40000": "50/50 H42-style geometric mean of SH and MG01; greedy_pack sep4.0 N40000"
+    },
+    "corrected_gate_DE": "win 3/3 of folds 1-3 vs recomputed H42 reference AND mean(folds1-3) strictly greater; fold 0 reported but excluded",
+    "primary_selection": "among all passing arms, highest 4-fold mean; tie within 1e-6 prefers newest geology D > E > B > A"
+  }
+}

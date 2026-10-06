@@ -1,35 +1,12 @@
 {
   "schema_version": 1,
-  "as_of_utc": "2026-10-06",
-  "candidate": "G43-CG01",
-  "status": "NO_GO",
-  "reason": "preregistered candidate failed the frozen spatial holdout promotion gate",
-  "reference_reproduction": {
-    "status": "PASS",
-    "arm": "SH_basin_strong|sep4.0|N40000",
-    "mean_dti": 0.250744,
-    "minimum_fold_dti": 0.242272,
-    "maximum_fold_dti": 0.258025,
-    "source_attribution": "local G43 reproduction of an owner-maintained GEMSDOE41 report; not an organizer-confirmed score"
-  },
-  "candidate_validation": {
-    "arm": "G43-CG01_crossgradient|sep4.0|N40000",
-    "mean_dti": 0.211567,
-    "minimum_fold_dti": 0.204019,
-    "maximum_fold_dti": 0.228287,
-    "fold_wins_vs_reproduced_h42": 0,
-    "folds": 4,
-    "holdout_gate_passed": false,
-    "truth_scope": "withheld published-catalogue faults; not hidden competition truth"
-  },
-  "release": {
-    "submission_geotiff_created": false,
-    "download_link_enabled": false,
-    "submission_slot_used": false,
-    "raster_novelty_audit": "not_run; no full-grid candidate GeoTIFF was generated for release",
-    "portal_comment": null,
-    "unique_submission_name": null,
-    "reason_not_created": "a failed candidate must not be presented as a submission; novelty and final GeoTIFF checks are release gates"
-  },
-  "next_step": "Select and preregister a backup geological hypothesis before any new holdout scoring; do not tune the failed CG01 gate post hoc."
+  "as_of_utc": "2026-10-06T15:43:59Z",
+  "candidate": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f",
+  "arm": "D_SUP01_HGB|sep4.0|N40000",
+  "status": "SLOT_ELIGIBLE",
+  "live_status": "UNSCRED",
+  "primary_file": "docs/downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif",
+  "fallback_file": "docs/downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif",
+  "unique_submission_name": "GEMSDOE43-SUP01-HGB21-SE40",
+  "portal_comment": "GEMSDOE43 SUP01: HGB ranker 19 bands+scarp, 40k sep4 dots d>200m off-catalogue; 20km-block +0.0119 mean 4/4 folds vs H42; live UNSCORED; id bc2e4e9a8d6f"
 }

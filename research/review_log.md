@@ -54,3 +54,70 @@ Implemented the pinned-input restore/audit flow, exact input metadata/footprint 
 ## Release conclusion
 
 The project software, provenance receipts, H42 reproduction and candidate no-go are verifiable. The central **submission** objective is still incomplete: no unique TIF exists because the candidate failed. Any PR should be framed as a reproducible research/no-go improvement, not as a winning or portal-ready submission. A future candidate needs a new pre-registered experiment and the same or stronger holdout gate.
+
+---
+
+# Round 2 — three-pass release log (2026-10-06 UTC)
+
+Scope: round-2 hypothesis slate, MCLP/MG01/SUP01/ensemble experiment, submission
+build, site promotion to slot-eligible, and all supporting receipts. Full detail:
+`research/hypotheses_round2.md`, `research/amendment_round2b.md`,
+`research/mclp_strategy.md`, `evidence/holdout_g43_mclp.json`,
+`evidence/submission_status.json`.
+
+## Pass 1 — implement + verify
+
+- Registered round 2 (MCLP01/MG01/BG01/GT01/SC01) with frozen runner
+  `scripts/run_holdout_mclp.py` + registry `experiment_g43_mclp.json` before any
+  scored run. Fold-0 exploration falsified MCLP (seven demand variants, all
+  trailing); timestamped amendment added SUP01/ENS01 backups with a corrected
+  folds-1–3 gate (3/3 + mean).
+- Scored 4-fold run finished exit 0 (838 s). Drift guard PASS (REF matched
+  round-1 ×8 within 1e-6). SUP01: 0.262666, 4/4; A/B/C/E all 0 wins. All
+  exploration numbers are in the amendment — no post-hoc tuning.
+- Built the full-footprint submission after an OOM (exit 137 on 3.9 GB) was
+  fixed by adding `fit_predict_in_sample` and releasing the 1 GB stack before
+  the 261 s CPU fit. Both twins pass `audit_submission.py`; novelty Jaccard
+  ≈ 0.011 vs three hash-verified priors.
+- 30/30 unit tests pass, including new MCLP-vs-enumeration, HGB-helper
+  equivalence, frozen-hyperparameter, and eligibility-aware site tests.
+
+## Pass 2 — bug / leakage / edge-case review
+
+- Verified SUP01 trains per fold on training-block cells only; no held-fold
+  labels, no coordinates, early stopping on training split; `fit_predict_in_sample`
+  proven byte-exact vs the CV path on fold-size data.
+- Verified MCLP demand uses training-guarded surfaces; eval truth uses raw
+  held blocks; candidate shortlist is deterministic; greedy solver checked
+  against brute-force optima (greedy ≥ (1−1/e)·OPT on all randomized trials).
+- Radius-derived padding fix in `mclp.py` (was spacing-hardcoded); scored
+  behavior unchanged. Pipe exit-masking lesson recorded; reruns use
+  `> log 2>&1; echo PY_EXIT:$?`.
+- Format audit independently re-verifies CRS/shape/dtype/range/count/flank
+  rules; receipt hashes match shipped bytes (asserted by `test_site.py`).
+- Leakage review conclusion: the local instrument knows only training-block
+  catalogue labels; the owner-mirror sample file (IR-DATA-01) is used for
+  geometry only in every path. No train/eval label leakage found.
+
+## Pass 3 — charter line-by-line recheck
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| Unique TIF submission, not a copy | **Done** | `docs/downloads/gems43-*-bc2e4e9a8d6f-{nan,zeros}.tif`, build receipt, novelty table (Jaccard < 0.80, overlap < 0.90, hashes differ) |
+| MCLP covering optimization, not spacing sweep | **Done (tested, falsified)** | `src/gemsdoe43/mclp.py`, `tests/test_mclp.py`, amendment log; shipped file follows the validated placer |
+| Portal format contract ([0,1], float32, EPSG:32611, 100 m, NaN outside) | **Done** | Per-file audit receipts; zeros twin for NaN-handling fallback |
+| Near-duplicate layout check | **Done** | 3-prior corpus, Jaccard ≈ 0.011, ~2% dot overlap |
+| 3–5 ranked hypotheses + holdout validation before slot | **Done** | Two slates (5 + 5 + 2 backups), ranked with layers/signature/rationale/cost; best validated 4-fold before release |
+| Official sources, review links, flagged irregularities | **Done** | `research/source_register.md` (DD/P/EXT/LIT/SOFT IDs), IR-DATA-01, IR-REPORT-01/02 unresolved |
+| Obvious download + unique name + portal note + guide | **Done** | Landing hero + executive-summary guide, `GEMSDOE43-SUP01-HGB21-SE40`, 152-char note, narrative draft with AI disclosure |
+| H33 0.2747 attribution without organizer-score claims | **Done** | `research/h33_result_review.md`, exec-summary/site sections, IR-REPORT-01 flag |
+| Leaderboard terms compliance (no refresh/scrape) | **Done** | Dated 2026-10-05 snapshot only, links out, IR-REPORT-02 flag |
+| Three passes + PR only when verifiable | **Done** | This log; 30/30 tests; scored exit-0 receipts; PR may open |
+
+## Release conclusion (round 2)
+
+SUP01 passed the frozen gate and every release audit; it is **slot-eligible and
+live-UNSCRED**. All other round-2 arms are rejected with mechanisms preserved.
+A PR may now be opened and merged as a research + submission-release change,
+framed honestly: one eligible but unscored file plus a falsified placement
+program — not a winning or leaderboard-verified submission.
