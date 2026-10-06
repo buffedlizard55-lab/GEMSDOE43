@@ -110,10 +110,15 @@ principled future combination; this round tests the supervised ranker with packi
 
 - **IR-REPORT-01:** the owner brief lists H33-2-B2 at **0.2778** as scored, but
   GEMSDOE32's own site and PR #9 label H33-2-B2 **projected 0.2747, UNSCORED**, with no
-  organizer score in the repository. Unresolved; do not cite either as organizer-confirmed.
-- **IR-REPORT-02:** competing "highest score" claims: owner brief 0.3195; GEMSDOE32's
-  2026-10-04 leaderboard read #1 0.3262 (nchuzhoy); G43 README's 2026-10-05 snapshot
-  rank-1 0.3345. Different dates, different values, none current. The leaderboard was not
-  re-read here per the DrivenData Terms of Use; check the
-  [official page](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
-  directly in a browser.
+  organizer score in the repository. Still unresolved; do not cite either as
+  organizer-confirmed. The merged MCLP line independently flags the same fact as
+  IR-43-010: no GEMSDOE\* team appears in the visible top 25 of the 2026-10-06 read, so
+  0.2778 cannot be matched to a board row.
+- **IR-REPORT-02 — RESOLVED by merge (2026-10-06).** The competing "highest score"
+  claims (owner brief 0.3195; GEMSDOE32's 2026-10-04 read #1 0.3262; G43 2026-10-05
+  snapshot rank-1 0.3345) coexist on the merged 2026-10-06 leaderboard read: #1
+  alexoktaba 0.3345, #2 nchuzhoy 0.3262, #5 DARD 0.3195 (see
+  `docs/data/leaderboard.json`, merged from main's PR #3; the brief's "0.3195 is the
+  highest" is stale — the MCLP line's IR-43-001). The read is a dated snapshot, not a
+  live feed; future refreshes still require an authorized route per the DrivenData
+  Terms of Use.

@@ -1,0 +1,383 @@
+{
+ "file": "/home/user/GEMSDOE43/.cache/gems_work/channels.u8.npy",
+ "shape": [
+  62,
+  3730,
+  3292
+ ],
+ "dtype": "uint8",
+ "channels": [
+  {
+   "index": 1,
+   "name": "raw_mag_anom",
+   "hypothesis": "base",
+   "note": "official band 'mag_anom', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 2,
+   "name": "raw_rtp",
+   "hypothesis": "base",
+   "note": "official band 'rtp', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 3,
+   "name": "raw_tmi",
+   "hypothesis": "base",
+   "note": "official band 'tmi', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 4,
+   "name": "raw_tmi_hg",
+   "hypothesis": "base",
+   "note": "official band 'tmi_hg', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 5,
+   "name": "raw_tmi_vg",
+   "hypothesis": "base",
+   "note": "official band 'tmi_vg', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 6,
+   "name": "raw_tc",
+   "hypothesis": "base",
+   "note": "official band 'tc', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 7,
+   "name": "raw_iso_grav_anom",
+   "hypothesis": "base",
+   "note": "official band 'iso_grav_anom', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 8,
+   "name": "raw_iso_grav_anom_hg",
+   "hypothesis": "base",
+   "note": "official band 'iso_grav_anom_hg', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 9,
+   "name": "raw_iso_grav_anom_vg",
+   "hypothesis": "base",
+   "note": "official band 'iso_grav_anom_vg', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 10,
+   "name": "raw_iso_grav_anom_slope",
+   "hypothesis": "base",
+   "note": "official band 'iso_grav_anom_slope', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 11,
+   "name": "raw_det_elev",
+   "hypothesis": "base",
+   "note": "official band 'det_elev', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 12,
+   "name": "raw_det_elev_slope",
+   "hypothesis": "base",
+   "note": "official band 'det_elev_slope', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 13,
+   "name": "raw_cond_surf",
+   "hypothesis": "base",
+   "note": "official band 'cond_surf', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 14,
+   "name": "raw_depth_to_base_surf",
+   "hypothesis": "base",
+   "note": "official band 'depth_to_base_surf', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 15,
+   "name": "raw_geod_2ndinv",
+   "hypothesis": "base",
+   "note": "official band 'geod_2ndinv', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 16,
+   "name": "raw_geod_shearrate",
+   "hypothesis": "base",
+   "note": "official band 'geod_shearrate', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 17,
+   "name": "raw_geod_dilaterate",
+   "hypothesis": "base",
+   "note": "official band 'geod_dilaterate', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 18,
+   "name": "raw_ieq_n100a15",
+   "hypothesis": "base",
+   "note": "official band 'ieq_n100a15', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 19,
+   "name": "raw_deq_n100a15",
+   "hypothesis": "base",
+   "note": "official band 'deq_n100a15', sentinel-filled, robust 0.5/99.5 pct"
+  },
+  {
+   "index": 20,
+   "name": "h431_analytic_signal",
+   "hypothesis": "H43-1",
+   "note": "sqrt(tmi_hg^2 + tmi_vg^2): contact locator independent of magnetization direction"
+  },
+  {
+   "index": 21,
+   "name": "h431_asa_ridge",
+   "hypothesis": "H43-1",
+   "note": "non-max-suppressed ridge of the analytic signal amplitude"
+  },
+  {
+   "index": 22,
+   "name": "h431_tilt_grad",
+   "hypothesis": "H43-1",
+   "note": "|grad tc|: the horizontal gradient of the tilt angle peaks over source edges"
+  },
+  {
+   "index": 23,
+   "name": "h431_tilt_zero_band",
+   "hypothesis": "H43-1",
+   "note": "narrow band around the tilt-angle zero contour, which outlines the source body"
+  },
+  {
+   "index": 24,
+   "name": "h431_tilt_abs",
+   "hypothesis": "H43-1",
+   "note": "|tc|: total-curvature / tilt magnitude"
+  },
+  {
+   "index": 25,
+   "name": "line_mag",
+   "hypothesis": "H43-1",
+   "note": "Frangi vesselness (both polarities) of tmi at sigma=(1.2, 2.5), 0.5/99.5 pct"
+  },
+  {
+   "index": 26,
+   "name": "line_rtp",
+   "hypothesis": "H43-1",
+   "note": "Frangi vesselness (both polarities) of rtp at sigma=(1.2, 2.5), 0.5/99.5 pct"
+  },
+  {
+   "index": 27,
+   "name": "line_tilt",
+   "hypothesis": "H43-1",
+   "note": "Frangi vesselness (both polarities) of tc at sigma=(1.2, 2.5), 0.5/99.5 pct"
+  },
+  {
+   "index": 28,
+   "name": "line_grav",
+   "hypothesis": "H43-5",
+   "note": "Frangi vesselness (both polarities) of iso_grav_anom at sigma=(1.5, 3.0), 0.5/99.5 pct"
+  },
+  {
+   "index": 29,
+   "name": "line_elev",
+   "hypothesis": "base",
+   "note": "Frangi vesselness (both polarities) of det_elev at sigma=(1.2, 2.5), 0.5/99.5 pct"
+  },
+  {
+   "index": 30,
+   "name": "line_cond",
+   "hypothesis": "H43-2",
+   "note": "Frangi vesselness (both polarities) of cond_surf at sigma=(1.5, 3.0), 0.5/99.5 pct"
+  },
+  {
+   "index": 31,
+   "name": "line_base",
+   "hypothesis": "H43-2",
+   "note": "Frangi vesselness (both polarities) of depth_to_base_surf at sigma=(1.5, 3.0), 0.5/99.5 pct"
+  },
+  {
+   "index": 32,
+   "name": "line_shear",
+   "hypothesis": "H43-2",
+   "note": "Frangi vesselness (both polarities) of geod_shearrate at sigma=(2.0, 4.0), 0.5/99.5 pct"
+  },
+  {
+   "index": 33,
+   "name": "h431_orient_order",
+   "hypothesis": "H43-1",
+   "note": "R = |sum_p w_p exp(2i theta_p)| / sum_p w_p over ['mag', 'rtp', 'tilt', 'grav', 'elev', 'cond', 'base']: do independent physics agree on the strike?"
+  },
+  {
+   "index": 34,
+   "name": "h431_multi_physics_fused",
+   "hypothesis": "H43-1",
+   "note": "OR-fusion of the per-physics line responses, gated by strike agreement"
+  },
+  {
+   "index": 35,
+   "name": "h432_base_step",
+   "hypothesis": "H43-2",
+   "note": "|grad depth_to_base_surf|: a step in the sedimentary cover thickness = basin fault"
+  },
+  {
+   "index": 36,
+   "name": "h432_cond_step",
+   "hypothesis": "H43-2",
+   "note": "|grad log cond_surf|: MT conductivity step = buried lithologic/fluid boundary"
+  },
+  {
+   "index": 37,
+   "name": "h432_coincidence",
+   "hypothesis": "H43-2",
+   "note": "geometric mean of basement step, conductivity step and geodetic shear ridge"
+  },
+  {
+   "index": 38,
+   "name": "h432_conceal_gate",
+   "hypothesis": "H43-2",
+   "note": "1 - mean(local relief, local slope): high where no scarp could be mapped"
+  },
+  {
+   "index": 39,
+   "name": "h432_concealed_coincidence",
+   "hypothesis": "H43-2",
+   "note": "subsurface coincidence weighted by the concealment gate"
+  },
+  {
+   "index": 40,
+   "name": "h433_seis_resid",
+   "hypothesis": "H43-3",
+   "note": "|ieq - smooth(ieq, 12 px)|: the supplied band is 0.9935 self-correlated at 3 km, so only the high-pass residual can carry fault-scale information"
+  },
+  {
+   "index": 41,
+   "name": "h433_deq_min",
+   "hypothesis": "H43-3",
+   "note": "negative distance-to-earthquake: local minima line up along active structures"
+  },
+  {
+   "index": 42,
+   "name": "h435_grav_analytic_signal",
+   "hypothesis": "H43-5",
+   "note": "analytic signal amplitude of the isostatic gravity anomaly"
+  },
+  {
+   "index": 43,
+   "name": "h435_grav_tilt_depth",
+   "hypothesis": "H43-5",
+   "note": "tilt-depth SPI: 1/|grad(tilt)| estimates depth to the density contrast"
+  },
+  {
+   "index": 44,
+   "name": "strain_second_invariant",
+   "hypothesis": "base",
+   "note": "geodetic second invariant, smoothed"
+  },
+  {
+   "index": 45,
+   "name": "strain_dilat_abs",
+   "hypothesis": "base",
+   "note": "|dilatation rate|"
+  },
+  {
+   "index": 46,
+   "name": "rad_K",
+   "hypothesis": "base",
+   "note": "GeoDAWN radiometric band 'K'"
+  },
+  {
+   "index": 47,
+   "name": "rad_Th",
+   "hypothesis": "base",
+   "note": "GeoDAWN radiometric band 'Th'"
+  },
+  {
+   "index": 48,
+   "name": "rad_U",
+   "hypothesis": "base",
+   "note": "GeoDAWN radiometric band 'U'"
+  },
+  {
+   "index": 49,
+   "name": "rad_TC",
+   "hypothesis": "base",
+   "note": "GeoDAWN radiometric band 'TC'"
+  },
+  {
+   "index": 50,
+   "name": "radx_ThK",
+   "hypothesis": "base",
+   "note": "GeoDAWN extension band 'ThK'"
+  },
+  {
+   "index": 51,
+   "name": "radx_UK",
+   "hypothesis": "base",
+   "note": "GeoDAWN extension band 'UK'"
+  },
+  {
+   "index": 52,
+   "name": "radx_UTh",
+   "hypothesis": "base",
+   "note": "GeoDAWN extension band 'UTh'"
+  },
+  {
+   "index": 53,
+   "name": "radx_TMI_up150",
+   "hypothesis": "base",
+   "note": "GeoDAWN extension band 'TMI_up150'"
+  },
+  {
+   "index": 54,
+   "name": "lidar_ex_max",
+   "hypothesis": "base",
+   "note": "1 m LiDAR scarp product band 'ex_max'"
+  },
+  {
+   "index": 55,
+   "name": "lidar_step_max",
+   "hypothesis": "base",
+   "note": "1 m LiDAR scarp product band 'step_max'"
+  },
+  {
+   "index": 56,
+   "name": "lidar_downface_max",
+   "hypothesis": "base",
+   "note": "1 m LiDAR scarp product band 'downface_max'"
+  },
+  {
+   "index": 57,
+   "name": "lidar_relief",
+   "hypothesis": "base",
+   "note": "1 m LiDAR scarp product band 'relief'"
+  },
+  {
+   "index": 58,
+   "name": "lidar_coh100",
+   "hypothesis": "base",
+   "note": "1 m LiDAR scarp product band 'coh100'"
+  },
+  {
+   "index": 59,
+   "name": "ext_sgmc_prox",
+   "hypothesis": "external",
+   "note": "exp(-d/400 m) to the SGMC fault inventory (an independent compilation)"
+  },
+  {
+   "index": 60,
+   "name": "h434_spring_density",
+   "hypothesis": "H43-4",
+   "note": "GDR well/spring density weighted by measured temperature"
+  },
+  {
+   "index": 61,
+   "name": "h434_spring_lines",
+   "hypothesis": "H43-4",
+   "note": "locality-constrained PCA lineaments through clusters of >=3 thermal features (radius 25 px, elongation >= 0.80), extended 12 px along strike: orientation evidence that an isotropic proximity decay cannot express"
+  },
+  {
+   "index": 62,
+   "name": "ext_vent_prox",
+   "hypothesis": "external",
+   "note": "exp(-d/800 m) to GDR volcanic vents"
+  }
+ ]
+}

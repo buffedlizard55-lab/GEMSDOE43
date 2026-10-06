@@ -2,23 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Dated public GEMS leaderboard snapshot and access limitations.">
-  <title>Leaderboard access note · GEMSDOE43</title>
+  <meta name="description" content="Dated 2026-10-06 leaderboard snapshot, resolved stale-claim flags, and access terms.">
+  <title>Leaderboard note · GEMSDOE43</title>
   <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <header class="topbar"><div class="wrap topbar-inner">
   <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
-  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a aria-current="page" href="leaderboard.html">Leaderboard note</a></nav>
+  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a aria-current="page" href="leaderboard.html">Leaderboard note</a><a href="mclp-line.html">MCLP line</a><a href="irregularities.html">Irregularities</a></nav>
 </div></header>
-<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Public board · dated snapshot only</div><h1>No polling. No stale data dressed up as current.</h1><p>Leaderboard standings change, but DrivenData's Terms of Use limit automatic and manual monitoring or copying without prior written consent. This page keeps the last previously recorded observation clearly dated.</p></div><div class="hero-side"><span class="badge caution">Historical observation · 05 Oct 2026</span><strong>0.3345</strong><span>rank 1 in the last recorded snapshot</span></div></div></section>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Dated snapshot · not a live feed</div><h1>Leaderboard read 2026-10-06.</h1><p>The merged project record is a dated top-10 read. It resolved the stale “highest score” claims in the owner brief — and shows no GEMSDOE row in the visible top 25.</p></div><div class="hero-side"><span class="badge caution">Snapshot</span><strong>0.3345</strong><span>#1 · alexoktaba · public board</span></div></div></section>
 <main class="wrap">
-<section class="section"><div class="callout warn"><strong>This is not a current leaderboard report.</strong><p>The rank-1 value above is the last previously recorded public observation, dated 2026-10-05. It was not refreshed on 2026-10-06. The top entry's identity and subsequent standings are not asserted on this page. <strong>Flagged conflict (IR-REPORT-02):</strong> competing historical “highest score” claims exist (owner brief: 0.3195; GEMSDOE32's 2026-10-04 read: #1 0.3262; this repo's 2026-10-05 snapshot: rank-1 0.3345). Different dates, different values, none current — check the official page directly in a browser.</p></div></section>
-<section class="section"><div class="grid">
-  <article class="card wide"><span class="source-id">Terms of Use · Prohibited Uses</span><h2>Why there is no automated feed</h2><p>DrivenData's <a href="https://www.drivendata.org/termsofuse/">Terms of Use</a> prohibit use of a robot, spider or other automatic process to access the site for any purpose, including monitoring/copying, and prohibit a manual process to monitor or copy without prior written consent. Accordingly, this project contains no scraper, polling schedule, refresh button, or API guess.</p><p>To see current standings, open the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official leaderboard page</a> directly if you are authorized. If the competition team provides a documented authorized API or written permission, the access policy can be revisited.</p></article>
-  <article class="card"><span class="source-id">Evidence class</span><h3>External to local validation</h3><p>The board's public DTI is not comparable to the catalogue-blocked holdout DTI as an independent truth. It is not private Phase 1 or final Phase 2 performance.</p><a href="research.html">Read evaluation limitations →</a></article>
+<section class="section"><div class="section-head"><div><div class="kicker">Public board only</div><h2>Top 10 · read 2026-10-06</h2></div><p>Machine-readable: <a href="data/leaderboard.json">docs/data/leaderboard.json</a>. Source: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official leaderboard</a>.</p></div>
+<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Participant</th><th>Best public DW-Tversky</th></tr></thead><tbody>
+<tr><td>#1</td><td>alexoktaba</td><td><strong>0.3345</strong></td></tr>
+<tr><td>#2</td><td>nchuzhoy</td><td>0.3262</td></tr>
+<tr><td>#3</td><td>kinghorton42</td><td>0.3222</td></tr>
+<tr><td>#4</td><td>Batik Shirt Brothers</td><td>0.3218</td></tr>
+<tr><td>#5</td><td>DARD</td><td>0.3195</td></tr>
+<tr><td>#6</td><td>joeyfezster</td><td>0.3163</td></tr>
+<tr><td>#7</td><td>xiaofanhu</td><td>0.3060</td></tr>
+<tr><td>#8</td><td>ndavis7</td><td>0.2888</td></tr>
+<tr><td>#9</td><td>mzoorob</td><td>0.2884</td></tr>
+<tr><td>#10</td><td>GrigorSargsyan</td><td>0.2876</td></tr>
+</tbody></table></div>
+<p class="small">Public score only — it is not the private Phase 1 or the final expert-reviewed prize score. The page is dynamic; this table is a dated snapshot.</p></section>
+<section class="section"><div class="section-head"><div><div class="kicker">Resolved by this read</div><h2>Stale-claim flags</h2></div></div>
+<div class="grid">
+<article class="card"><h3>IR-43-001 — brief stale on the leader (resolved)</h3><p>The owner brief says “0.3195 is the highest score right now.” On the 2026-10-06 page, 0.3195 (DARD) is rank 5; the leader is 0.3345. The old IR-REPORT-02 conflict (0.3195 / 0.3262 / 0.3345) was the same board at different ranks — resolved.</p></article>
+<article class="card"><h3>IR-43-010 — 0.2778 unmatched (open)</h3><p>No GEMSDOE* team appears in the visible top 25, so the brief's group-best 0.2778 (H33-2-B2) cannot be matched to a board row. Owner-reported, not organizer-confirmed — same fact as IR-REPORT-01.</p></article>
 </div></section>
-<section class="section"><div class="notice"><strong>Task charter retained:</strong> inspect the official leaderboard when permitted, but do not violate the site's terms. No unauthorized scraping, copying, or monitoring is implemented.</div></section>
+<section class="section"><div class="section-head"><div><div class="kicker">Owner-reported context</div><h2>Group submission ledger</h2></div><p>Every row is OWNER-REPORT unless its evidence class says otherwise; no row is linked to a file by an organizer receipt. <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/docs/score-ledger.csv">docs/score-ledger.csv →</a></p></div></section>
+<section class="section"><div class="callout warn"><strong>No refresh feed exists here.</strong><p>DrivenData's Terms of Use prohibit automatic monitoring/copying and manual monitoring/copying without prior written consent. This repository implements no scraper, poller, or periodic refresh. Future reads are a manual, authorized act only, and must be dated on arrival like this one.</p></div></section>
 </main>
 <footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="sources.html">Source register</a></span></div></footer>
 </body>

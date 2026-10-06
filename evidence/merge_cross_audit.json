@@ -1,0 +1,32 @@
+{
+ "as_of_utc": "2026-10-06",
+ "purpose": "PR #3/#4 merge: independent cross-checks between the two shipped lines",
+ "mclp_file_format_via_sup01_auditor": {
+  "zeros": {
+   "result": "PASS",
+   "ones": 51053,
+   "sha256": "63c9239a7eb473c342ba51f8f70494aa7222499d3935908c022d54e2e5b5bd4b",
+   "size_bytes": 820001
+  },
+  "nan": {
+   "result": "PASS",
+   "ones": 51053,
+   "sha256": "48fd9d40427a03ae5eaafa63156c28f73b69dde6d0209dcc30c042094ed5c08e",
+   "size_bytes": 1585705
+  },
+  "sha_matches_main_claim": true
+ },
+ "pairwise_layout_novelty": {
+  "sup01_file": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif",
+  "mclp_file": "gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif",
+  "sup01_dots": 40000,
+  "mclp_dots": 51053,
+  "intersection": 986,
+  "jaccard": 0.010947405820111694,
+  "overlap_of_sup01": 0.02465,
+  "overlap_of_mclp": 0.019313262687795037,
+  "grids_match": true,
+  "verdict": "DISTINCT (jaccard < 0.80, overlap < 0.90)"
+ },
+ "conclusion": "Both MCLP twins pass the independent format audit; the two shipped layouts are mutually distinct (Jaccard 0.011)."
+}

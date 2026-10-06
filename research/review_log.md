@@ -121,3 +121,67 @@ live-UNSCRED**. All other round-2 arms are rejected with mechanisms preserved.
 A PR may now be opened and merged as a research + submission-release change,
 framed honestly: one eligible but unscored file plus a falsified placement
 program — not a winning or leaderboard-verified submission.
+
+---
+
+# Merge reconciliation — main (PR #3, MCLP line) + arena/dffca7c2 (PR #4, SUP01 line), 2026-10-06
+
+While PR #4 was open, main merged PR #3: a parallel MCLP-emission line with its
+own package (`src/gems43/`), pipeline, H46 records, generated site, leaderboard
+read, and shipped file `gemsdoe43-mclp-supoof-51053-*` (51,053 dots, portal name
+`GEMSDOE43-MCLP-sup_oof-51053`). Both lines were reconciled instead of picking
+one blindly. All of main's evidence is preserved verbatim; nothing was deleted.
+
+## What each line established (kept side by side)
+
+- **MCLP line (main):** supervised out-of-fold prior over 62 channels, packed
+  sep-3.0/N40000, scores **0.286388 mean, 4/4 folds** vs same-run H42 0.250744
+  on the shared four-fold protocol (`evidence/holdout_g43_cg01.json`, EXT arm).
+  Frames-A/C selection vs a live-anchored reference bar (+33%/+36%); frame B
+  excluded (SGMC-truth circularity). Novelty PASS vs 221 artifacts (coverage
+  IoU 0.181). Leaderboard read 2026-10-06 (top-10 table) resolves IR-REPORT-02.
+- **SUP01 line (PR #4):** per-fold HGB ranker on 21 features + sep-4.0 packing
+  scores **0.262666 mean, 4/4 folds** vs reproduced H42 (`evidence/
+  holdout_g43_mclp.json`); MCLP placement independently falsified on tested
+  surfaces (0.211122, 0/4). Format + novelty audits PASS on the shipped twins.
+
+## The decision both lines' evidence forces
+
+The MCLP line's own status record (`superseded_by.measurement_caveat`) states
+its shipped maximal-covering placement was **never scored at equal mass**, its
+channel stack and OOF surface were **lost with gitignored .cache/** (the
+shipped file is currently irreproducible), and its prescribed next step is to
+score the shipped emission or emit validated packing instead. Round 2
+independently predicts that test fails (MCLP 0/4 on two surfaces). Therefore:
+
+- **PRIMARY (slot recommendation):** the SUP01 file — the only shipped layout
+  whose exact emission family was validated at equal mass, with a reproducible
+  build (`scripts/build_submission_sup01.py`).
+- **ALTERNATIVE (retained with caveat):** the MCLP sup_oof file — validated
+  prior, unvalidated placement, irreproducible until rebuilt.
+- **Top next step:** rebuild the supervised prior + validated sep-3.0/N40000
+  packing into a shippable file (0.286388 on the same protocol exceeds 0.262666);
+  score any MCLP emission at equal mass before promoting it.
+
+Recorded in `evidence/submission_status.json` (`primary_release` + `decision`;
+the CG01 NO_GO base and the MCLP `superseded_by` record are untouched).
+
+## Mechanical merge notes
+
+- Main's generated site backbone is kept for MCLP-line detail
+  (`docs/mclp-line.html`, `docs/irregularities.html`, `docs/research/*`,
+  `docs/data/*`, `docs/score-ledger.csv`); the six charter-required pages are
+  hand-maintained merged versions in the light theme, with `docs/assets/
+  site.css` restored to the base theme (main's pages are inline-styled and
+  unaffected). `scripts/build_site.py` was patched to stop overwriting the
+  merged pages (it now renders MCLP-line detail + data feeds only).
+- Colliding adds were renamed, not overwritten: `scripts/
+  build_submission_sup01.py`, `tests/test_mclp_greedy.py` (SUP01 line) alongside
+  main's `scripts/build_submission.py`, `tests/test_mclp.py` (MCLP line).
+- `evidence/holdout_g43_cg01.json` on main dropped the round-1 CG01 arms when
+  the EXT grid was added; the original bytes are preserved verbatim as
+  `evidence/holdout_g43_cg01_round1.json`.
+- `tests/test_site.py` now asserts the two-file decision state (both downloads
+  present with PASS audits, primary/decision tokens on the landing page and
+  guide, both gate receipts reproducible). Full suite (pytest + unittest),
+  `scripts/check_site_links.py`, `compileall`, and `git diff --check` all pass.

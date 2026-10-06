@@ -1,140 +1,44 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Auditable DOE GEMS fault-mapping research, validated submission download, spatial validation and gate decision.">
-  <title>GEMSDOE43 · GEMS research &amp; validated submission</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GEMSDOE43: two audited submission files, one primary. SUP01 HGB ranker download, MCLP-line alternative, validation and decision record.">
+  <title>GEMSDOE43 · Auditable GEMS research and submission</title>
   <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
-      <nav class="nav" aria-label="Primary navigation">
-        <a aria-current="page" href="index.html">Overview</a>
-        <a href="executive-summary.html">Summary &amp; submission guide</a>
-        <a href="hypotheses.html">Hypotheses</a>
-        <a href="research.html">Validation</a>
-        <a href="sources.html">Sources</a>
-        <a href="leaderboard.html">Leaderboard note</a>
-      </nav>
-    </div>
-  </header>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">DOE GEMS · research record · 06 Oct 2026</div>
-        <h1>One baseline beaten. One submission ready.</h1>
-        <p>GEMSDOE43 is a reproducible research and submission workflow for the GEMS Prize. The supervised SUP01 ranker beat the reproduced H42 baseline on all four spatial blocks at equal mass — so this round ships a format-audited, novelty-checked GeoTIFF. It is live-<strong>UNSCRED</strong>: the holdout cannot forecast organizer scores.</p>
-        <div class="button-row">
-          <a class="button" download href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif">Download submission GeoTIFF</a>
-          <a class="button secondary" href="executive-summary.html">Submission guide &amp; portal note</a>
-        </div>
-        <p class="small"><code>gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif</code> · 40,000 dots · NaN outside · sha256 <code>41216d099db0e077…</code> · <a href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif" download>all-finite fallback twin</a> · <a href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan-audit.json">format receipt</a></p>
-      </div>
-      <div class="hero-side">
-        <span class="badge pass">Current decision · slot-eligible (unscored live)</span>
-        <strong>0.262666</strong>
-        <span>SUP01 mean blocked-holdout DTI · 4/4 folds won</span>
-        <strong style="margin-top:22px">0.250744</strong>
-        <span>reproduced H42 mean DTI · same four folds and mass</span>
-      </div>
-    </div>
-  </section>
-  <main class="wrap">
-    <section class="section">
-      <div class="callout">
-        <strong>SUP01 passed the corrected promotion gate (+0.011922 mean, 4/4 folds).</strong>
-        <p>Per-fold supervised ranker (19 competition bands + scarp evidence + validity flag), 40,000 dots at 4-px separation, none within 200 m of the catalogue. MCLP placement, the MG01 triple-gradient surface, and the SH/MG01 ensemble were tested on the same protocol and failed — their honest negative results are kept below. Full fold data are in the <a href="research.html">validation record</a>.</p>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <div><div class="kicker">Evidence at a glance</div><h2>What is known—and what is not</h2></div>
-        <p>Local validation is not a public leaderboard score, and an owner projection is not an organizer result.</p>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <span class="badge pass">Candidate promoted</span>
-          <div class="metric"><strong>0.262666</strong></div>
-          <p>SUP01 HGB ranker + sep-4.0 packing, 40,000 dots. Beats the reproduced H42 mean by 0.011922 with 4/4 fold wins (corrected gate needs folds 1–3 only: 3/3).</p>
-          <a href="research.html#round2">See round-2 validation →</a>
-        </article>
-        <article class="card">
-          <span class="badge no-go">Placement falsified</span>
-          <div class="metric"><strong>0.211122</strong></div>
-          <p>Exact lazy-greedy MCLP on the H42 surface: 0/4 wins. Optimal covering of a miscalibrated surface loses to fixed packing. <a href="research.html#mclp">Mechanism →</a></p>
-        </article>
-        <article class="card">
-          <span class="badge pass">Unique layout</span>
-          <div class="metric"><strong>0.012</strong><span>max Jaccard vs 3 priors</span></div>
-          <p>Submission shares ~2% of dots with the nearest prior layout (d2.8, H36-1, H33-2-B2); duplicate threshold is 0.80. Different hash from every prior.</p>
-          <a href="research.html#submission">Read the novelty audit →</a>
-        </article>
-        <article class="card">
-          <span class="badge caution">Mirror provenance</span>
-          <div class="metric"><strong>4 / 4</strong><span>rasters hash-checked</span></div>
-          <p>Byte integrity matches owner-published manifests. No checksum or authenticated download from DrivenData was available here.</p>
-          <a href="sources.html#inputs">Review data provenance →</a>
-        </article>
-        <article class="card wide">
-          <h3>Equal-mass fold comparison (round 2)</h3>
-          <p>Same four-colour 20-km spatial blocks and 40,000-pixel emission budget for every arm. Values are local, rounded to six decimals, and must not be described as a competition score.</p>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Fold</th><th>H42 baseline</th><th>SUP01 (primary)</th><th>Difference</th><th>Win?</th></tr></thead>
-              <tbody>
-                <tr><td>0 †</td><td>0.242272</td><td>0.259893</td><td>+0.017621</td><td>Yes</td></tr>
-                <tr><td>1</td><td>0.247658</td><td>0.258672</td><td>+0.011014</td><td>Yes</td></tr>
-                <tr><td>2</td><td>0.255021</td><td>0.263133</td><td>+0.008112</td><td>Yes</td></tr>
-                <tr><td>3</td><td>0.258025</td><td>0.268965</td><td>+0.010940</td><td>Yes</td></tr>
-                <tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.262666</strong></td><td><strong>+0.011922</strong></td><td><strong>4/4</strong></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="small">† Fold 0 selected the backup arms, so the corrected gate judges folds 1–3 only (3/3 + mean 0.263590 vs 0.253568). SUP01 also clears the original 4-fold gate. MCLP/ensemble arms: A 0.211122 · B 0.150107 · C 0.205756 · E 0.241241, each 0/4 wins.</p>
-        </article>
-        <article class="card">
-          <span class="badge info">H33-2-B2 attribution</span>
-          <div class="metric"><strong>0.2747</strong><span>projected, owner model</span></div>
-          <p>The 0.2747 value is an owner-calibrated projection from owner-reported anchors—not an organizer-confirmed score. A conflicting 0.2778 report is flagged.</p>
-          <a href="executive-summary.html#h33">Read the careful explanation →</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <div><div class="kicker">What happens next</div><h2>Submit carefully, then improve the detector</h2></div>
-      </div>
-      <div class="grid">
-        <article class="card">
-          <h3>01 · Submit one file</h3>
-          <p>Upload the <code>-nan.tif</code> primary with the unique name <code>GEMSDOE43-SUP01-HGB21-SE40</code> and the prepared portal note. Keep the AI-use narrative with it.</p>
-          <a href="executive-summary.html#submission-guide">Open the submission guide →</a>
-        </article>
-        <article class="card">
-          <h3>02 · Calibrate live mass</h3>
-          <p>The 0.2·DTI credit bar (≈0.052) prices every dot. Future prunes/thinnings need live anchors — each slot is a calibration experiment, not a lottery ticket.</p>
-          <a href="research.html#credit">Read the credit-bar analysis →</a>
-        </article>
-        <article class="card">
-          <h3>03 · Fix the detector next</h3>
-          <p>MCLP proved placement is downstream of probability quality. Next: calibrated supervised surfaces (SUP01+MCLP), corroborated additions, depth-aware layers.</p>
-          <a href="hypotheses.html">Open the hypothesis slates →</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="callout warn">
-        <strong>Leaderboard snapshot is historical.</strong>
-        <p>The last recorded public observation is 2026-10-05 (rank 1: 0.3345). It was not refreshed on 2026-10-06 because DrivenData's Terms of Use prohibit monitoring/copying without prior written permission. Competing historical claims (0.3195, 0.3262) are flagged as unresolved. Visit the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official page</a> directly if authorized; this site does not poll or mirror it. <a href="leaderboard.html">Details →</a></p>
-      </div>
-    </section>
-  </main>
-  <footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Core Values: Maximize P(Win) · Own the Outcome</span><span><a href="sources.html">Source register</a><a href="executive-summary.html">Decision &amp; guide</a></span></div></footer>
+<header class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+  <nav class="nav" aria-label="Primary navigation"><a aria-current="page" href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a><a href="mclp-line.html">MCLP line</a><a href="irregularities.html">Irregularities</a></nav>
+</div></header>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Two files · one primary · both live-unscored</div><h1>Primary: the SUP01 HGB submission.</h1><p>A supervised ranker beat the reproduced H42 baseline on every spatial block at equal mass, passed format and novelty audits, and is packaged with a unique name, portal note, and AI-disclosure narrative. A parallel MCLP-line file is retained as the alternative, with its caveat stated. Nothing here is a leaderboard score.</p><div class="button-row"><a class="button" download href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif">Download primary GeoTIFF</a><a class="button secondary" href="#alternative">Alternative file ↓</a></div></div><div class="hero-side"><span class="badge pass">Gate · pass (D only)</span><strong>+0.011922</strong><span>SUP01 mean margin vs H42 · 4/4 folds</span></div></div></section>
+<main class="wrap">
+<section class="section"><div class="callout"><strong>Decision (2026-10-06 merge of PR #3 + PR #4).</strong><p><strong>PRIMARY:</strong> <code>gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif</code> (name <code>GEMSDOE43-SUP01-HGB21-SE40</code>) — the only shipped layout whose exact emission family was validated at equal mass (4/4 folds), with a reproducible build. <strong>ALTERNATIVE:</strong> <code>gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</code> — validated prior (0.286388 packing) but a shipped maximal-covering placement that was never scored at equal mass, and a lost build cache. Full record: <a href="executive-summary.html#decision">decision section</a> and <code>evidence/submission_status.json</code>.</p></div></section>
+<section class="section grid">
+  <article class="card"><span class="badge pass">Reproduced twice</span><h3>Baseline H42</h3><p>Local four-colour, 20-km catalogue holdout reimplementation matches the owner report within 1e-6 (mean 0.250744). Round 2 re-ran it unchanged as a drift guard: PASS.</p><a href="research.html#h42">Open the holdout receipt →</a></article>
+  <article class="card"><span class="badge pass">Validated · primary</span><h3>SUP01 HGB ranker</h3><p>Per-fold gradient boosting on 21 features (19 bands + scarp + validity flag). Mean 0.262666, wins folds 0–3 (+0.0176, +0.0110, +0.0081, +0.0109). Corrected gate (folds 1–3): 3/3.</p><a href="research.html#round2">Review the frozen operator →</a></article>
+  <article class="card"><span class="badge caution">Prior validated · placement not</span><h3>sup_oof + MCLP line</h3><p>Supervised OOF prior packs to 0.286388 (4/4) — the best validated surface here. The shipped 51,053-dot maximal-covering file itself was never scored at equal mass.</p><a href="mclp-line.html">Read the MCLP-line record →</a></article>
+  <article class="card"><span class="badge no-go">Rejected at gate</span><h3>MCLP / MG01 / ensemble / CG01</h3><p>Exact lazy-greedy maximum-coverage placement trails fixed packing on the same surfaces (0.211122 / 0.150107, 0/4 each). MG01, the ensemble, H46-B, and CG01 also failed. Mechanisms preserved.</p><a href="research.html#mclp">Read the falsifications →</a></article>
+</section>
+<section class="section"><div class="section-head"><div><div class="kicker">Local validation only</div><h2>Frozen four-fold results (equal mass, catalogue truth)</h2></div><span class="badge pass">Drift guard PASS</span></div>
+<div class="table-wrap"><table><thead><tr><th>Arm</th><th>Mean DTI</th><th>Fold wins vs H42</th><th>Gate</th></tr></thead><tbody>
+<tr><td><strong>sup_oof prior + sep-3.0 packing (MCLP line)</strong></td><td><strong>0.286388</strong></td><td>4/4</td><td><strong>Prior validated</strong> (shipped MCLP placement differs)</td></tr>
+<tr><td><strong>SUP01 + sep-4.0 packing (primary)</strong></td><td><strong>0.262666</strong></td><td>4/4</td><td><strong>PASS</strong> (3/3 clean folds + mean)</td></tr>
+<tr><td>H42 reproduced reference</td><td>0.250744</td><td>—</td><td>reference</td></tr>
+<tr><td>SH/MG01 ensemble + packing</td><td>0.241241</td><td>0/3 clean</td><td>FAIL</td></tr>
+<tr><td>CG01 cross-gradient (round 1)</td><td>0.211567</td><td>0/4</td><td>FAIL</td></tr>
+<tr><td>MCLP on H42 surface</td><td>0.211122</td><td>0/4</td><td>FAIL</td></tr>
+<tr><td>MG01 + packing</td><td>0.205756</td><td>0/4</td><td>FAIL</td></tr>
+<tr><td>MCLP on MG01 surface</td><td>0.150107</td><td>0/4</td><td>FAIL</td></tr>
+</tbody></table></div>
+<p class="small">Each fold withholds a 20-km block colour and scores recovery of mapped catalogue faults only. Local margins are not public, private Phase 1, or Phase 2 scores.</p></section>
+<section class="section" id="alternative"><div class="section-head"><div><div class="kicker">Retained alternative · live-unscored</div><h2>The MCLP-line file</h2></div><p>One slot per week — this file is the backup, not the recommendation. Its prior is the best validated surface in the repo; its placement is the open question.</p></div>
+<div class="grid"><article class="card"><h3>Download (alternative)</h3><p><a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif"><code>gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</code></a> (801&nbsp;KB) + <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-nan.tif">NaN twin</a> + <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.zip">zip</a>. 51,053 dots · 0 on-catalogue · sha256 <code>63c9239a…5bd4b</code> · name <code>GEMSDOE43-MCLP-sup_oof-51053</code>.</p><a href="mclp-line.html">Full MCLP-line record →</a></article>
+<article class="card"><h3>Caveat (from its own status record)</h3><p>The shipped maximal-covering placement was never scored at equal mass (unequal-mass probe 0.219994, 0/4 — a mass artefact). The channel stack and OOF surface were lost with <code>.cache/</code>, so the file cannot be rebuilt without re-running the pipeline. Round 2 independently falsified MCLP placement on two surfaces.</p></article></div></section>
+<section class="section"><div class="section-head"><div><div class="kicker">Current record · dated snapshot</div><h2>Leaderboard read 2026-10-06</h2></div><p>#1 alexoktaba 0.3345 · #2 nchuzhoy 0.3262 · #3 kinghorton42 0.3222 · #4 Batik Shirt Brothers 0.3218 · #5 DARD 0.3195. The brief's “0.3195 is the highest” is stale (IR-43-001); no GEMSDOE row is visible (IR-43-010). <a href="leaderboard.html">Full table + terms →</a></p></div></section>
+<section class="section"><div class="notice"><strong>No refresh feed.</strong> The snapshot above is dated, not live. DrivenData's Terms of Use prohibit automatic or manual monitoring/copying without prior written consent — this repo links the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official page</a> for authorized browser review instead.</div></section>
+<section class="section"><div class="callout warn"><strong>Two files are offered — with their limits attached.</strong><p>The primary passed the frozen gate for its exact emission and every release audit; the alternative carries a validated prior with an unvalidated placement. Both are live-UNSCRED, built on owner-mirrored inputs, and validated only against withheld mapped faults. <a href="executive-summary.html">Read the submission guide →</a></p></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="executive-summary.html">Submission guide</a><a href="research.html">Validation</a></span></div></footer>
 </body>
 </html>

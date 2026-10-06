@@ -1,0 +1,209 @@
+{
+  "all_data_viability_gates_pass": false,
+  "all_stream_sample_spatial_coverage_report": {
+    "distinct_20km_blocks_with_samples": 48,
+    "mapped_study_counts": {
+      "Hum": 253,
+      "WS": 198
+    },
+    "require_geochem_index": false,
+    "sample_locations_projected": 4563,
+    "samples_in_footprint": 451,
+    "samples_inside_bounds_outside_footprint": 1026,
+    "samples_outside_template_bounds": 3086,
+    "source_crs_assumption": "EPSG:4267",
+    "target_crs": "EPSG:32611",
+    "template_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "template_footprint_cells": 5167373,
+    "template_shape": [
+      3730,
+      3292
+    ],
+    "template_transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "data_viability_gates": {
+    "all_inside_footprint_field_values_finite_and_bounded": true,
+    "at_least_1000_eligible_stream_sample_locations_in_footprint": false,
+    "at_least_500_samples_with_ge3_assays_in_footprint": false,
+    "geochemical_support_nonempty": true,
+    "outside_footprint_field_zero": true,
+    "source_crs_transformed_to_template_crs": true
+  },
+  "fixed_2km_rasterization_report": {
+    "cells_with_geochemical_support": 1492379,
+    "enrichment_p95_before_scaling": 0.36351877450942993,
+    "field_max": 1.0,
+    "gaussian_truncate_sigma": 4.0,
+    "kernel_sigma_m": 2000.0,
+    "kernel_sigma_pixels": 20.0,
+    "outside_footprint_nonzero_cells": 0,
+    "point_count_rasterized": 447,
+    "positive_enrichment_cells": 923429,
+    "support_fraction_of_footprint": 0.2888080655296221
+  },
+  "geochem_eligible_sample_spatial_coverage_report": {
+    "distinct_20km_blocks_with_samples": 48,
+    "mapped_study_counts": {
+      "Hum": 250,
+      "WS": 197
+    },
+    "require_geochem_index": true,
+    "sample_locations_projected": 4290,
+    "samples_in_footprint": 447,
+    "samples_inside_bounds_outside_footprint": 1009,
+    "samples_outside_template_bounds": 2834,
+    "source_crs_assumption": "EPSG:4267",
+    "target_crs": "EPSG:32611",
+    "template_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "template_footprint_cells": 5167373,
+    "template_shape": [
+      3730,
+      3292
+    ],
+    "template_transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "github_actions_run_id": 37446554478,
+  "github_check_run_id": 112212682627,
+  "interpretation": "Source/data quality audit only; not a fault score or holdout result.",
+  "sample_count_report": {
+    "assay_fields": {
+      "Ag": "Ag(part)_ppm",
+      "As": "As(part)_ppm",
+      "Au": "Au_AA",
+      "Pb": "Pb(part)_ppm",
+      "Sb": "Sb(part)_ppm",
+      "Zn": "Zn(part)_ppm"
+    },
+    "assay_qualifier_column_present": {
+      "Ag": true,
+      "As": true,
+      "Au": true,
+      "Pb": true,
+      "Sb": true,
+      "Zn": false
+    },
+    "assay_quality_counts": {
+      "Ag": {
+        "blank": 0,
+        "censored": 0,
+        "invalid": 0,
+        "nonnumeric": 50,
+        "numeric": 2561,
+        "substituted": 1952
+      },
+      "As": {
+        "blank": 0,
+        "censored": 0,
+        "invalid": 0,
+        "nonnumeric": 49,
+        "numeric": 4278,
+        "substituted": 236
+      },
+      "Au": {
+        "blank": 0,
+        "censored": 0,
+        "invalid": 0,
+        "nonnumeric": 52,
+        "numeric": 1316,
+        "substituted": 3195
+      },
+      "Pb": {
+        "blank": 0,
+        "censored": 0,
+        "invalid": 0,
+        "nonnumeric": 49,
+        "numeric": 4513,
+        "substituted": 1
+      },
+      "Sb": {
+        "blank": 0,
+        "censored": 0,
+        "invalid": 0,
+        "nonnumeric": 49,
+        "numeric": 2865,
+        "substituted": 1649
+      },
+      "Zn": {
+        "blank": 0,
+        "censored": 0,
+        "invalid": 0,
+        "nonnumeric": 49,
+        "numeric": 4514,
+        "substituted": 0
+      }
+    },
+    "eligible_stream_rows_with_coordinates": 4563,
+    "eligible_study_counts": {
+      "Hum": 2534,
+      "MJA": 552,
+      "WS": 1477
+    },
+    "excluded_sample_types": [
+      "59",
+      "62",
+      "64",
+      "66",
+      "70",
+      "72",
+      "99"
+    ],
+    "header_irregularities": [
+      "First CSV header cell is apostrophe-prefixed ('ID); normalized to the documented ID field",
+      "No separate blank-name qualifier column after Zn(part)_ppm; inline markers will still be excluded"
+    ],
+    "parse_issues": {
+      "bad_location": 0,
+      "bad_type": 0,
+      "duplicate_id": 0,
+      "short_row": 0,
+      "unknown_study": 0
+    },
+    "rank_method": "tie-aware empirical percentiles within STUDY per assay; equal mean; require >=3/6",
+    "source_file": "ngb.csv",
+    "source_rows_excluding_header": 10261,
+    "stream_type_counts_before_media_filter": {
+      "100": 485,
+      "102": 1556,
+      "50": 188,
+      "59": 4155,
+      "61": 2334,
+      "62": 57,
+      "64": 1,
+      "66": 2,
+      "70": 227,
+      "72": 1249,
+      "99": 7
+    },
+    "valid_assay_samples_ge_3_of_6": 4290
+  },
+  "source": "USGS Open-File Report 2002-227; official ngb.csv HTTPS endpoint",
+  "source_bytes": 2318363,
+  "source_sha256": "cb3b0603efa558e84dfd33ff74efd14e005596060bf7fd964ecc413914e3a8e6",
+  "source_url": "https://pubs.usgs.gov/of/2002/0227/ngb.csv",
+  "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+  "workflow_url": "https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37446554478"
+}

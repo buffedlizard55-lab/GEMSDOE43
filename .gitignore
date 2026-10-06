@@ -12,3 +12,8 @@ data/*
 # Temporary artifacts
 *.partial
 *.assembling
+
+# Submission deliverables are audited artifacts and must be committed
+!docs/downloads/*.tif
+!docs/downloads/*.zip
+!docs/downloads/*.json

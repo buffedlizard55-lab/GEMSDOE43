@@ -20,7 +20,7 @@ Ranks are qualitative expected-value judgments, not measured DTI forecasts. “C
 
 ## Selected experiment
 
-Proceed first with **G43-CG01** because its two required fields are in the competition training raster, it needs no new data, and its falsifiable operator is materially different from the audited Euler, ridge/scarp, continuation, and supervised-classifier families. It is a *candidate*, not a claimed winner. Freeze its scales, thresholds, and emission budget before the holdout run. Reproduce the H42 baseline and same-mass controls first. If the cross-gradient arm fails the promotion rule, keep its GeoTIFF as a clearly labeled research artifact, do not spend a weekly slot, and report the negative result.
+Proceed first with **G43-CG01** because its two required fields are in the competition training raster, it needs no new data, and its falsifiable operator is materially different from the audited Euler, ridge/scarp, continuation, and supervised-classifier families. It is a *candidate*, not a claimed winner. Freeze its scales, thresholds, and emission budget before the holdout run. Reproduce the H42 baseline and same-mass controls first. If the cross-gradient arm fails the promotion rule, do not retain or offer its GeoTIFF as a download; preserve only the method, result and audit receipts, do not spend a weekly slot, and report the negative result.
 
 ## Scope and evidence limits
 

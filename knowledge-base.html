@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Research knowledge base for GEMSDOE43: ranked geological hypotheses, preregistered protocol, official USGS sources, audit irregularities, spatial holdout results, and score-attribution limits.">
+  <meta name="theme-color" content="#123a3b">
+  <title>Research knowledge base — GEMSDOE43</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"></span><span>GEMSDOE43 <span class="small" style="color:#b9d8cc">/ knowledge base</span></span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Executive summary</a>
+        <a href="#hypotheses">Hypotheses</a>
+        <a href="#sources">Sources & access</a>
+        <a href="#protocol">Method</a>
+        <a href="#caveats">Caveats</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Research ledger · version 2026-10-06</div>
+      <h1>What we believed.<br>What we checked.<br>What the evidence says.</h1>
+      <p>The hypotheses are geological ideas, not established detectors. Source viability, spatial-transfer proxy performance, private-set validation and leaderboard performance are separate claims.</p>
+      <p class="tagline">CURRENT DECISION: H46-B IS NOT PROMOTED.</p>
+    </div>
+  </section>
+
+  <main id="main" class="container">
+    <section id="hypotheses" aria-labelledby="hypotheses-title">
+      <div class="section-heading">
+        <div><div class="kicker">Prior ranking, then evidence</div><h2 id="hypotheses-title">Three new evidence families</h2></div>
+        <p>Expected improvement and implementation costs below were prior judgments recorded before the H46-A holdout. They are not measured deltas or calibrated probabilities.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Prior rank</th><th scope="col">Geological hypothesis</th><th scope="col">Expected proxy-DTI improvement</th><th scope="col">Cost</th><th scope="col">Observed status</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">1 · H46-A</th>
+              <td><strong>Northern Great Basin stream-geochemistry pathfinder enrichment × TMI edge.</strong> Equal-weight, within-study ranks of six non-substituted pathfinder assays (Ag, As, Au, Pb, Sb, Zn) may highlight hydrothermal systems; magnetic-edge agreement could help prioritize structure. Mineralization association is not proof of geothermal faults.</td>
+              <td>Highest relative prior; a modest positive effect was expected, with high uncertainty. The dataset describes mineralization associations, not fault recall.</td>
+              <td>Medium<br>2–4 engineering days if source coverage passes.</td>
+              <td><span class="pill pill-stop">Stopped at source gate</span><br>Official NGB CSV contained 451 eligible stream samples and 447 with at least three usable assays in the footprint, below the preregistered ≥1,000 / ≥500 gates. No holdout score was run.</td>
+            </tr>
+            <tr>
+              <th scope="row">2 · H46-B</th>
+              <td><strong>USGS SGMC map-unit lithology/age contacts × TMI edge.</strong> Some boundaries between differing major-lithology/era units may reflect fault juxtaposition. Many mapped contacts are stratigraphic, depositional or cartographic; no boundary is assumed to be a fault.</td>
+              <td>Low-to-moderate prior; expected upside was below H46-A because 1:250k–1:1M compilation scales and non-tectonic contacts are important confounders.</td>
+              <td>Medium<br>2–3 days after source/topology audit.</td>
+              <td><span class="pill pill-pass">Source gate passed</span> <span class="pill pill-stop">Promotion gate failed</span><br>Public-catalogue blocked proxy mean ΔDTI +0.000923, 2/4 folds. The preregistered threshold was +0.005 and 3/4 wins. No slot authorized.</td>
+            </tr>
+            <tr>
+              <th scope="row">3 · H46-C</th>
+              <td><strong>Persistent Landsat multispectral alteration margins × lineament agreement.</strong> Repeated iron-oxide/clay alteration boundaries may indicate hydrothermal pathways; this is a surface-alteration hypothesis, not a direct fault detector.</td>
+              <td>Low-to-moderate, less certain prior. Alteration, soil, vegetation, mine disturbance, cloud and seasonality could dominate.</td>
+              <td>High<br>4–7 days for scene selection, masking, compositing, registration and audit.</td>
+              <td><span class="pill pill-neutral">Not tested</span><br>USGS Level-2 surface-reflectance availability is documented, but exact cloud-free scenes, footprint support, access route and competition-use terms were not verified. It was not substituted silently.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">Full original recipes, prior-art boundaries and stop rules: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/PREREGISTRATION-2026-10-06.md">dated preregistration</a>. The H46-A source stop and H46-B promotion to the next source audit are recorded in separate <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md">dated amendment</a>.</p>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <div class="section-heading">
+        <div><div class="kicker">Primary-source knowledge base</div><h2 id="sources-title">What each source supports</h2></div>
+        <p>Official source pages were checked independently; experiment inputs and source-audit receipts record exact bytes and hashes.</p>
+      </div>
+
+      <article class="panel">
+        <div class="kicker">H46-A · source gates failed</div>
+        <h3>USGS Northern Great Basin geochemistry</h3>
+        <p>The U.S. Geological Survey's <em>Multielement Geochemical Dataset of Surficial Materials for the Northern Great Basin</em>, Open-File Report 2002-227, is documented in its <a href="https://pubs.usgs.gov/of/2002/0227/data.html">data page</a>, downloadable <a href="https://pubs.usgs.gov/of/2002/0227/ngb.csv">CSV</a>, <a href="https://pubs.usgs.gov/of/2002/0227/metadata.html">metadata</a> and <a href="https://pubs.usgs.gov/of/2002/0227/quality.html">quality notes</a>. The report motivates a regional hydrothermal-pathfinder hypothesis, but also identifies study/method/detection-limit variability and flags substituted results; the frozen method excluded censored/substituted assays.</p>
+        <p>The official CSV was retrieved and SHA-256 checked by the source audit, but spatial coverage was too sparse for the predeclared design: 451 eligible stream samples and 447 with at least three usable assays inside the footprint. The thresholds were 1,000 and 500. H46-A therefore stopped before scoring. This is not a judgment that regional stream geochemistry is scientifically uninformative; it is a decision that this source/method could not support the registered test.</p>
+        <p class="small">Access irregularity: the final manual link-review request to the raw CSV URL returned HTTP 500, while the recorded Actions runner download previously succeeded (2,318,363 bytes; pinned SHA-256 in the amendment). This fetcher response does not establish general source unavailability; the verified runner receipt is the access evidence.</p>
+        <p><a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md">Read the exact source-stop amendment</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37446554478">source-check run</a>.</p>
+      </article>
+
+      <article class="panel" style="margin-top:1rem">
+        <div class="kicker">H46-B · source gates passed; promotion failed</div>
+        <h3>USGS State Geologic Map Compilation (SGMC), version 1.1</h3>
+        <p>The official <a href="https://mrdata.usgs.gov/geology/state/">SGMC state compilation page</a>, <a href="https://mrdata.usgs.gov/geology/state/USGS_SGMC_Metadata.html">metadata</a> and data-release <a href="https://doi.org/10.5066/F7WH2N65">DOI 10.5066/F7WH2N65</a> describe a multi-state GIS compilation built from source maps at a range of scales. Its polygon field description is <a href="https://mrdata.usgs.gov/geology/state/about.php?tblname=geol_poly">geol_poly</a>; linked class tables are documented for <a href="https://mrdata.usgs.gov/geology/state/about.php?tblname=age">age</a>, <a href="https://mrdata.usgs.gov/geology/state/about.php?tblname=lith">lithology</a> and <a href="https://mrdata.usgs.gov/geology/state/about.php?tblname=units">units</a>. USGS's <a href="https://www.usgs.gov/information-policies-and-instructions/acknowledging-or-crediting-usgs">credit guidance</a> is linked for downstream reuse.</p>
+        <p class="callout-note"><strong>Version / recency caveat (checked 2026-10-06):</strong> the official 2017 SGMC v1.1 ScienceBase record now says the release was updated in 2026 with a newer GeMS version and recommends <a href="https://doi.org/10.5066/P1A3DQZK">new USGS data release DOI 10.5066/P1A3DQZK</a> (official <a href="https://ngmdb.usgs.gov/Prodesc/proddesc_119417.htm">NGMDB product record</a>). This frozen experiment used the pinned v1.1 archives named in its preregistration; it did not download or audit the newer release. The new source is not silently substituted. Any follow-on work must audit that release and use fresh confirmation regions before considering a new candidate.</p>
+        <p>The official <a href="https://mrdata.usgs.gov/geology/state/shp/CA.zip">California archive</a> and <a href="https://mrdata.usgs.gov/geology/state/shp/NV.zip">Nevada archive</a> provide the relevant <code>geol_poly</code> polygons. The official <a href="https://www.sciencebase.gov/catalog/file/get/5888bf4fe4b05ccb964bab9d?name=USGS_SGMC_Tables_CSV.zip">same-release tables archive</a> provides <code>SGMC_Age.csv</code> and <code>SGMC_Lithology.csv</code>. The join uses state plus <code>unit_link</code>; the class signature uses major-rank <code>lith1</code> and a known <code>(min_era, max_era)</code> pair.</p>
+        <div class="table-wrap" style="margin:1rem 0">
+          <table>
+            <thead><tr><th scope="col">Pinned official archive</th><th scope="col">Bytes</th><th scope="col">SHA-256</th></tr></thead>
+            <tbody>
+              <tr><td>CA.zip</td><td>24,977,406</td><td><code>78765ba4428df9f25a84f86e0b2529bd0508fc8a2cf65d2f41a830e82bccfd58</code></td></tr>
+              <tr><td>NV.zip</td><td>69,056,094</td><td><code>3b333ac025e59aae7f0d827db45ba32c425cf867eb341561a788af1de186b76b</code></td></tr>
+              <tr><td>USGS_SGMC_Tables_CSV.zip</td><td>1,573,709</td><td><code>8859dd1f00ec6ec3d397634dc86fa288e440b432aad8a98a5fb0c7f9b6bc0bde</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Audit irregularities and boundaries</h3>
+        <ul>
+          <li>The CA/NV state ZIPs do <strong>not</strong> include <code>age.csv</code>; age and lithology are in the separately listed, same-release all-state tables ZIP.</li>
+          <li>The official lithology table is named <code>SGMC_Lithology.csv</code>, not the loader's initial expectation <code>lith.csv</code>; that mismatch was corrected and tested.</li>
+          <li>Each state ZIP lists Structure-layer members. The final selective loader extracts and opens only the geology-polygon components and needed tables; <strong>neither Structure layer was opened or used</strong>.</li>
+          <li>The audit found EPSG:4326 declarations for CA/NV polygons and transformed 12,469 grid-intersecting geometries to EPSG:32611 with zero transform errors and zero rasterization warnings. It mapped all 5,167,373 finite-footprint cells, with 96.3289% joint major-lithology/age support, 476,338 positive-contact cells and zero outside-footprint signal.</li>
+          <li>SGMC metadata warns that source-map scale varies and state map units are not reconciled across boundaries. The feature is a map-unit contact proxy—not a fault inventory.</li>
+        </ul>
+        <p>The source-only audit read neither labels nor sample-template pixel values. It established constructibility only. Full receipts: <a href="evidence/sgmc_source_audit.json">checked-in audit JSON</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-SGMC-table-archive.md">dated source/table amendment</a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455479306">Actions run 37455479306</a>.</p>
+      </article>
+
+      <article class="panel" style="margin-top:1rem">
+        <div class="kicker">H46-C · not tested</div>
+        <h3>Landsat Collection 2 surface reflectance</h3>
+        <p>The <a href="https://www.usgs.gov/landsat-missions/landsat-collection-2">USGS Landsat Collection 2 page</a> describes global Level-2 surface-reflectance products and no-cost USGS data access. Availability at program level does not verify exact cloud-free scene coverage, suitability for a regional persistent-alteration composite, or reuse/competition-sharing terms for a particular derived raster. Those gates remain open, and no Landsat product was retrieved for this project.</p>
+      </article>
+    </section>
+
+    <section id="protocol" aria-labelledby="protocol-title">
+      <div class="section-heading"><div><div class="kicker">Preregistered comparison</div><h2 id="protocol-title">Incumbent, folds and decision rule</h2></div><p>Same labels, masks, prediction mass, spacing and DTI implementation for both arms.</p></div>
+      <div class="grid two-col">
+        <article class="panel">
+          <h3>Defined incumbent</h3>
+          <p><code>H42 SH_basin_strong|sep4.0|N40000</code>, recomputed from the pinned feature and USGS 3DEP-derived LiDAR-scarp input. The registered historical four-fold DTI is 0.242272, 0.247658, 0.255021 and 0.258025 (mean 0.250744). The same-run baseline was required to reproduce each fold within 1e-5; all four values matched exactly.</p>
+          <p>H46-B's fixed feature is the four-neighbour map-unit boundary contrast from major <code>lith1</code> and age-pair differences, multiplied by the empirical TMI horizontal-gradient percentile. Its surface is combined with the unchanged H42 surface using fixed 0.75 / 0.25 geometric-mean weights and a 0.05 floor. No labels, known-fault lines, or sibling prediction raster enter either surface.</p>
+        </article>
+        <article class="panel">
+          <h3>Blocked design and limits</h3>
+          <p>Fold assignment: <code>((row // 200) + 2 * (col // 200)) % 4</code>, corresponding to four-colour 20 km blocks on the 100 m grid. Each fold emits 40,000 predictions with 400 m minimum spacing, a 300 m fold-edge exclusion and a two-pixel training-trace guard.</p>
+          <p>Labels are used only for fold assignment, the predeclared emission guard and DTI scoring after the prediction surfaces have been built. The scored positives are the public catalogue, so this measures catalogue transfer to held blocks—not success on the private challenge's new-fault test set.</p>
+        </article>
+      </div>
+      <div class="section-heading"><div><div class="kicker">One registered H46-B run</div><h2>Promotion tests</h2></div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Decision gate</th><th scope="col">Required</th><th scope="col">Observed</th><th scope="col">Decision</th></tr></thead>
+          <tbody>
+            <tr><td>H42 fold reproduction</td><td>Each within 1e-5</td><td>All exact; max absolute error 0.0</td><td>Pass</td></tr>
+            <tr><td>H46-B mean improvement</td><td>ΔDTI ≥ +0.005</td><td>+0.000923</td><td><strong>Fail</strong></td></tr>
+            <tr><td>H46-B fold wins</td><td>≥ 3 of 4</td><td>2 of 4</td><td><strong>Fail</strong></td></tr>
+            <tr><td>Worst fold regression</td><td>≥ −0.010</td><td>−0.000051</td><td>Pass</td></tr>
+            <tr><td>Overall</td><td>All promotion gates</td><td>Two improvement gates failed</td><td><strong>No promotion; no slot</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-H46B-holdout.md">Read the complete holdout amendment</a> · <a href="evidence/h46b/holdout.json">machine-readable fold receipt</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455686781">Actions run 37455686781</a>.</p>
+      <p class="callout-note"><strong>Stop rule:</strong> no tuning of this recipe on the four evaluated folds. A materially different feature/method requires a new dated preregistration and fresh confirmation regions before any new promotion decision or slot request.</p>
+    </section>
+
+    <section id="artifact" aria-labelledby="artifact-title">
+      <div class="section-heading"><div><div class="kicker">File receipt</div><h2 id="artifact-title">Research-only GeoTIFF</h2></div></div>
+      <div class="panel alert">
+        <span class="pill pill-stop">No eligible download · no slot authorized</span>
+        <p>The experiment runner generated a distinct output, and its byte/hash/grid checks passed, but the registered promotion gate failed. In accordance with the project's no-go rule, the GeoTIFF was removed from the current repository tree and is <strong>not linked from the current project site</strong>. It is not a submission candidate. An earlier public branch commit contains it, and the associated GitHub Actions artifact was still unexpired when checked; a deletion request returned HTTP 403 because the GitHub integration lacks permission. See <a href="evidence/h46b/publication_status.json">the publication-status receipt</a> for details. No DrivenData upload occurred.</p>
+        <p><strong>Recorded identifier:</strong> <code>GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006</code><br><strong>Runner receipt:</strong> 381,558 bytes; SHA-256 <code>c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6</code><br><strong>Format checks:</strong> one-band float32; 3730 × 3292; EPSG:32611; 100 m transform; 40,000 prediction pixels; NaN outside the finite footprint.</p>
+        <p>The report fields say proxy-gate false, private-set validation false, and leaderboard score null. See <a href="evidence/h46b/submission_receipt.json">submission_receipt.json</a>, <a href="evidence/h46b/publication_status.json">publication_status.json</a> and <a href="evidence/h46b/data_manifest.json">data_manifest.json</a>. The exact copy-friendly note in <a href="submission/FORM-NOTE.txt">FORM-NOTE.txt</a> is a research-status record, not an instruction to upload.</p>
+        <p><strong>Future actions:</strong> read <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/submission/INSTRUCTIONS.md">conditional instructions</a>. A materially changed recipe/source needs a new amendment and fresh confirmation folds; no slot is authorized by this result.</p>
+      </div>
+    </section>
+
+    <section id="caveats" aria-labelledby="caveats-title">
+      <div class="section-heading"><div><div class="kicker">Interpretation and accountability</div><h2 id="caveats-title">What we can and cannot claim</h2></div></div>
+      <div class="grid two-col">
+        <article class="panel">
+          <h3>Public leaderboard observations</h3>
+          <p>No refreshed public leaderboard rows are reproduced here. The project record retains only the earlier, dated snapshot described in the README and source register; no file/hash crosswalk is asserted for any row. H46-B and G43-CG01 have no DrivenData leaderboard scores.</p>
+          <p>DrivenData's <a href="https://www.drivendata.org/termsofuse/">Terms of Use</a> prohibit automatic or manual monitoring/copying without prior written consent. Do not refresh or reproduce leaderboard contents unless an authorized API or written permission is available. The official page is linked for direct access if authorized.</p>
+          <p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Open the official leaderboard</a>. No file attribution or current-score claim is made here.</p>
+        </article>
+        <article class="panel">
+          <h3>Inputs and AI use</h3>
+          <p>Competition features and public-catalogue label rasters were retrieved from integrity-pinned owner-supplied mirrors, not authenticated organizer originals. Their hashes, byte counts and provenance caveat are in the experiment manifest. The organizer's private labels were not accessed.</p>
+          <p>AI coding assistance supported source synthesis, implementation drafting, tests, orchestration and documentation. The TIFF is a deterministic numerical output, not a generative image or hand-labelled map. The output, methods, access caveats and review record are documented.</p>
+        </article>
+      </div>
+      <div class="section-heading"><div><div class="kicker">Review record</div><h2>Three release-review passes</h2></div></div>
+      <div class="grid review-grid">
+        <article class="panel"><h3>01 · Method & code</h3><p>Rechecked preregistration, unchanged H42 control, label-access boundary, source loader, candidate formula, grid and checksum receipts. 17 local tests, compile/shell checks and frozen-code Actions test run passed.</p></article>
+        <article class="panel"><h3>02 · Sources & links</h3><p>Reviewed official challenge, USGS NGB, SGMC, DOI, field-description, credit, and Landsat Collection 2 links. Reconciled archive/table names and pinned hashes; checked site-relative links against repository files.</p></article>
+        <article class="panel"><h3>03 · Claims & release</h3><p>Verified every metric against the holdout receipt; labeled it public-catalogue proxy only; stated the failed gate and no-slot decision; checked leaderboard date and attribution caveat; confirmed no private labels or upload.</p></article>
+      </div>
+      <p class="small">Full checklist and run references: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/RELEASE-REVIEW-2026-10-06.md">three-pass review record</a>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p><strong>GEMSDOE43</strong> · Source transparency is part of the result.</p>
+      <p><a href="index.html">Executive summary</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/README.md">Project brief</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-H46B-holdout.md">Holdout decision</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/submission/INSTRUCTIONS.md">Submission status</a></p>
+      <p>Updated 2026-10-06 · Maximize P(Win). Own the Outcome.</p>
+    </div>
+  </footer>
+</body>
+</html>

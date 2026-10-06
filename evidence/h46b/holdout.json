@@ -1,0 +1,160 @@
+{
+  "design": "20 km four-colour geographic blocks; equal 40,000 binary mass/fold; 400 m packing; 300 m fold boundary and two-pixel training-trace guard",
+  "fold_formula": "((row//200) + 2*(col//200)) % 4",
+  "folds": [
+    {
+      "allowed_cells": 1261665,
+      "arms": {
+        "h46b": {
+          "dti": 0.242266,
+          "fp_weighted": 37999.51484,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 4878.75843,
+          "truth_pixels": 14453
+        },
+        "incumbent": {
+          "dti": 0.242272,
+          "fp_weighted": 37987.55971,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 4878.29349,
+          "truth_pixels": 14453
+        }
+      },
+      "evaluation_cells": 1261665,
+      "fold": 0,
+      "held_cells": 1346770,
+      "seconds": 3.72,
+      "training_label_pixels": 44613
+    },
+    {
+      "allowed_cells": 1184320,
+      "arms": {
+        "h46b": {
+          "dti": 0.247607,
+          "fp_weighted": 38102.84819,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 4682.82812,
+          "truth_pixels": 12944
+        },
+        "incumbent": {
+          "dti": 0.247658,
+          "fp_weighted": 38084.49574,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 4682.88426,
+          "truth_pixels": 12944
+        }
+      },
+      "evaluation_cells": 1184320,
+      "fold": 1,
+      "held_cells": 1266895,
+      "seconds": 3.66,
+      "training_label_pixels": 46211
+    },
+    {
+      "allowed_cells": 1248516,
+      "arms": {
+        "h46b": {
+          "dti": 0.256993,
+          "fp_weighted": 37919.07454,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 5262.0423,
+          "truth_pixels": 14799
+        },
+        "incumbent": {
+          "dti": 0.255021,
+          "fp_weighted": 37914.53081,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 5219.23953,
+          "truth_pixels": 14799
+        }
+      },
+      "evaluation_cells": 1248516,
+      "fold": 2,
+      "held_cells": 1331706,
+      "seconds": 3.73,
+      "training_label_pixels": 44269
+    },
+    {
+      "allowed_cells": 1145742,
+      "arms": {
+        "h46b": {
+          "dti": 0.259801,
+          "fp_weighted": 37852.09938,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 5321.21865,
+          "truth_pixels": 14809
+        },
+        "incumbent": {
+          "dti": 0.258025,
+          "fp_weighted": 37850.23764,
+          "mass": 40000.0,
+          "prediction_pixels": 40000,
+          "tp_weighted": 5282.75405,
+          "truth_pixels": 14809
+        }
+      },
+      "evaluation_cells": 1145742,
+      "fold": 3,
+      "held_cells": 1222002,
+      "seconds": 3.67,
+      "training_label_pixels": 44370
+    }
+  ],
+  "h46b": {
+    "fold_deltas": [
+      -6e-06,
+      -5.1e-05,
+      0.001972,
+      0.001776
+    ],
+    "fold_dti": [
+      0.242266,
+      0.247607,
+      0.256993,
+      0.259801
+    ],
+    "mean_delta_vs_same_run_incumbent": 0.000923,
+    "mean_dti": 0.251667,
+    "wins": 2
+  },
+  "incumbent_prior_reference": {
+    "fold_dti": [
+      0.242272,
+      0.247658,
+      0.255021,
+      0.258025
+    ],
+    "fold_errors_vs_prior": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "mean_dti": 0.250744,
+    "same_run_fold_dti": [
+      0.242272,
+      0.247658,
+      0.255021,
+      0.258025
+    ],
+    "same_run_mean_dti": 0.250744
+  },
+  "labels_used_only_for": "fold assignment, training-trace emission guard, and public-catalogue proxy scoring; H42 and H46-B surfaces are built before labels are loaded",
+  "promotion_gate": {
+    "baseline_must_reproduce_prior_h42_each_fold_within_1e-5": true,
+    "gate_passed": false,
+    "h46b_wins_at_least_3_of_4_folds": false,
+    "no_fold_more_than_0_010_worse": true,
+    "reason": "A catalogue-transfer proxy is not private-set validation; no submission slot is automatically authorized.",
+    "same_run_mean_delta_at_least_0_005": false,
+    "submission_slot_authorized": false
+  },
+  "score_interpretation": "Public-catalogue spatial-transfer proxy only; not private-set validation or a DrivenData leaderboard score."
+}

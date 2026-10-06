@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-10-06T09:39:24.609226+00:00",
+  "generated_utc": "2026-10-06T12:02:51.383595+00:00",
   "runtime": {
     "python": "3.11.2",
     "numpy": "2.4.6"
@@ -27,7 +27,7 @@
       "training_features.tif band rtp",
       "training_features.tif band iso_grav_anom"
     ],
-    "candidate_valid_cells_on_footprint": 5164312,
+    "candidate_valid_cells_on_footprint": 0,
     "candidate_exclusions": [
       "labels",
       "scarp features",
@@ -54,10 +54,34 @@
     "mismatches": []
   },
   "summary": {
+    "EXT_MCLPsup_oof|sep3.0|N40000": {
+      "mean_dti": 0.286388,
+      "min_dti": 0.27509,
+      "max_dti": 0.297811,
+      "folds": 4
+    },
+    "EXT_MCLPsup_oof|sep4.0|N40000": {
+      "mean_dti": 0.262772,
+      "min_dti": 0.254226,
+      "max_dti": 0.271424,
+      "folds": 4
+    },
+    "EXT_MCLPsup_oof|sep3.0|N20000": {
+      "mean_dti": 0.259211,
+      "min_dti": 0.240564,
+      "max_dti": 0.274062,
+      "folds": 4
+    },
     "SH_basin_strong|sep4.0|N40000": {
       "mean_dti": 0.250744,
       "min_dti": 0.242272,
       "max_dti": 0.258025,
+      "folds": 4
+    },
+    "EXT_MCLPsup_oof|sep4.0|N20000": {
+      "mean_dti": 0.250059,
+      "min_dti": 0.236089,
+      "max_dti": 0.26313,
       "folds": 4
     },
     "SH_basin_strong|sep3.0|N40000": {
@@ -90,16 +114,22 @@
       "max_dti": 0.227616,
       "folds": 4
     },
-    "G43-CG01_crossgradient|sep4.0|N40000": {
-      "mean_dti": 0.211567,
-      "min_dti": 0.204019,
-      "max_dti": 0.228287,
+    "EXT_MCLPsup_oof|sep3.0|N10000": {
+      "mean_dti": 0.211089,
+      "min_dti": 0.189347,
+      "max_dti": 0.229708,
       "folds": 4
     },
     "CONTROL_training_density|N40000": {
       "mean_dti": 0.206373,
       "min_dti": 0.202147,
       "max_dti": 0.212439,
+      "folds": 4
+    },
+    "EXT_MCLPsup_oof|sep4.0|N10000": {
+      "mean_dti": 0.202482,
+      "min_dti": 0.189456,
+      "max_dti": 0.21481,
       "folds": 4
     },
     "SH_basin_strong|sep4.0|N20000": {
@@ -193,17 +223,10 @@
       "folds": 4
     }
   },
-  "best_valid_h42_or_candidate_arm": "SH_basin_strong|sep4.0|N40000",
-  "best_valid_mean_dti": 0.250744,
+  "best_valid_h42_or_candidate_arm": "EXT_MCLPsup_oof|sep3.0|N40000",
+  "best_valid_mean_dti": 0.286388,
   "cg01_gate": {
-    "candidate": "G43-CG01_crossgradient|sep4.0|N40000",
-    "candidate_mean_dti": 0.211567,
-    "h42_reproduced_mean_dti": 0.250744,
-    "candidate_mean_beats_h42": false,
-    "fold_wins_vs_h42": 0,
-    "minimum_fold_wins_required": 3,
-    "passes_holdout_promotion_gate": false,
-    "does_not_authorize_submission_without_novelty_format_provenance_and_rules_review": true
+    "status": "CG01_NOT_RUN"
   },
   "folds": [
     {
@@ -213,7 +236,7 @@
       "evaluation_truth_pixels": 14453,
       "training_catalogue_pixels": 44613,
       "eligible_emission_cells": 1261665,
-      "cg01_valid_eligible_cells": 1261577,
+      "cg01_valid_eligible_cells": null,
       "arms": {
         "SA_slope_scarp|sep3.0|N10000": {
           "n_px": 10000,
@@ -435,18 +458,68 @@
           "credit_per_mass": 0.10079,
           "note": "Gaussian-smoothed training catalogue density; same mass"
         },
-        "G43-CG01_crossgradient|sep4.0|N40000": {
+        "EXT_MCLPsup_oof|sep3.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 2766.59,
+          "fp": 8745.34,
+          "fn": 11686.41,
+          "dti": 0.199541,
+          "credit_per_mass": 0.27666,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 3981.85,
+          "fp": 18140.59,
+          "fn": 10471.15,
+          "dti": 0.24907,
+          "credit_per_mass": 0.19909,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N40000": {
           "n_px": 40000,
           "mass": 40000.0,
-          "tp": 4156.85,
-          "fp": 38241.55,
-          "fn": 10296.15,
-          "dti": 0.207406,
-          "credit_per_mass": 0.10392,
-          "note": "frozen 2/4/8-px cross-gradient median; no scarp/catalogue score input"
+          "tp": 5663.87,
+          "fp": 37263.14,
+          "fn": 8789.13,
+          "dti": 0.281116,
+          "credit_per_mass": 0.1416,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 40000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 2651.81,
+          "fp": 8951.54,
+          "fn": 11801.19,
+          "dti": 0.19101,
+          "credit_per_mass": 0.26518,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 3888.56,
+          "fp": 18433.85,
+          "fn": 10564.44,
+          "dti": 0.242628,
+          "credit_per_mass": 0.19443,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5227.75,
+          "fp": 37859.6,
+          "fn": 9225.25,
+          "dti": 0.259058,
+          "credit_per_mass": 0.13069,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 40000"
         }
       },
-      "seconds": 16.7
+      "seconds": 19.5
     },
     {
       "fold": 1,
@@ -455,7 +528,7 @@
       "evaluation_truth_pixels": 12944,
       "training_catalogue_pixels": 46211,
       "eligible_emission_cells": 1184320,
-      "cg01_valid_eligible_cells": 1184284,
+      "cg01_valid_eligible_cells": null,
       "arms": {
         "SA_slope_scarp|sep3.0|N10000": {
           "n_px": 10000,
@@ -677,18 +750,68 @@
           "credit_per_mass": 0.09454,
           "note": "Gaussian-smoothed training catalogue density; same mass"
         },
-        "G43-CG01_crossgradient|sep4.0|N40000": {
+        "EXT_MCLPsup_oof|sep3.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 2911.44,
+          "fp": 8685.36,
+          "fn": 10032.56,
+          "dti": 0.229708,
+          "credit_per_mass": 0.29114,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 4053.06,
+          "fp": 18115.29,
+          "fn": 8890.94,
+          "dti": 0.274062,
+          "credit_per_mass": 0.20265,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N40000": {
           "n_px": 40000,
           "mass": 40000.0,
-          "tp": 3884.96,
-          "fp": 38380.05,
-          "fn": 9059.04,
-          "dti": 0.206557,
-          "credit_per_mass": 0.09712,
-          "note": "frozen 2/4/8-px cross-gradient median; no scarp/catalogue score input"
+          "tp": 5520.12,
+          "fp": 37377.66,
+          "fn": 7423.88,
+          "dti": 0.291534,
+          "credit_per_mass": 0.138,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 40000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 2725.26,
+          "fp": 8932.81,
+          "fn": 10218.74,
+          "dti": 0.21481,
+          "credit_per_mass": 0.27253,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 3828.77,
+          "fp": 18484.68,
+          "fn": 9115.23,
+          "dti": 0.258388,
+          "credit_per_mass": 0.19144,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4812.94,
+          "fp": 38069.59,
+          "fn": 8131.06,
+          "dti": 0.254226,
+          "credit_per_mass": 0.12032,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 40000"
         }
       },
-      "seconds": 16.4
+      "seconds": 18.3
     },
     {
       "fold": 2,
@@ -697,7 +820,7 @@
       "evaluation_truth_pixels": 14799,
       "training_catalogue_pixels": 44269,
       "eligible_emission_cells": 1248516,
-      "cg01_valid_eligible_cells": 1248330,
+      "cg01_valid_eligible_cells": null,
       "arms": {
         "SA_slope_scarp|sep3.0|N10000": {
           "n_px": 10000,
@@ -919,18 +1042,68 @@
           "credit_per_mass": 0.10562,
           "note": "Gaussian-smoothed training catalogue density; same mass"
         },
-        "G43-CG01_crossgradient|sep4.0|N40000": {
+        "EXT_MCLPsup_oof|sep3.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 3205.09,
+          "fp": 8584.06,
+          "fn": 11593.91,
+          "dti": 0.225758,
+          "credit_per_mass": 0.32051,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 4460.18,
+          "fp": 17987.78,
+          "fn": 10338.82,
+          "dti": 0.273148,
+          "credit_per_mass": 0.22301,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N40000": {
           "n_px": 40000,
           "mass": 40000.0,
-          "tp": 4147.27,
-          "fp": 38296.0,
-          "fn": 10651.73,
-          "dti": 0.204019,
-          "credit_per_mass": 0.10368,
-          "note": "frozen 2/4/8-px cross-gradient median; no scarp/catalogue score input"
+          "tp": 6103.41,
+          "fp": 37171.94,
+          "fn": 8695.59,
+          "dti": 0.297811,
+          "credit_per_mass": 0.15259,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 40000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 3052.02,
+          "fp": 8844.04,
+          "fn": 11746.98,
+          "dti": 0.214653,
+          "credit_per_mass": 0.3052,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 4307.61,
+          "fp": 18349.49,
+          "fn": 10491.39,
+          "dti": 0.26313,
+          "credit_per_mass": 0.21538,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5568.96,
+          "fp": 37823.01,
+          "fn": 9230.04,
+          "dti": 0.271424,
+          "credit_per_mass": 0.13922,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 40000"
         }
       },
-      "seconds": 15.8
+      "seconds": 18.6
     },
     {
       "fold": 3,
@@ -939,7 +1112,7 @@
       "evaluation_truth_pixels": 14809,
       "training_catalogue_pixels": 44370,
       "eligible_emission_cells": 1145742,
-      "cg01_valid_eligible_cells": 1145739,
+      "cg01_valid_eligible_cells": null,
       "arms": {
         "SA_slope_scarp|sep3.0|N10000": {
           "n_px": 10000,
@@ -1161,20 +1334,70 @@
           "credit_per_mass": 0.10753,
           "note": "Gaussian-smoothed training catalogue density; same mass"
         },
-        "G43-CG01_crossgradient|sep4.0|N40000": {
+        "EXT_MCLPsup_oof|sep3.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 2677.95,
+          "fp": 8801.42,
+          "fn": 12131.05,
+          "dti": 0.189347,
+          "credit_per_mass": 0.2678,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 3913.33,
+          "fp": 18187.17,
+          "fn": 10895.67,
+          "dti": 0.240564,
+          "credit_per_mass": 0.19567,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep3.0|N40000": {
           "n_px": 40000,
           "mass": 40000.0,
-          "tp": 4654.81,
-          "fp": 38060.05,
-          "fn": 10154.19,
-          "dti": 0.228287,
-          "credit_per_mass": 0.11637,
-          "note": "frozen 2/4/8-px cross-gradient median; no scarp/catalogue score input"
+          "tp": 5621.32,
+          "fp": 37315.05,
+          "fn": 9187.68,
+          "dti": 0.27509,
+          "credit_per_mass": 0.14053,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 3.0, mass 40000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N10000": {
+          "n_px": 10000,
+          "mass": 10000.0,
+          "tp": 2685.74,
+          "fp": 8958.7,
+          "fn": 12123.26,
+          "dti": 0.189456,
+          "credit_per_mass": 0.26857,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 10000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N20000": {
+          "n_px": 20000,
+          "mass": 20000.0,
+          "tp": 3851.04,
+          "fp": 18472.0,
+          "fn": 10957.96,
+          "dti": 0.236089,
+          "credit_per_mass": 0.19255,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 20000"
+        },
+        "EXT_MCLPsup_oof|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5460.79,
+          "fp": 37803.85,
+          "fn": 9348.21,
+          "dti": 0.266378,
+          "credit_per_mass": 0.13652,
+          "note": "external prior surface, packed by the protocol's own greedy_pack at sep 4.0, mass 40000"
         }
       },
-      "seconds": 15.6
+      "seconds": 18.3
     }
   ],
   "interpretation_limit": "This holdout tests recovery of spatially withheld published faults only. It is not an estimate or guarantee of public-board, private Phase 1, or final Phase 2 score.",
-  "elapsed_seconds": 92.1
+  "elapsed_seconds": 89.5
 }

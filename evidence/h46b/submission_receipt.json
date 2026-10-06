@@ -1,0 +1,36 @@
+{
+  "bytes": 381558,
+  "checks": {
+    "crs_epsg_32611": true,
+    "dtype_float32": true,
+    "exactly_40000_predictions": true,
+    "grid_transform_preserved": true,
+    "inside_cells_finite": true,
+    "inside_values_in_0_1": true,
+    "outside_cells_nodata_nan": true,
+    "shape_matches_footprint": true,
+    "single_band": true
+  },
+  "footprint_cells": 5167373,
+  "grid": {
+    "crs": "EPSG:32611",
+    "height": 3730,
+    "nodata": "NaN",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "width": 3292
+  },
+  "holdout_proxy_gate_passed": false,
+  "leaderboard_score": null,
+  "path": "docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif",
+  "prediction_pixels": 40000,
+  "private_set_validation": false,
+  "sha256": "c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6",
+  "submission_name": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006"
+}

@@ -1,0 +1,22 @@
+name: H46-B frozen result notice
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Explain why the registered folds are not rerun
+        run: |
+          {
+            echo '## H46-B experiment archived'
+            echo
+            echo 'The registered public-catalogue folds were run once and the preregistered promotion gate failed.'
+            echo 'Do not rerun or tune on those folds. The current project site and repository tree do not offer the failed GeoTIFF.'
+            echo 'The original run receipts and publication-access caveat are retained under evidence/h46b/.'
+            echo 'No candidate passes the project promotion gate and no submission slot is authorized.'
+          } >> "$GITHUB_STEP_SUMMARY"
