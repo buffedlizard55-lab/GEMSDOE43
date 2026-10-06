@@ -114,13 +114,13 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
     with path.open("r", encoding="utf-8-sig", newline="") as f:
         reader = csv.reader(f)
         try:
-            header = [s.strip() for s in next(reader)]
+            header = [s.replace("\ufeff", "").strip() for s in next(reader)]
         except StopIteration as exc:
             raise ValueError("USGS NGB CSV is empty") from exc
         required = {"ID", "STUDY", "SAMPTYP", "LONGITUDE", "LATITUDE", *ASSAYS.values()}
         missing = sorted(required - set(header))
         if missing:
-            raise ValueError(f"USGS NGB schema is missing required columns: {missing}")
+            raise ValueError(f"USGS NGB schema is missing required columns: {missing}; first header cells={header[:12]!r}")
         col = {name: header.index(name) for name in required}
         assay_col = {el: header.index(name) for el, name in ASSAYS.items()}
         # The report specifies that qualifier flags occupy the next column. The current
