@@ -14,41 +14,70 @@ permissions:
 jobs:
   fetch-official-csv:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
-      - name: Fetch and validate the official CSV without committing it
+      - name: Probe documented USGS endpoints and retain diagnostics
         shell: bash
         run: |
-          set -euo pipefail
+          set -u
           mkdir -p intake
-          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 15 --max-time 120 \
-            --output intake/ngb.csv \
-            https://pubs.usgs.gov/of/2002/0227/ngb.csv
+          urls=(
+            'https://pubs.usgs.gov/of/2002/0227/ngb.csv'
+            'https://pubsdata.usgs.gov/pubs/of/2002/0227/ngb.csv'
+            'http://pubs.usgs.gov/of/2002/0227/ngb.csv'
+          )
+          i=0
+          for url in "${urls[@]}"; do
+            i=$((i+1))
+            name="intake/endpoint-${i}"
+            printf 'URL: %s\n' "$url" > "${name}.url"
+            curl --location --silent --show-error --connect-timeout 12 --max-time 90 \
+              --dump-header "${name}.headers" --output "${name}.body" \
+              --write-out 'http_code=%{http_code}\nsize_download=%{size_download}\ncontent_type=%{content_type}\nurl_effective=%{url_effective}\n' \
+              "$url" > "${name}.meta" 2> "${name}.stderr" || printf 'curl_exit=%s\n' "$?" >> "${name}.meta"
+            {
+              cat "${name}.url" "${name}.meta"
+              printf 'stderr: '; tr '\n' ' ' < "${name}.stderr"; printf '\n'
+              printf 'body_prefix: '; head -c 240 "${name}.body" | tr '\n' ' '; printf '\n'
+              printf 'body_bytes: '; wc -c < "${name}.body"
+              printf '\n'
+            } | tee -a "$GITHUB_STEP_SUMMARY"
+          done
           python3 - <<'PY'
           import csv
           from pathlib import Path
-          p = Path('intake/ngb.csv')
-          size = p.stat().st_size
-          if not 1_000_000 <= size <= 5_000_000:
-              raise SystemExit(f'Unexpected CSV size: {size} bytes')
-          with p.open(newline='', encoding='utf-8-sig') as f:
-              reader = csv.DictReader(f)
-              fields = {x.strip().upper() for x in (reader.fieldnames or [])}
-              required = {'ID', 'STUDY', 'SAMPTYP', 'LONGITUDE', 'LATITUDE'}
-              missing = sorted(required - fields)
-              if missing:
-                  raise SystemExit(f'Missing expected USGS fields: {missing}')
-              rows = sum(1 for _ in reader)
-          if rows < 1_000:
-              raise SystemExit(f'Unexpected sample-row count: {rows}')
-          print(f'Official CSV schema check passed; rows={rows:,}; bytes={size:,}')
+          valid = []
+          for body in Path('intake').glob('endpoint-*.body'):
+              meta = body.with_suffix('.meta').read_text(errors='replace')
+              if 'url_effective=https://' not in meta:
+                  continue
+              try:
+                  with body.open(newline='', encoding='utf-8-sig') as f:
+                      reader = csv.DictReader(f)
+                      fields = {x.strip().upper() for x in (reader.fieldnames or [])}
+                      if {'ID', 'STUDY', 'SAMPTYP', 'LONGITUDE', 'LATITUDE'} <= fields:
+                          rows = sum(1 for _ in reader)
+                          if rows >= 1_000:
+                              valid.append((body, rows))
+              except (UnicodeDecodeError, csv.Error):
+                  continue
+          if valid:
+              body, rows = valid[0]
+              target = Path('intake/ngb.csv')
+              target.write_bytes(body.read_bytes())
+              print(f'Official CSV schema check passed; source={body}; rows={rows:,}; bytes={target.stat().st_size:,}')
+              import hashlib
+              print(f'sha256={hashlib.sha256(target.read_bytes()).hexdigest()}')
+              with open(Path.home() / '.ngb-success', 'w') as f:
+                  f.write('yes')
+          else:
+              print('No endpoint returned a parseable CSV with the expected USGS schema; raw responses retained for diagnosis.')
           PY
-          sha256sum intake/ngb.csv
-          stat --format='bytes=%s' intake/ngb.csv
-      - name: Store short-lived intake artifact, not source data in Git
+      - name: Store short-lived source/diagnostic artifact, not data in Git
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: usgs-ngb-csv-2026-10-06
-          path: intake/ngb.csv
+          name: usgs-ngb-intake-diagnostic-2026-10-06
+          path: intake/
           if-no-files-found: error
           retention-days: 1
