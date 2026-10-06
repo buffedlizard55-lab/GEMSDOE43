@@ -1,0 +1,16 @@
+# Raw / mirrored inputs and temporary processing products
+/data/raw/
+/data/work/
+/data/external/
+*.part
+*.tmp
+
+# Python/cache/test products
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.venv/
+.env
+
+# Local generated outputs (the reviewed deliverable is explicitly tracked under docs/downloads/)
+/outputs/

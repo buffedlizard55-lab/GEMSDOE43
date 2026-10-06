@@ -1,0 +1,54 @@
+name: Fetch official USGS NGB CSV
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - arena/7bd177bc-gemsdoe43
+    paths:
+      - .github/workflows/fetch-nbg.yml
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-official-csv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch and validate the official CSV without committing it
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p intake
+          curl --fail --location --retry 3 --retry-all-errors --connect-timeout 15 --max-time 120 \
+            --output intake/ngb.csv \
+            https://pubs.usgs.gov/of/2002/0227/ngb.csv
+          python3 - <<'PY'
+          import csv
+          from pathlib import Path
+          p = Path('intake/ngb.csv')
+          size = p.stat().st_size
+          if not 1_000_000 <= size <= 5_000_000:
+              raise SystemExit(f'Unexpected CSV size: {size} bytes')
+          with p.open(newline='', encoding='utf-8-sig') as f:
+              reader = csv.DictReader(f)
+              fields = {x.strip().upper() for x in (reader.fieldnames or [])}
+              required = {'ID', 'STUDY', 'SAMPTYP', 'LONGITUDE', 'LATITUDE'}
+              missing = sorted(required - fields)
+              if missing:
+                  raise SystemExit(f'Missing expected USGS fields: {missing}')
+              rows = sum(1 for _ in reader)
+          if rows < 1_000:
+              raise SystemExit(f'Unexpected sample-row count: {rows}')
+          print(f'Official CSV schema check passed; rows={rows:,}; bytes={size:,}')
+          PY
+          sha256sum intake/ngb.csv
+          stat --format='bytes=%s' intake/ngb.csv
+      - name: Store short-lived intake artifact, not source data in Git
+        uses: actions/upload-artifact@v4
+        with:
+          name: usgs-ngb-csv-2026-10-06
+          path: intake/ngb.csv
+          if-no-files-found: error
+          retention-days: 1
