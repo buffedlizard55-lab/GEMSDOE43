@@ -11,7 +11,7 @@ The project also maintains a clean public website with an explicit executive sum
 ## Current status — 2026-10-06
 
 - The original leading idea, **H46-A** (USGS Northern Great Basin stream-sediment pathfinder enrichment), failed its preregistered source-coverage gates and was stopped **before holdout scoring**. The official CSV was retrieved and hashed; only 451 eligible stream samples and 447 samples with at least three usable assays intersect the competition footprint, below the frozen 1,000/500 thresholds. See [`research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md`](research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md) and the official-source check summary for Actions run `37446554478`.
-- **H46-B** (map-unit lithology/age contacts that coincide with a magnetic edge, used only as auxiliary evidence on the H42-style incumbent) is the next hypothesis authorized for a **source-only audit**, not yet approved for a holdout. Its source is the official USGS State Geologic Map Compilation (California and Nevada, version 1.1). Raw archive bytes, hashes, joins, CRS and footprint coverage must pass the amendment's gates first.
+- **H46-B** (map-unit lithology/age contacts that coincide with a magnetic edge, used only as auxiliary evidence on the H42-style incumbent) is the next hypothesis authorized for a **source-only audit**, not yet approved for a holdout. Direct CA/NV state archives were retrieved and hashed, but the first audit stopped because those ZIPs do not contain the standard `age.csv`; no polygon coverage was calculated. A follow-up now adds the official same-release SGMC all-state table archive before the source gates can be evaluated. See both SGMC amendments below.
 - No candidate GeoTIFF has been generated, no H46-A or H46-B holdout has run, no submission slot has been spent, and no candidate is currently validated or scored. The source-audit workflow reads only the sample-template finite mask/grid, never its pixel values or labels.
 - The public website, completed source audit, README-linked evidence, final form note, and submission artifact remain to be completed. See [`research/PREREGISTRATION-2026-10-06.md`](research/PREREGISTRATION-2026-10-06.md) and the amendments in `research/` for the frozen protocol and subsequent decisions.
 
@@ -33,6 +33,7 @@ At the start of every project session:
 - [`research/PREREGISTRATION-2026-10-06.md`](research/PREREGISTRATION-2026-10-06.md) — initial ranked hypothesis slate, H42 comparator, blocked-fold protocol, and promotion/stop rules.
 - [`research/AMENDMENT-2026-10-06-assays.md`](research/AMENDMENT-2026-10-06-assays.md) — locked H46-A assay-method choice.
 - [`research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md`](research/AMENDMENT-2026-10-06-NGB-stop-and-SGMC.md) — official NGB coverage failure and explicit H46-B source-audit amendment.
+- [`research/AMENDMENT-2026-10-06-SGMC-table-archive.md`](research/AMENDMENT-2026-10-06-SGMC-table-archive.md) — CA/NV download receipts and the missing-age-table correction.
 - [`data/README.md`](data/README.md) — raw-input handling and integrity policy.
 - [`docs/`](docs/) — public project website and the reviewed, downloadable candidate (to be added only after the source and validation decisions are complete).
 

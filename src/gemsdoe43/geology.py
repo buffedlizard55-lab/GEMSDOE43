@@ -53,8 +53,9 @@ def _fields(reader: shapefile.Reader) -> dict[str, str]:
 
 def _find_csv(root: Path, stem: str) -> Path:
     hits = sorted(
-        p for p in root.rglob("*.csv")
-        if p.stem.casefold() == stem.casefold() or p.stem.casefold().endswith("_" + stem.casefold())
+        p for p in root.rglob("*")
+        if p.is_file() and p.suffix.casefold() == ".csv"
+        and (p.stem.casefold() == stem.casefold() or p.stem.casefold().endswith("_" + stem.casefold()))
     )
     if not hits:
         raise ValueError(f"SGMC archive is missing {stem}.csv")
@@ -84,8 +85,8 @@ def _state_classes(root: Path, state: str) -> tuple[dict[tuple[str, str], tuple[
     age_rows = _read_csv(age_path)
     lith_rows = _read_csv(lith_path)
     for name, rows, required in (
-        ("age", age_rows, {"unit_link", "min_era", "max_era"}),
-        ("lith", lith_rows, {"unit_link", "lith_rank", "lith1"}),
+        ("age", age_rows, {"state", "unit_link", "min_era", "max_era"}),
+        ("lith", lith_rows, {"state", "unit_link", "lith_rank", "lith1"}),
     ):
         fields = set(rows[0]) if rows else set()
         missing = sorted(required - fields)
@@ -125,8 +126,9 @@ def _state_classes(root: Path, state: str) -> tuple[dict[tuple[str, str], tuple[
 
 def _find_polygon_shapefile(root: Path) -> Path:
     candidates = [
-        p for p in root.rglob("*.shp")
-        if "geol_poly" in p.stem.casefold()
+        p for p in root.rglob("*")
+        if p.is_file() and p.suffix.casefold() == ".shp"
+        and "geol_poly" in p.stem.casefold()
         and not any(token in p.stem.casefold() for token in ("complex", "tiled"))
     ]
     matches = sorted(candidates, key=lambda p: (p.stem.casefold() != "geol_poly", p.as_posix()))
@@ -147,6 +149,7 @@ def _intersects(bounds_a: Iterable[float], bounds_b: Iterable[float]) -> bool:
 def load_sgmc_unit_raster(
     archive_paths: dict[str, Path],
     *,
+    tables_archive: Path,
     out_shape: tuple[int, int],
     transform: rasterio.Affine,
     target_crs: CRS | str,
@@ -170,8 +173,19 @@ def load_sgmc_unit_raster(
     total_missing_links = 0
     total_rasterize_warnings = 0
 
+    tables_archive = Path(tables_archive)
+    if not tables_archive.is_file():
+        raise FileNotFoundError(f"Missing official SGMC attribute-table archive: {tables_archive}")
     with TemporaryDirectory(prefix="sgmc-") as temp_name:
         temp_root = Path(temp_name)
+        tables_root = temp_root / "tables"
+        tables_root.mkdir(parents=True, exist_ok=True)
+        with zipfile.ZipFile(tables_archive) as tables_zip:
+            bad_member = tables_zip.testzip()
+            if bad_member:
+                raise ValueError(f"Corrupt SGMC tables ZIP member: {bad_member}")
+            table_archive_members = tables_zip.namelist()
+            tables_zip.extractall(tables_root)
         for state, archive in sorted(archive_paths.items()):
             state = state.upper()
             archive = Path(archive)
@@ -196,7 +210,7 @@ def load_sgmc_unit_raster(
             source_bounds = transform_bounds(
                 target_crs, source_crs, *tuple(float(v) for v in bounds), densify_pts=21
             )
-            lith_by_unit, age_by_unit, table_report = _state_classes(extracted, state)
+            lith_by_unit, age_by_unit, table_report = _state_classes(tables_root, state)
             reader = shapefile.Reader(str(poly_path), encoding="latin1")
             field_map = _fields(reader)
             if "unit_link" not in field_map:
@@ -290,6 +304,11 @@ def load_sgmc_unit_raster(
         age_signature=age_signature,
         report={
             "states": state_reports,
+            "attribute_table_archive": {
+                "name": tables_archive.name,
+                "member_count": len(table_archive_members),
+                "members": table_archive_members,
+            },
             "target_crs": target_crs.to_string(),
             "target_shape": list(out_shape),
             "target_transform": [float(v) for v in tuple(transform)[:6]],

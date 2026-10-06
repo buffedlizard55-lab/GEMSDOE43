@@ -40,6 +40,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--ca-zip", type=Path, required=True)
     parser.add_argument("--nv-zip", type=Path, required=True)
+    parser.add_argument("--tables-zip", type=Path, required=True)
     parser.add_argument("--template", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
@@ -49,6 +50,8 @@ def main() -> None:
         for state, path in archives.items():
             if not path.is_file():
                 raise FileNotFoundError(f"Missing official SGMC {state} archive: {path}")
+        if not args.tables_zip.is_file():
+            raise FileNotFoundError(f"Missing official SGMC table archive: {args.tables_zip}")
         with rasterio.open(args.template) as src:
             # The mirrored template is label-contaminated; only finite area and grid metadata
             # are used. Its finite pixel values are never interpreted as scores or labels.
@@ -73,6 +76,7 @@ def main() -> None:
 
         geology = load_sgmc_unit_raster(
             archives,
+            tables_archive=args.tables_zip,
             out_shape=shape,
             transform=transform,
             target_crs=crs,
@@ -94,6 +98,12 @@ def main() -> None:
             "source_release_doi": "https://doi.org/10.5066/F7WH2N65",
             "source_metadata": "https://mrdata.usgs.gov/geology/state/USGS_SGMC_Metadata.html",
             "archive_receipts": archive_receipts,
+            "attribute_table_archive": {
+                "url": "https://www.sciencebase.gov/catalog/file/get/5888bf4fe4b05ccb964bab9d?name=USGS_SGMC_Tables_CSV.zip",
+                "path": str(args.tables_zip),
+                "bytes": args.tables_zip.stat().st_size,
+                "sha256": sha256(args.tables_zip),
+            },
             "template_sha256": sha256(args.template),
             "template_grid": grid,
             "polygon_rasterization": geology.report,
@@ -109,7 +119,10 @@ def main() -> None:
             "audit_error_type": type(exc).__name__,
             "audit_error": str(exc),
             "traceback": traceback.format_exc(),
-            "source_paths": {state: str(path) for state, path in archives.items()},
+            "source_paths": {
+                **{state: str(path) for state, path in archives.items()},
+                "tables": str(args.tables_zip),
+            },
             "source_files": {
                 state: {
                     "exists": path.exists(),
@@ -118,6 +131,12 @@ def main() -> None:
                     "archive_members_first_250": archive_inventory(path),
                 }
                 for state, path in archives.items()
+            },
+            "table_archive": {
+                "exists": args.tables_zip.exists(),
+                "bytes": args.tables_zip.stat().st_size if args.tables_zip.exists() else None,
+                "sha256": sha256(args.tables_zip) if args.tables_zip.exists() else None,
+                "archive_members_first_250": archive_inventory(args.tables_zip),
             },
             "template_path": str(args.template),
             "template_exists": args.template.exists(),

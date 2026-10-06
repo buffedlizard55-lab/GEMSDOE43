@@ -97,9 +97,14 @@ def test_load_sgmc_state_archive_reprojects_and_joins_attributes(tmp_path):
     with zipfile.ZipFile(archive, "w") as zf:
         for path in state_dir.iterdir():
             zf.write(path, path.name)
+    tables_archive = tmp_path / "USGS_SGMC_Tables_CSV.zip"
+    with zipfile.ZipFile(tables_archive, "w") as zf:
+        zf.write(state_dir / "age.csv", "age.csv")
+        zf.write(state_dir / "lith.csv", "lith.csv")
 
     geology = load_sgmc_unit_raster(
         {"CA": archive},
+        tables_archive=tables_archive,
         out_shape=(2, 4),
         transform=from_origin(0, 2, 1, 1),
         target_crs="EPSG:32611",
