@@ -1,140 +1,44 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GEMSDOE43 — maximal-covering emission for the DOE GEMS prize</title>
-<style>
-:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
---good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-a{color:var(--acc)}
-header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
-padding:22px 0 14px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-h1{font-size:26px;margin:0 0 4px}
-h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
-h3{font-size:16px;margin-top:22px;color:var(--acc)}
-nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
-text-decoration:none;color:var(--ink);font-size:13px}
-nav a:hover{border-color:var(--acc)}
-nav a.on{background:#123047;border-color:var(--acc)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
-margin:16px 0}
-.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
-table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
-th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
-th{background:var(--panel2);font-weight:600}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
-font-size:12.5px}
-pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
-font-size:12.5px}
-.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
-padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
-.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
-.small{font-size:12.5px;color:var(--dim)}
-.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
-padding:1px 8px;color:var(--dim);margin-right:4px}
-.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
-.card .v{font-size:22px;font-weight:700}
-.card .k{font-size:12px;color:var(--dim)}
-ul{padding-left:20px}
-footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
-.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
-border-radius:0 8px 8px 0}
-</style></head><body>
-<header><div class="wrap">
-<h1>GEMSDOE43 — maximal-covering emission for the DOE GEMS prize</h1>
-<div class="small">DrivenData #306 · distance-weighted Tversky · Church–ReVelle MCLP solver</div>
-<nav><a href="index.html" class="on">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GEMSDOE43: two audited submission files, one primary. SUP01 HGB ranker download, MCLP-line alternative, validation and decision record.">
+  <title>GEMSDOE43 · Auditable GEMS research and submission</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+  <nav class="nav" aria-label="Primary navigation"><a aria-current="page" href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a><a href="mclp-line.html">MCLP line</a><a href="irregularities.html">Irregularities</a></nav>
 </div></header>
-<div class="wrap">
-<div class="panel hero">
-<h2 style="margin-top:0;border:0">⬇ Download the submission file</h2>
-<p><a class="btn" href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif">Download gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</a>
-<a class="btn alt" href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.zip">.zip</a>
-<a class="btn alt" href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-nan.tif">NaN-outside twin</a></p>
-<table>
-<tr><th>property</th><th>measured value</th></tr>
-<tr><td>file</td><td><code>gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</code></td></tr>
-<tr><td>size</td><td class="n">820,001 bytes</td></tr>
-<tr><td>sha256</td><td><code>63c9239a7eb473c342ba51f8f70494aa7222499d3935908c022d54e2e5b5bd4b</code></td></tr>
-<tr><td>grid</td><td>1 band &middot; float32 &middot; 3730 &times; 3292 &middot; EPSG:32611 &middot;
-100 m &middot; transform (100, 0, 243350, 0, −100, 4508550)</td></tr>
-<tr><td>cells in [0,&nbsp;1], all finite</td>
-    <td class="n ok">12,279,160 / 12,279,160 &mdash; PASS</td></tr>
-<tr><td>emitted dots</td><td class="n">51,053</td></tr>
-<tr><td>dots on a known catalogue pixel</td>
-    <td class="n ok">0</td></tr>
-<tr><td>portal <b>unique name</b></td><td><code>GEMSDOE43-MCLP-sup_oof-51053</code></td></tr>
-</table>
-<h3>Submission note to paste (copy exactly)</h3>
-<pre>GEMSDOE43 MCLP | Church-ReVelle maximal covering on the sup_oof prior, K=51053 derived by the 0.2*DTI marginal rule (no spacing constant); 51053 dots, 0 on a known catalogue pixel; pooled blocked hold</pre>
-</div>
-<div class="panel">
-<h2 style="margin-top:0;border:0">What this submission is</h2>
-<p>The competition's <i>distance-weighted Tversky index</i> is, for a fixed number of emitted
-points, <b>exactly</b> the <b>Maximal Covering Location Problem</b> of Church &amp; ReVelle
-(1974): place <i>K</i> facilities of service radius 300 m to maximise the demand covered. This
-repository solves that problem directly on a continuous probability surface with the submodular
-greedy algorithm, which carries a proven <b>(1 − 1/e) ≈ 63.2 %</b> worst-case guarantee against
-the true optimum — a formal floor that no hand-picked spacing constant has.</p>
-<p>The second free parameter, the number of dots, is <b>derived rather than swept</b>. Because the
-index's denominator rises by exactly <code>0.2</code> per emitted dot whatever that dot's credit,
-a dot is worth emitting iff its marginal coverage exceeds <code>0.2 × DTI</code>. Solving that
-condition self-consistently is a Dinkelbach fixed point, so there is no spacing constant and no
-magic budget anywhere in the pipeline.</p>
-
-<div class="grid">
-<div class="card"><div class="v">0.1446</div>
-  <div class="k">frame A holdout DTI &mdash; +33% vs the best scored artifact
-  (0.1087)</div></div>
-<div class="card"><div class="v">0.1583</div>
-  <div class="k">frame C holdout DTI &mdash; +36% vs the best scored artifact
-  (0.1160)</div></div>
-<div class="card"><div class="v">0.2258</div>
-  <div class="k">frame B holdout DTI &mdash; +159% vs the best scored artifact
-  (0.0870)</div></div>
-<div class="card"><div class="v">0.6321</div>
-  <div class="k">worst-case guarantee of the greedy (1 − 1/e)</div></div>
-<div class="card"><div class="v">62</div>
-  <div class="k">derived geophysical channels</div></div>
-<div class="card"><div class="v">23/23</div>
-  <div class="k">hash-pinned inputs verified</div></div>
-</div>
-<p class="small">Frames A and C withhold catalogue faults by spatial block; frame B uses the
-off-catalogue external inventory. The bar is the mean holdout DTI of the best artifact that has a
-known live score, measured on the same frames. Frame B is <b>excluded from selection</b> because
-its truth set is the SGMC inventory that several candidate surfaces are built from;
-<code>lf_ext_sgmc</code> tops the raw grid at 0.1968 for exactly that reason and is not shipped.
-The calibration of these frames against live scores is published with its p-value on the
-<a href="irregularities.html">irregularities</a> page: at n = 8 none is significant, so these
-are screens, not evidence of a leaderboard gain.</p>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">Public leaderboard, read 2026-10-06</h2>
-<table><tr><th>rank</th><th>participant</th><th class="n">best public DW-Tversky</th></tr><tr><td class="n">#1</td><td>alexoktaba</td><td class="n">0.3345</td></tr><tr><td class="n">#2</td><td>nchuzhoy</td><td class="n">0.3262</td></tr><tr><td class="n">#3</td><td>kinghorton42</td><td class="n">0.3222</td></tr><tr><td class="n">#4</td><td>Batik Shirt Brothers</td><td class="n">0.3218</td></tr><tr><td class="n">#5</td><td>DARD</td><td class="n">0.3195</td></tr><tr><td class="n">#6</td><td>joeyfezster</td><td class="n">0.3163</td></tr><tr><td class="n">#7</td><td>xiaofanhu</td><td class="n">0.3060</td></tr><tr><td class="n">#8</td><td>ndavis7</td><td class="n">0.2888</td></tr><tr><td class="n">#9</td><td>mzoorob</td><td class="n">0.2884</td></tr><tr><td class="n">#10</td><td>GrigorSargsyan</td><td class="n">0.2876</td></tr></table>
-<p class="small">Public leaderboard only; it is not the private or final prize score.
-Group best is <b>0.2778</b> (<span class="tag">OWNER-REPORT</span> GEMSDOE32 / h33-2-b2), which
-today would sit just below rank 13.</p>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">Where the headroom is</h2>
-<p>The group's best artifact realises <b>0.126</b> weighted credit per emitted dot against a
-theoretical <b>3.0</b> for a dot sitting on a straight fault trace
-(<code>1 + 2·(2/3) + 2·(1/3)</code>) — about <b>4 %</b>. The gap between 0.2778 and the top of the
-board is therefore <b>not an emission-quality gap and not a spacing gap; it is a coverage gap</b>,
-which is precisely what the covering formulation optimises. Full algebra in
-<a href="research.html">Method</a>.</p>
-</div>
-</div>
-<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
-rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
-<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
-</body></html>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Two files · one primary · both live-unscored</div><h1>Primary: the SUP01 HGB submission.</h1><p>A supervised ranker beat the reproduced H42 baseline on every spatial block at equal mass, passed format and novelty audits, and is packaged with a unique name, portal note, and AI-disclosure narrative. A parallel MCLP-line file is retained as the alternative, with its caveat stated. Nothing here is a leaderboard score.</p><div class="button-row"><a class="button" download href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif">Download primary GeoTIFF</a><a class="button secondary" href="#alternative">Alternative file ↓</a></div></div><div class="hero-side"><span class="badge pass">Gate · pass (D only)</span><strong>+0.011922</strong><span>SUP01 mean margin vs H42 · 4/4 folds</span></div></div></section>
+<main class="wrap">
+<section class="section"><div class="callout"><strong>Decision (2026-10-06 merge of PR #3 + PR #4).</strong><p><strong>PRIMARY:</strong> <code>gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif</code> (name <code>GEMSDOE43-SUP01-HGB21-SE40</code>) — the only shipped layout whose exact emission family was validated at equal mass (4/4 folds), with a reproducible build. <strong>ALTERNATIVE:</strong> <code>gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</code> — validated prior (0.286388 packing) but a shipped maximal-covering placement that was never scored at equal mass, and a lost build cache. Full record: <a href="executive-summary.html#decision">decision section</a> and <code>evidence/submission_status.json</code>.</p></div></section>
+<section class="section grid">
+  <article class="card"><span class="badge pass">Reproduced twice</span><h3>Baseline H42</h3><p>Local four-colour, 20-km catalogue holdout reimplementation matches the owner report within 1e-6 (mean 0.250744). Round 2 re-ran it unchanged as a drift guard: PASS.</p><a href="research.html#h42">Open the holdout receipt →</a></article>
+  <article class="card"><span class="badge pass">Validated · primary</span><h3>SUP01 HGB ranker</h3><p>Per-fold gradient boosting on 21 features (19 bands + scarp + validity flag). Mean 0.262666, wins folds 0–3 (+0.0176, +0.0110, +0.0081, +0.0109). Corrected gate (folds 1–3): 3/3.</p><a href="research.html#round2">Review the frozen operator →</a></article>
+  <article class="card"><span class="badge caution">Prior validated · placement not</span><h3>sup_oof + MCLP line</h3><p>Supervised OOF prior packs to 0.286388 (4/4) — the best validated surface here. The shipped 51,053-dot maximal-covering file itself was never scored at equal mass.</p><a href="mclp-line.html">Read the MCLP-line record →</a></article>
+  <article class="card"><span class="badge no-go">Rejected at gate</span><h3>MCLP / MG01 / ensemble / CG01</h3><p>Exact lazy-greedy maximum-coverage placement trails fixed packing on the same surfaces (0.211122 / 0.150107, 0/4 each). MG01, the ensemble, H46-B, and CG01 also failed. Mechanisms preserved.</p><a href="research.html#mclp">Read the falsifications →</a></article>
+</section>
+<section class="section"><div class="section-head"><div><div class="kicker">Local validation only</div><h2>Frozen four-fold results (equal mass, catalogue truth)</h2></div><span class="badge pass">Drift guard PASS</span></div>
+<div class="table-wrap"><table><thead><tr><th>Arm</th><th>Mean DTI</th><th>Fold wins vs H42</th><th>Gate</th></tr></thead><tbody>
+<tr><td><strong>sup_oof prior + sep-3.0 packing (MCLP line)</strong></td><td><strong>0.286388</strong></td><td>4/4</td><td><strong>Prior validated</strong> (shipped MCLP placement differs)</td></tr>
+<tr><td><strong>SUP01 + sep-4.0 packing (primary)</strong></td><td><strong>0.262666</strong></td><td>4/4</td><td><strong>PASS</strong> (3/3 clean folds + mean)</td></tr>
+<tr><td>H42 reproduced reference</td><td>0.250744</td><td>—</td><td>reference</td></tr>
+<tr><td>SH/MG01 ensemble + packing</td><td>0.241241</td><td>0/3 clean</td><td>FAIL</td></tr>
+<tr><td>CG01 cross-gradient (round 1)</td><td>0.211567</td><td>0/4</td><td>FAIL</td></tr>
+<tr><td>MCLP on H42 surface</td><td>0.211122</td><td>0/4</td><td>FAIL</td></tr>
+<tr><td>MG01 + packing</td><td>0.205756</td><td>0/4</td><td>FAIL</td></tr>
+<tr><td>MCLP on MG01 surface</td><td>0.150107</td><td>0/4</td><td>FAIL</td></tr>
+</tbody></table></div>
+<p class="small">Each fold withholds a 20-km block colour and scores recovery of mapped catalogue faults only. Local margins are not public, private Phase 1, or Phase 2 scores.</p></section>
+<section class="section" id="alternative"><div class="section-head"><div><div class="kicker">Retained alternative · live-unscored</div><h2>The MCLP-line file</h2></div><p>One slot per week — this file is the backup, not the recommendation. Its prior is the best validated surface in the repo; its placement is the open question.</p></div>
+<div class="grid"><article class="card"><h3>Download (alternative)</h3><p><a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif"><code>gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</code></a> (801&nbsp;KB) + <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-nan.tif">NaN twin</a> + <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.zip">zip</a>. 51,053 dots · 0 on-catalogue · sha256 <code>63c9239a…5bd4b</code> · name <code>GEMSDOE43-MCLP-sup_oof-51053</code>.</p><a href="mclp-line.html">Full MCLP-line record →</a></article>
+<article class="card"><h3>Caveat (from its own status record)</h3><p>The shipped maximal-covering placement was never scored at equal mass (unequal-mass probe 0.219994, 0/4 — a mass artefact). The channel stack and OOF surface were lost with <code>.cache/</code>, so the file cannot be rebuilt without re-running the pipeline. Round 2 independently falsified MCLP placement on two surfaces.</p></article></div></section>
+<section class="section"><div class="section-head"><div><div class="kicker">Current record · dated snapshot</div><h2>Leaderboard read 2026-10-06</h2></div><p>#1 alexoktaba 0.3345 · #2 nchuzhoy 0.3262 · #3 kinghorton42 0.3222 · #4 Batik Shirt Brothers 0.3218 · #5 DARD 0.3195. The brief's “0.3195 is the highest” is stale (IR-43-001); no GEMSDOE row is visible (IR-43-010). <a href="leaderboard.html">Full table + terms →</a></p></div></section>
+<section class="section"><div class="notice"><strong>No refresh feed.</strong> The snapshot above is dated, not live. DrivenData's Terms of Use prohibit automatic or manual monitoring/copying without prior written consent — this repo links the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official page</a> for authorized browser review instead.</div></section>
+<section class="section"><div class="callout warn"><strong>Two files are offered — with their limits attached.</strong><p>The primary passed the frozen gate for its exact emission and every release audit; the alternative carries a validated prior with an unvalidated placement. Both are live-UNSCRED, built on owner-mirrored inputs, and validated only against withheld mapped faults. <a href="executive-summary.html">Read the submission guide →</a></p></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="executive-summary.html">Submission guide</a><a href="research.html">Validation</a></span></div></footer>
+</body>
+</html>

@@ -1,125 +1,99 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Method — metric algebra, MCLP, and the channel stack</title>
-<style>
-:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
---good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-a{color:var(--acc)}
-header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
-padding:22px 0 14px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-h1{font-size:26px;margin:0 0 4px}
-h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
-h3{font-size:16px;margin-top:22px;color:var(--acc)}
-nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
-text-decoration:none;color:var(--ink);font-size:13px}
-nav a:hover{border-color:var(--acc)}
-nav a.on{background:#123047;border-color:var(--acc)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
-margin:16px 0}
-.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
-table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
-th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
-th{background:var(--panel2);font-weight:600}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
-font-size:12.5px}
-pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
-font-size:12.5px}
-.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
-padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
-.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
-.small{font-size:12.5px;color:var(--dim)}
-.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
-padding:1px 8px;color:var(--dim);margin-right:4px}
-.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
-.card .v{font-size:22px;font-weight:700}
-.card .k{font-size:12px;color:var(--dim)}
-ul{padding-left:20px}
-footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
-.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
-border-radius:0 8px 8px 0}
-</style></head><body>
-<header><div class="wrap">
-<h1>Method — metric algebra, MCLP, and the channel stack</h1>
-<div class="small">Every step proved, every constant derived.</div>
-<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="">Hypotheses</a><a href="research.html" class="on">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="H42 reproduction, round-1 and round-2 spatial holdouts, MCLP-line validation, falsifications, credit analysis and release record.">
+  <title>Validation record · GEMSDOE43</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a aria-current="page" href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a><a href="mclp-line.html">MCLP line</a><a href="irregularities.html">Irregularities</a></nav>
 </div></header>
-<div class="wrap">
-<div class="panel">
-<h2 style="margin-top:0;border:0">The metric, verbatim</h2>
-<p>From <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">the
-official problem description</a>, “Performance metric”, read 2026-10-06:</p>
-<pre>k(d)  = max(1 - d/R, 0),                       R = 300 m
-TP_w  = sum_{g in G} max_{x: d(x,g) &lt;= R} p(x) k(d(x,g))
-FP_w  = sum_{x: p(x) &gt; 0} p(x) [1 - max_{g in G} k(d(x,g))]
-FN_w  = sum_{g in G} [1 - max_{x: d(x,g) &lt;= R} p(x) k(d(x,g))]
-DTI   = TP_w / (TP_w + 0.2 FP_w + 0.8 FN_w + eps)</pre>
-<p>Implemented verbatim in <code>src/gems43/metric.py</code>, and tested against
-(<b>i</b>) the organizer's own worked example
-<code>TP_w=3.00, FP_w=1.89, FN_w=2.00 → 0.60</code> and (<b>ii</b>) a brute-force
-<code>O(N·M)</code> re-derivation on random grids.</p>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">Three consequences, and what each one buys</h2>
-<table>
-<tr><th>#</th><th>consequence</th><th>consequence for the design</th></tr>
-<tr><td class="n">1</td><td><code>FN_w = |G| − TP_w</code>, so
-<code>DTI = T / (0.2T + 0.2F + 0.8|G|)</code></td>
-<td>the index is a ratio of two set functions → fractional-programming tools apply</td></tr>
-<tr><td class="n">2</td><td>Adding a pixel of weight <code>p</code> raises the denominator by
-<b>exactly <code>0.2p</code></b> whatever its credit, so the move pays iff
-<code>k &gt; 0.2·DTI</code> — <b>independent of <code>p</code></b></td>
-<td><b>binary emission is optimal</b>; the stopping rule needs no tuned threshold</td></tr>
-<tr><td class="n">3</td><td><code>FP_w = |S| − Σ_i k_i</code> is <b>modular</b> in the emitted
-set; under the disjoint-credit hypothesis the index reduces to
-<code>T / (0.2|S| + 0.8|G|)</code></td>
-<td>for a fixed dot count, the problem <b>is</b> MCLP</td></tr>
-</table>
-<p class="small"><b>Correction recorded as IR-43-007:</b> the reduction in row 3 is a
-<i>hypothesis</i>, not a bound. It is pessimistic when several dots compete for the same truth
-pixel (the regime at K &gt; |G|) and optimistic when there are fewer dots than truth pixels.
-It is reported as the <i>reduction</i> everywhere, never as a guaranteed score.</p>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">From MCLP to the emitted file</h2>
-<ol>
-<li><b>Demand field.</b> A per-pixel prior <code>π(x)</code> that a hidden fault occupies
-<code>x</code>, normalised so <code>Σ π = |Ĝ|</code> (12,226, the parent project's live-anchor
-estimate). That normalisation is what puts the marginal gains on the metric's own scale.</li>
-<li><b>Coverage objective.</b> <code>T(S) = Σ_x π(x)·max_{i∈S} k(d(i,x))</code> — weighted
-max-coverage, hence <b>monotone submodular</b>.</li>
-<li><b>Church–ReVelle greedy with exact residual bookkeeping.</b> Unlike a textbook MCLP, coverage
-is a <i>graded</i> kernel, so the solver tracks <code>max(0, k(δ) − C(x))</code> at every pixel and
-two overlapping facilities are credited only once. It is the <b>exact</b> greedy (not lazy): after
-each acceptance only the candidates within 600 m can have changed, so a full pass per iteration is
-unnecessary. Worst-case guarantee <b>(1 − 1/e) = 0.6321</b>.</li>
-<li><b>Cardinality by Dinkelbach fixed point.</b> One greedy pass produces the whole marginal-gain
-path; the budget is where the marginal gain falls below <code>0.2·s</code>, solved
-self-consistently. <b>No spacing constant, no swept budget.</b></li>
-<li><b>Binary emission</b> (<code>p = 1</code> on the chosen dots), because consequence 2 makes
-<code>p &lt; 1</code> strictly dominated.</li>
-<li><b>Fail-closed write</b>, then an independent re-read audit, then the near-duplicate screen.</li>
-</ol>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">Channel provenance (62 channels)</h2>
-<p>Every channel names the band and the transform it came from. Band names are read from the
-GeoTIFF's own descriptions, never assumed.</p>
-<table><tr><th class="n">#</th><th>channel</th><th>hypothesis</th><th>what it is</th></tr><tr><td class="n">1</td><td><code>raw_mag_anom</code></td><td>base</td><td class="small">official band &#x27;mag_anom&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">2</td><td><code>raw_rtp</code></td><td>base</td><td class="small">official band &#x27;rtp&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">3</td><td><code>raw_tmi</code></td><td>base</td><td class="small">official band &#x27;tmi&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">4</td><td><code>raw_tmi_hg</code></td><td>base</td><td class="small">official band &#x27;tmi_hg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">5</td><td><code>raw_tmi_vg</code></td><td>base</td><td class="small">official band &#x27;tmi_vg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">6</td><td><code>raw_tc</code></td><td>base</td><td class="small">official band &#x27;tc&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">7</td><td><code>raw_iso_grav_anom</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">8</td><td><code>raw_iso_grav_anom_hg</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom_hg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">9</td><td><code>raw_iso_grav_anom_vg</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom_vg&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">10</td><td><code>raw_iso_grav_anom_slope</code></td><td>base</td><td class="small">official band &#x27;iso_grav_anom_slope&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">11</td><td><code>raw_det_elev</code></td><td>base</td><td class="small">official band &#x27;det_elev&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">12</td><td><code>raw_det_elev_slope</code></td><td>base</td><td class="small">official band &#x27;det_elev_slope&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">13</td><td><code>raw_cond_surf</code></td><td>base</td><td class="small">official band &#x27;cond_surf&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">14</td><td><code>raw_depth_to_base_surf</code></td><td>base</td><td class="small">official band &#x27;depth_to_base_surf&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">15</td><td><code>raw_geod_2ndinv</code></td><td>base</td><td class="small">official band &#x27;geod_2ndinv&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">16</td><td><code>raw_geod_shearrate</code></td><td>base</td><td class="small">official band &#x27;geod_shearrate&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">17</td><td><code>raw_geod_dilaterate</code></td><td>base</td><td class="small">official band &#x27;geod_dilaterate&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">18</td><td><code>raw_ieq_n100a15</code></td><td>base</td><td class="small">official band &#x27;ieq_n100a15&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">19</td><td><code>raw_deq_n100a15</code></td><td>base</td><td class="small">official band &#x27;deq_n100a15&#x27;, sentinel-filled, robust 0.5/99.5 pct</td></tr><tr><td class="n">20</td><td><code>h431_analytic_signal</code></td><td>H43-1</td><td class="small">sqrt(tmi_hg^2 + tmi_vg^2): contact locator independent of magnetization direction</td></tr><tr><td class="n">21</td><td><code>h431_asa_ridge</code></td><td>H43-1</td><td class="small">non-max-suppressed ridge of the analytic signal amplitude</td></tr><tr><td class="n">22</td><td><code>h431_tilt_grad</code></td><td>H43-1</td><td class="small">|grad tc|: the horizontal gradient of the tilt angle peaks over source edges</td></tr><tr><td class="n">23</td><td><code>h431_tilt_zero_band</code></td><td>H43-1</td><td class="small">narrow band around the tilt-angle zero contour, which outlines the source body</td></tr><tr><td class="n">24</td><td><code>h431_tilt_abs</code></td><td>H43-1</td><td class="small">|tc|: total-curvature / tilt magnitude</td></tr><tr><td class="n">25</td><td><code>line_mag</code></td><td>H43-1</td><td class="small">Frangi vesselness (both polarities) of tmi at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">26</td><td><code>line_rtp</code></td><td>H43-1</td><td class="small">Frangi vesselness (both polarities) of rtp at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">27</td><td><code>line_tilt</code></td><td>H43-1</td><td class="small">Frangi vesselness (both polarities) of tc at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">28</td><td><code>line_grav</code></td><td>H43-5</td><td class="small">Frangi vesselness (both polarities) of iso_grav_anom at sigma=(1.5, 3.0), 0.5/99.5 pct</td></tr><tr><td class="n">29</td><td><code>line_elev</code></td><td>base</td><td class="small">Frangi vesselness (both polarities) of det_elev at sigma=(1.2, 2.5), 0.5/99.5 pct</td></tr><tr><td class="n">30</td><td><code>line_cond</code></td><td>H43-2</td><td class="small">Frangi vesselness (both polarities) of cond_surf at sigma=(1.5, 3.0), 0.5/99.5 pct</td></tr><tr><td class="n">31</td><td><code>line_base</code></td><td>H43-2</td><td class="small">Frangi vesselness (both polarities) of depth_to_base_surf at sigma=(1.5, 3.0), 0.5/99.5 pct</td></tr><tr><td class="n">32</td><td><code>line_shear</code></td><td>H43-2</td><td class="small">Frangi vesselness (both polarities) of geod_shearrate at sigma=(2.0, 4.0), 0.5/99.5 pct</td></tr><tr><td class="n">33</td><td><code>h431_orient_order</code></td><td>H43-1</td><td class="small">R = |sum_p w_p exp(2i theta_p)| / sum_p w_p over [&#x27;mag&#x27;, &#x27;rtp&#x27;, &#x27;tilt&#x27;, &#x27;grav&#x27;, &#x27;elev&#x27;, &#x27;cond&#x27;, &#x27;base&#x27;]: do independent physics agree on the strike?</td></tr><tr><td class="n">34</td><td><code>h431_multi_physics_fused</code></td><td>H43-1</td><td class="small">OR-fusion of the per-physics line responses, gated by strike agreement</td></tr><tr><td class="n">35</td><td><code>h432_base_step</code></td><td>H43-2</td><td class="small">|grad depth_to_base_surf|: a step in the sedimentary cover thickness = basin fault</td></tr><tr><td class="n">36</td><td><code>h432_cond_step</code></td><td>H43-2</td><td class="small">|grad log cond_surf|: MT conductivity step = buried lithologic/fluid boundary</td></tr><tr><td class="n">37</td><td><code>h432_coincidence</code></td><td>H43-2</td><td class="small">geometric mean of basement step, conductivity step and geodetic shear ridge</td></tr><tr><td class="n">38</td><td><code>h432_conceal_gate</code></td><td>H43-2</td><td class="small">1 - mean(local relief, local slope): high where no scarp could be mapped</td></tr><tr><td class="n">39</td><td><code>h432_concealed_coincidence</code></td><td>H43-2</td><td class="small">subsurface coincidence weighted by the concealment gate</td></tr><tr><td class="n">40</td><td><code>h433_seis_resid</code></td><td>H43-3</td><td class="small">|ieq - smooth(ieq, 12 px)|: the supplied band is 0.9935 self-correlated at 3 km, so only the high-pass residual can carry fault-scale information</td></tr><tr><td class="n">41</td><td><code>h433_deq_min</code></td><td>H43-3</td><td class="small">negative distance-to-earthquake: local minima line up along active structures</td></tr><tr><td class="n">42</td><td><code>h435_grav_analytic_signal</code></td><td>H43-5</td><td class="small">analytic signal amplitude of the isostatic gravity anomaly</td></tr><tr><td class="n">43</td><td><code>h435_grav_tilt_depth</code></td><td>H43-5</td><td class="small">tilt-depth SPI: 1/|grad(tilt)| estimates depth to the density contrast</td></tr><tr><td class="n">44</td><td><code>strain_second_invariant</code></td><td>base</td><td class="small">geodetic second invariant, smoothed</td></tr><tr><td class="n">45</td><td><code>strain_dilat_abs</code></td><td>base</td><td class="small">|dilatation rate|</td></tr><tr><td class="n">46</td><td><code>rad_K</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;K&#x27;</td></tr><tr><td class="n">47</td><td><code>rad_Th</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;Th&#x27;</td></tr><tr><td class="n">48</td><td><code>rad_U</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;U&#x27;</td></tr><tr><td class="n">49</td><td><code>rad_TC</code></td><td>base</td><td class="small">GeoDAWN radiometric band &#x27;TC&#x27;</td></tr><tr><td class="n">50</td><td><code>radx_ThK</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;ThK&#x27;</td></tr><tr><td class="n">51</td><td><code>radx_UK</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;UK&#x27;</td></tr><tr><td class="n">52</td><td><code>radx_UTh</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;UTh&#x27;</td></tr><tr><td class="n">53</td><td><code>radx_TMI_up150</code></td><td>base</td><td class="small">GeoDAWN extension band &#x27;TMI_up150&#x27;</td></tr><tr><td class="n">54</td><td><code>lidar_ex_max</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;ex_max&#x27;</td></tr><tr><td class="n">55</td><td><code>lidar_step_max</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;step_max&#x27;</td></tr><tr><td class="n">56</td><td><code>lidar_downface_max</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;downface_max&#x27;</td></tr><tr><td class="n">57</td><td><code>lidar_relief</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;relief&#x27;</td></tr><tr><td class="n">58</td><td><code>lidar_coh100</code></td><td>base</td><td class="small">1 m LiDAR scarp product band &#x27;coh100&#x27;</td></tr><tr><td class="n">59</td><td><code>ext_sgmc_prox</code></td><td>external</td><td class="small">exp(-d/400 m) to the SGMC fault inventory (an independent compilation)</td></tr><tr><td class="n">60</td><td><code>h434_spring_density</code></td><td>H43-4</td><td class="small">GDR well/spring density weighted by measured temperature</td></tr><tr><td class="n">61</td><td><code>h434_spring_lines</code></td><td>H43-4</td><td class="small">locality-constrained PCA lineaments through clusters of &gt;=3 thermal features (radius 25 px, elongation &gt;= 0.80), extended 12 px along strike: orientation evidence that an isotropic proximity decay cannot express</td></tr><tr><td class="n">62</td><td><code>ext_vent_prox</code></td><td>external</td><td class="small">exp(-d/800 m) to GDR volcanic vents</td></tr></table>
-</div>
-</div>
-<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
-rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
-<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
-</body></html>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Local evidence · reproducible holdouts</div><h1>Two detectors validated. Placements judged separately.</h1><p>G43 rebuilt the H42 comparison from pinned input layers, then scored two research lines on the same four-colour, 20-km blocks at equal mass: the SUP01 ranker and the MCLP line's supervised prior both won — with their placements carrying very different evidence.</p></div><div class="hero-side"><span class="badge pass">Shared protocol · drift guard pass</span><strong>0.2864 / 0.2627</strong><span>sup_oof + SUP01 means · local catalogue CV</span></div></div></section>
+<main class="wrap">
+<section class="section"><div class="callout warn"><strong>Interpretation ceiling</strong><p>These holdouts mask out spatial blocks and ask whether a surface recovers known published catalogue traces in withheld areas. They are not the hidden competition truth and must not be presented as expected public, private Phase 1, or Phase 2 scores. DrivenData staff have not disclosed hidden-test sources, fault types, or coverage.</p></div></section>
+<section class="section" id="round2"><div class="section-head"><div><div class="kicker">Round-2 holdout · frozen protocol</div><h2>SUP01 passes; MCLP, MG01 and ensemble fail</h2></div><span class="badge pass">Drift guard PASS</span></div>
+<div class="prose"><p>Same four-colour 20-km blocks, 3-px held-edge guard, 2-px training-trace guard, equal 40,000-px mass, and official 300-m triangular DTI as round 1. The recomputed H42 reference matched the frozen round-1 receipt within 1e-6 on every fold and summary (drift guard PASS). SUP01 was added by a <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/amendment_round2b.md">timestamped amendment</a> after fold-0 exploration falsified MCLP; because fold 0 selected it, SUP01 and the ensemble are judged on folds 1–3 only (3/3 wins + mean required). SUP01 additionally clears the original 4-fold gate. Frozen operators: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/registry/experiment_g43_mclp.json">registry/experiment_g43_mclp.json</a>.</p></div>
+<div class="grid">
+<article class="card full"><h3>Round-2 arms · 4-fold mean DTI (equal mass 40,000)</h3><div class="table-wrap"><table><thead><tr><th>Arm</th><th>Surface + emission</th><th>Mean</th><th>Min–max</th><th>Gate</th></tr></thead><tbody>
+<tr><td><strong>D · SUP01 (primary)</strong></td><td>HGB ranker (21 feats) + sep-4.0 packing</td><td><strong>0.262666</strong></td><td>0.258672–0.268965</td><td><strong>PASS (3/3 clean, 4/4 total)</strong></td></tr>
+<tr><td>REF · H42</td><td>SH_basin_strong + sep-4.0 packing</td><td>0.250744</td><td>0.242272–0.258025</td><td>reference</td></tr>
+<tr><td>E · ENS01</td><td>50/50 SH/MG01 + sep-4.0 packing</td><td>0.241241</td><td>0.228388–0.249764</td><td>FAIL (0/3 clean)</td></tr>
+<tr><td>A · MCLP-SH</td><td>H42 surface + lazy-greedy max coverage</td><td>0.211122</td><td>0.194901–0.219514</td><td>FAIL (0/4)</td></tr>
+<tr><td>C · MG01-pack</td><td>Triple-gradient + sep-4.0 packing</td><td>0.205756</td><td>0.186375–0.221006</td><td>FAIL (0/4)</td></tr>
+<tr><td>B · MCLP-MG01</td><td>Triple-gradient + lazy-greedy max coverage</td><td>0.150107</td><td>0.137502–0.168592</td><td>FAIL (0/4)</td></tr>
+</tbody></table></div></article>
+<article class="card full"><h3>SUP01 vs H42, fold by fold</h3><div class="table-wrap"><table><thead><tr><th>Fold</th><th>H42</th><th>SUP01</th><th>SUP01 − H42</th><th>Win?</th></tr></thead><tbody>
+<tr><td>0 †</td><td>0.242272</td><td>0.259893</td><td>+0.017621</td><td>Yes</td></tr>
+<tr><td>1</td><td>0.247658</td><td>0.258672</td><td>+0.011014</td><td>Yes</td></tr>
+<tr><td>2</td><td>0.255021</td><td>0.263133</td><td>+0.008112</td><td>Yes</td></tr>
+<tr><td>3</td><td>0.258025</td><td>0.268965</td><td>+0.010940</td><td>Yes</td></tr>
+<tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.262666</strong></td><td><strong>+0.011922</strong></td><td><strong>4/4</strong></td></tr>
+<tr><td><strong>Mean (folds 1–3)</strong></td><td><strong>0.263590</strong></td><td><strong>0.263590</strong></td><td><strong>+0.010022</strong></td><td><strong>3/3</strong></td></tr>
+</tbody></table></div><p class="small">† Selection fold for round-2b arms: reported, excluded from the corrected gate (reference folds-1–3 mean: 0.253568). SUP01 hyperparameters were frozen in the amendment (200 trees, lr 0.06, 63 leaves, balanced classes, early stopping, seed 20261006); all four folds trained the full 200 iterations.</p></article>
+</div></section>
+<section class="section" id="supoof"><div class="section-head"><div><div class="kicker">MCLP line · shared protocol + frames</div><h2>sup_oof prior: 0.286388 packing; shipped placement unvalidated</h2></div><span class="badge caution">Split verdict</span></div>
+<div class="prose"><p>The MCLP line's supervised out-of-fold prior (gradient boosting over 62 channels) was scored on the <strong>same</strong> four-fold protocol — 200-cell blocks, 3-px edge guard, 2-px training-trace guard, official DTI — at <strong>equal mass 40,000</strong> on the <strong>same</strong> allowed emission domain, packed by the protocol's own greedy packer at sep 3.0:</p></div>
+<div class="table-wrap"><table><thead><tr><th>Arm</th><th>Mean</th><th>Min fold</th><th>Max fold</th><th>Folds won</th></tr></thead><tbody>
+<tr><td><strong>EXT_MCLPsup_oof|sep3.0|N40000</strong></td><td><strong>0.286388</strong></td><td>0.275090</td><td>0.297811</td><td><strong>4/4</strong></td></tr>
+<tr><td>SH_basin_strong|sep4.0|N40000 (H42)</td><td>0.250744</td><td>0.242272</td><td>0.258025</td><td>—</td></tr>
+</tbody></table></div>
+<div class="prose"><p>Fold detail: f0 0.281116 vs 0.242272 · f1 0.291534 vs 0.247658 · f2 0.297811 vs 0.255021 · f3 0.275090 vs 0.258025. The candidate's worst fold (0.2751) beats the reference's best (0.2580). Receipt: <code>evidence/holdout_g43_cg01.json</code> (EXT grid).</p>
+<p>On the line's own frame families (reference bar = best live-scored artifact on the same frames): frame A 0.1446 vs 0.1087 (+33%), frame C 0.1583 vs 0.1160 (+36%), frame B 0.2258 vs 0.0870 (+160%, excluded from selection — its truth is the SGMC inventory several surfaces are built from). The frames-vs-live calibration is published with p-values (Spearman, n=8: A +0.18 p=0.67, B +0.46 p=0.26, C +0.18 p=0.67) — <strong>none significant</strong>: screens, not leaderboard evidence.</p></div>
+<div class="callout warn"><strong>Two material caveats (from the MCLP line's own record).</strong><p>1) The shipped 51,053-dot maximal-covering file was <strong>never scored at equal mass</strong> on this protocol — an unequal-mass probe scored 0.219994 (0/4), a mass artefact (~13.7k in-domain dots vs 40,000), recorded not dropped. The prior is validated; the specific placement is not. 2) The channel stack and OOF surface lived in gitignored <code>.cache/</code> and were <strong>lost</strong> — the file cannot be rebuilt without re-running the pipeline. Prescribed next step: score the shipped emission at equal mass; if it fails, ship validated packing of the same prior instead.</p></div>
+<p class="small">Full MCLP-line record: <a href="mclp-line.html">mclp-line.html</a> · <code>evidence/submission.json</code> · <code>evidence/pipeline_probe.json</code> · <code>evidence/instrument_calibration.json</code>.</p></section>
+<section class="section" id="mclp"><div class="section-head"><div><div class="kicker">Negative result · preserved</div><h2>Why MCLP placement lost</h2></div><span class="badge no-go">Falsified</span></div>
+<div class="prose"><p>G43 implemented Church–ReVelle maximum coverage exactly: the official triangular 300-m kernel as the coverage function, a top-300k candidate shortlist, and an exact lazy-greedy solver whose (1−1/e) guarantee holds <em>over the candidate set for covering the surface</em>. The solver is unit-tested against brute-force optima on tiny grids (greedy ≥ (1−1/e)·OPT on every randomized trial).</p>
+<p>On the scored holdout it still lost everywhere: 0.211122 (H42 surface) and 0.150107 (MG01), zero fold wins. Seven fold-0 demand variants — raw, squared, floor-subtracted, σ∈{1, 1.85, 3} blurred, top-200k binary, and training-calibrated P(truth|score) — all trailed fixed packing too (best: calibrated, 0.2051 vs 0.2423). Mechanism: the hand-built surfaces are rank-informative but magnitude-miscalibrated (SH's top score decile has only ~2% training-truth rate; most surface mass sits in mid-value flats while truth concentrates on sharp ridges), so mass-covering spreads dots over flats while score-descending packing concentrates all 40k dots on the extreme tail where truth density peaks. The guarantee is honored — the surface is covered near-optimally — but the surface is the wrong objective. This independently replicates GEMSDOE28's H37-1 lesson on a different surface and validator. Lesson: <strong>placement is downstream of probability quality</strong>; a calibrated supervised surface + MCLP is the principled untested combination — and the MCLP-line file is its closest existing instance.</p>
+<p>Full exploration log: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/amendment_round2b.md">amendment_round2b.md</a> · strategy memo: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/mclp_strategy.md">mclp_strategy.md</a>.</p></div></section>
+<section class="section" id="credit"><div class="section-head"><div><div class="kicker">Decision theory</div><h2>The 0.2·DTI credit bar prices every dot</h2></div></div>
+<div class="prose"><p>From the official formula, each unit of emitted mass adds exactly 0.2 to the DTI denominator regardless of its credit — so a marginal dot raises the score iff its kernel credit exceeds <strong>0.2·DTI</strong> (≈0.052 at DTI 0.26), independent of its weight (binary emission is optimal). This one inequality explains the whole dotted-file lineage: thinning 121k→60k→44k dots removed already-covered mass, and the catalogue-flank prunes deleted below-bar dots near the catalogue. Conditional on the owner-inferred hidden count (~12.7k truth pixels), reaching 0.32 at 40k mass needs +18% credit density per dot — only a better detector (or live-calibrated mass discipline) can supply it. The MCLP line derives its Dinkelbach budget from the same rule and proves the algebra in <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/docs/research/metric-algebra.md">docs/research/metric-algebra.md</a> (with IR-43-007: the fixed-K→MCLP reduction is a hypothesis, not a bound). Derivation and limits: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/mclp_strategy.md">mclp_strategy.md</a>.</p></div></section>
+<section class="section" id="submission"><div class="section-head"><div><div class="kicker">Release record · two files</div><h2>Submission files, hashes, novelty and cross-audit</h2></div><span class="badge pass">Audits PASS</span></div>
+<div class="prose"><p><strong>PRIMARY — SUP01</strong> (HGB trained on all 5,164,300 valid cells, 60,988 positives; 40,000 dots at ≥4-px separation; none within 200 m of the catalogue):</p>
+<ul>
+<li>Primary (NaN outside): <a download href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif"><code>gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif</code></a> — 341,846 bytes, sha256 <code>41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38</code>, <a href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan-audit.json">audit receipt</a>.</li>
+<li>Fallback twin (0.0 outside, all-finite): <a download href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif"><code>gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif</code></a> — 288,706 bytes, sha256 <code>224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65</code>, <a href="downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros-audit.json">audit receipt</a>.</li>
+</ul>
+<p>Both: single band, float32, EPSG:32611, 3730×3292, transform (100, 0, 243350; 0, −100, 4508550), values in [0,1], 40,000 ones, zero on-catalogue dots. Novelty vs the three-check prior corpus (byte-verified G25 d2.8, G28 H36-1, G32 H33-2-B2): Jaccard 0.0107/0.0109/0.0116 (duplicate threshold 0.80), overlap ≈0.022 (threshold 0.90), all hashes differ. Name <code>GEMSDOE43-SUP01-HGB21-SE40</code>; portal note on the <a href="executive-summary.html#submission-guide">submission guide</a>. Live status: <strong>UNSCRED</strong>.</p>
+<p><strong>ALTERNATIVE — MCLP sup_oof</strong> (51,053 dots via Dinkelbach-budget maximal covering, no separation; 0 on-catalogue):</p>
+<ul>
+<li>Shipped (all-finite): <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif"><code>gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif</code></a> — 820,001 bytes, sha256 <code>63c9239a7eb473c342ba51f8f70494aa7222499d3935908c022d54e2e5b5bd4b</code>; <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-nan.tif">NaN twin</a> (1,585,705 bytes) + <a download href="downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.zip">zip</a> beside it.</li>
+</ul>
+<p>12/12 format checks on independent re-read (including a fixed geotransform bug — see <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/docs/research/range-error-root-cause.md">range-error root-cause note</a>). Novelty PASS vs 221 artifacts from 45 GEMSDOE repos: coverage IoU 0.181 on submissions (threshold 0.50). Name <code>GEMSDOE43-MCLP-sup_oof-51053</code>. Live status: <strong>UNSCRED</strong>. Recorded portal note fills the 200-char field and ends mid-phrase (“…pooled blocked hold”) — quoted verbatim on the <a href="executive-summary.html#alternative-guide">alternative guide</a>.</p>
+<p><strong>Merge cross-audit</strong> (<code>evidence/merge_cross_audit.json</code>): both MCLP twins pass the SUP01 line's independent format auditor (bytes/sha re-verified), and the two shipped layouts are mutually distinct — 986 shared dots, Jaccard 0.0109, overlaps ≈2%.</p></div></section>
+<section class="section" id="h42"><div class="section-head"><div><div class="kicker">Reference reproduction</div><h2>H42 matched within 1e-6</h2></div><span class="badge pass">All clean reference arms</span></div>
+<div class="prose"><p>The public GEMSDOE41 owner report identifies <code>SH_basin_strong|sep4.0|N40000</code> as its best valid arm, with mean DTI 0.250744 (fold range 0.242272–0.258025). G43 locally reimplements the field normalizations, owner-mirrored scarp decoder, geometric-mean surfaces, deterministic greedy packing, and DTI. The clean H42 model arms and controls in the saved reports match at the declared 1e-6 tolerance. An archived owner arm marked <code>historical_h33_CONTAMINATED</code> is intentionally excluded: its raster is unavailable and the source itself calls it contaminated.</p>
+<p>H42 uses detrended-elevation slope, a 12-band LiDAR scarp evidence derivative, and horizontal magnetic-gradient data. The H42 scarp mirror reproduces the baseline and now also serves as two of SUP01's 21 features, under the same documented owner-mirror caveat.</p>
+<p><a href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE41/main/scripts/holdout_h42.py">H42 protocol code</a> · <a href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE41/main/evidence/h42_holdout_20km.json">H42 owner report</a> · <a href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE41/main/scripts/build_h42_final.py">H42 builder</a></p></div></section>
+<section class="section" id="cg01"><div class="section-head"><div><div class="kicker">Round-1 candidate</div><h2>G43-CG01 failed the gate</h2></div><span class="badge no-go">No-go</span></div>
+<div class="grid">
+<article class="card wide"><h3>Frozen operator</h3><p>Use only the competition RTP magnetic band and isostatic-gravity anomaly. At 2-, 4- and 8-cell Gaussian scales, compute gradient magnitudes and directions; normalize each strength at the footprint 99th percentile; calculate the geometric mean of magnitudes times the absolute direction cosine; aggregate by the median across scales. Stable greedy packing emits 40,000 cells at 4-cell spacing, with the same held-fold boundary and training-catalogue guards as H42.</p><p>The score surface did not read labels, the scarp layer, prior submission rasters, or leaderboard data. The exact recipe and gate were frozen in <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/registry/experiment.json">registry/experiment.json</a> before candidate scores were inspected. Original receipt: <code>evidence/holdout_g43_cg01_round1.json</code> (the live file later gained the EXT grid).</p></article>
+<article class="card"><h3>Outcome</h3><div class="metric"><strong>0.211567</strong></div><p>Mean DTI; minimum fold 0.204019; maximum 0.228287. It lost in all four folds.</p></article>
+<article class="card"><h3>Equal-mass baseline</h3><div class="metric"><strong>0.250744</strong></div><p>Reproduced H42 mean. CG01's mean is lower by 0.039177.</p></article>
+<article class="card full"><h3>Fold-by-fold results</h3><div class="table-wrap"><table><thead><tr><th>Fold</th><th>H42</th><th>CG01</th><th>CG01 − H42</th><th>Candidate win?</th></tr></thead><tbody>
+<tr><td>0</td><td>0.242272</td><td>0.207406</td><td>−0.034866</td><td>No</td></tr>
+<tr><td>1</td><td>0.247658</td><td>0.206557</td><td>−0.041101</td><td>No</td></tr>
+<tr><td>2</td><td>0.255021</td><td>0.204019</td><td>−0.051002</td><td>No</td></tr>
+<tr><td>3</td><td>0.258025</td><td>0.228287</td><td>−0.029738</td><td>No</td></tr>
+<tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.211567</strong></td><td><strong>−0.039177</strong></td><td><strong>0/4</strong></td></tr>
+</tbody></table></div></article>
+</div></section>
+<section class="section" id="h46"><div class="section-head"><div><div class="kicker">Merged line · H46 slate</div><h2>H46-A stopped, H46-B failed, H46-C untested</h2></div><span class="badge no-go">No-go</span></div>
+<div class="prose"><p>H46-A (NURE stream-sediment pathfinders × TMI edge) stopped before scoring: its USGS source gate required 1,000 valid in-footprint samples and found 451. H46-B (SGMC faulted lithologic contacts) passed pinned USGS SGMC v1.1 source gates, then failed its registered promotion rule on the public-catalogue proxy: mean ΔDTI +0.000923 with 2/4 wins (required +0.005 and ≥3/4); the H42 control reproduced exactly. Its raster was removed from the tree — see <code>evidence/h46b/publication_status.json</code>; do not download or submit the historical file. H46-C (persistent Landsat alteration) is untested. Records: <code>research/PREREGISTRATION-2026-10-06.md</code>, <code>research/AMENDMENT-2026-10-06-*.md</code>, <code>evidence/h46b/</code>, <code>evidence/{ngb,sgmc}_source_audit.json</code>.</p></div></section>
+<section class="section" id="h33"><div class="section-head"><div><div class="kicker">Owner-reported context</div><h2>H33-2-B2: 0.2747 is a projection</h2></div></div><div class="prose"><p>GEMSDOE32 PR #9 describes H33-2-B2 as deleting 2,545 pixels within a two-pixel catalogue buffer from a 40,199-pixel owner-reported B=1 base, leaving 37,654 pixels. The owner reports a calibrated four-fold mean of 0.2679205 and a model-projected live value of 0.2746732 (rounded to 0.2747), derived from owner-reported live anchors. The PR states that there is no organizer score for those artifacts. The projection is neither the four-fold mean nor an organizer-confirmed leaderboard score. A conflicting owner-brief report of 0.2778 is flagged as IR-REPORT-01 — and the merged board read shows no GEMSDOE row in the visible top 25, so 0.2778 matches no board row (IR-43-010).</p><p>Official DrivenData staff clarified that known USGS/INGENIOUS pixels are masked, while nearby unmasked predictions still affect scoring. H33-2-B2 is an emission-pruning rule, not evidence that the removed cells are not faults. Read <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/pull/9">PR #9</a> and the <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff scoring reply</a>.</p></div></section>
+<section class="section" id="metric"><div class="section-head"><div><div class="kicker">Metric implementation</div><h2>Verified against brute force — twice</h2></div></div>
+<div class="prose"><p>Both lines transcribe the official distance-weighted Tversky equations independently (<code>src/gemsdoe43/metric.py</code>, <code>src/gems43/metric.py</code>). For each truth pixel, <code>TPw</code> is the maximum nearby prediction × triangular kernel; each prediction mass pays <code>FPw = p × (1 − best kernel weight to truth)</code>; <code>FNw = |G| − TPw</code>. The kernel is <code>max(1 − d/3, 0)</code> on the 100-m grid, with α=0.2 and β=0.8.</p><p>The suites check seeded random fractional rasters against direct brute-force transcriptions (including the organizer's worked example TP_w=3.00, FP_w=1.89, FN_w=2.00 → 0.60), explicit known-pixel exclusion, 300-m boundary tests, packing spacing, synthetic aligned-vs-orthogonal field edges, MCLP kernel/greedy/(1−1/e) checks against enumeration optima, triple-gradient and HGB-helper equivalence tests, submission-format tests (including a numeric-bounds geotransform regression test), novelty-screen tests, and site link/download consistency checks. See <code>tests/</code>.</p><p><strong>Known-mask nuance:</strong> organizer staff said known USGS/INGENIOUS pixels are masked from real scoring. The local catalogue CVs do not pass those pixels as `known`, because then their held-out catalogue positives would be removed from their own validation truth. These are deliberately different instruments.</p></div></section>
+<section class="section" id="workflow"><div class="section-head"><div><div class="kicker">Reproducibility</div><h2>Run from a clean checkout</h2></div></div><pre><code>bash scripts/download_competition_data.sh
+.venv/bin/python scripts/audit_inputs.py
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v
+PYTHONPATH=src .venv/bin/python -m pytest tests -q
+PYTHONPATH=src .venv/bin/python scripts/run_holdout.py
+PYTHONPATH=src .venv/bin/python scripts/run_holdout_mclp.py
+PYTHONPATH=src:scripts .venv/bin/python scripts/build_submission_sup01.py</code></pre><p class="small">The restore script verifies bytes against owner-published manifests. The audit writes `evidence/input_audit.json`; the spatial runs write `evidence/holdout_g43_cg01.json` and `evidence/holdout_g43_mclp.json`; the builder writes `docs/downloads/` plus per-file audit receipts. No leaderboard endpoint is read. The round-2 run takes ~15 min (SUP01 CPU training dominates); the SUP01 build takes ~6 min on 4 GB RAM. MCLP-line rebuild: `fetch_mirrors.sh` → `build_channels.py` → `run_pipeline.py` → `build_submission.py` (see README).</p></section>
+<section class="section"><div class="callout"><strong>Two candidate rasters are offered — with their limits attached.</strong><p>The primary passed the frozen gate for its exact emission and every release audit; the alternative carries a better-validated prior with an unvalidated placement. Both are live-UNSCRED, built on owner-mirrored inputs, and validated only against withheld mapped faults. Every rejected arm stays published beside them.</p></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="sources.html">Source register</a></span></div></footer>
+</body>
+</html>

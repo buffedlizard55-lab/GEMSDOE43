@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "arm": "D_SUP01_HGB|sep4.0|N40000",
+  "surface": "sup01",
+  "emission": {
+    "emitter": "greedy_pack",
+    "min_sep": 4.0
+  },
+  "budget": 40000,
+  "slot_eligible_per_gate": true,
+  "gate": {
+    "gate_definition": "corrected round-2b: folds 1-3 mean strictly greater + 3/3 wins (fold 0 excluded as selection fold)",
+    "candidate_mean_folds1_3": 0.26359,
+    "reference_mean_folds1_3": 0.253568,
+    "candidate_mean_beats_reference": true,
+    "fold_wins_folds1_3": 3,
+    "minimum_fold_wins_required": 3,
+    "candidate_mean_4fold": 0.262666,
+    "passes_holdout_promotion_gate": true
+  },
+  "live_score": null,
+  "live_status": "UNSCRED",
+  "sup01": {
+    "n_train": 5164300,
+    "n_train_positive": 60894,
+    "n_iter": 200,
+    "params": {
+      "max_iter": 200,
+      "learning_rate": 0.06,
+      "max_leaf_nodes": 63,
+      "min_samples_leaf": 200,
+      "l2_regularization": 1.0,
+      "class_weight": "balanced",
+      "early_stopping": true,
+      "validation_fraction": 0.1,
+      "n_iter_no_change": 20,
+      "random_state": 20261006
+    }
+  },
+  "sup01_features": [
+    "mag_anom",
+    "rtp",
+    "tmi_hg",
+    "geod_2ndinv",
+    "iso_grav_anom_slope",
+    "tc",
+    "geod_shearrate",
+    "geod_dilaterate",
+    "tmi_vg",
+    "deq_n100a15",
+    "iso_grav_anom_vg",
+    "det_elev",
+    "iso_grav_anom",
+    "tmi",
+    "depth_to_base_surf",
+    "ieq_n100a15",
+    "cond_surf",
+    "iso_grav_anom_hg",
+    "det_elev_slope",
+    "scarp_evidence",
+    "scarp_valid"
+  ],
+  "files": {
+    "nan": {
+      "name": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif",
+      "sha256": "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38",
+      "bytes": 341846
+    },
+    "zeros": {
+      "name": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif",
+      "sha256": "224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65",
+      "bytes": 288706
+    }
+  },
+  "novelty": [
+    {
+      "prior": "g25_d28_nan.tif",
+      "prior_ones": 44090,
+      "intersection": 889,
+      "jaccard": 0.010685,
+      "overlap_coefficient": 0.022225,
+      "same_sha256": false
+    },
+    {
+      "prior": "g28_h361_nan.tif",
+      "prior_ones": 37660,
+      "intersection": 835,
+      "jaccard": 0.010869,
+      "overlap_coefficient": 0.022172,
+      "same_sha256": false
+    },
+    {
+      "prior": "g32_h332b2_nan.tif",
+      "prior_ones": 37654,
+      "intersection": 889,
+      "jaccard": 0.011581,
+      "overlap_coefficient": 0.02361,
+      "same_sha256": false
+    }
+  ]
+}

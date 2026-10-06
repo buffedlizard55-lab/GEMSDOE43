@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "as_of_utc": "2026-10-06",
   "candidate": "G43-CG01",
   "status": "NO_GO",
@@ -63,5 +63,62 @@
       "unique_submission_name": "GEMSDOE43-MCLP-sup_oof-51053"
     },
     "next_step": "Score the shipped maximal-covering emission itself at equal mass on this protocol (requires rebuilding the channel stack and the supervised out-of-fold surface, both of which live in the gitignored .cache/ and were lost). If it does not beat 0.250744, emit the sep3.0/N40000 packing of the same prior instead."
+  },
+  "primary_release": {
+    "candidate": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f",
+    "arm": "D_SUP01_HGB|sep4.0|N40000",
+    "status": "SLOT_ELIGIBLE",
+    "live_status": "UNSCRED",
+    "primary_file": "docs/downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif",
+    "fallback_file": "docs/downloads/gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-zeros.tif",
+    "unique_submission_name": "GEMSDOE43-SUP01-HGB21-SE40",
+    "portal_comment": "GEMSDOE43 SUP01: HGB ranker 19 bands+scarp, 40k sep4 dots d>200m off-catalogue; 20km-block +0.0119 mean 4/4 folds vs H42; live UNSCORED; id bc2e4e9a8d6f",
+    "equal_mass_result": {
+      "arm": "D_SUP01_HGB21|sep4.0|N40000",
+      "mean_dti": 0.262666,
+      "min_fold_dti": 0.258672,
+      "max_fold_dti": 0.268965,
+      "margins_vs_reproduced_h42": [
+        0.017621,
+        0.011014,
+        0.008112,
+        0.01094
+      ],
+      "fold_wins_vs_reproduced_h42": 4,
+      "folds": 4,
+      "reference_arm": "SH_basin_strong|sep4.0|N40000",
+      "reference_mean_dti": 0.250744,
+      "holdout_gate_passed": true,
+      "corrected_gate_folds_1_to_3": {
+        "wins": 3,
+        "required": 3,
+        "mean_dti": 0.26359,
+        "reference_mean_dti": 0.253568
+      },
+      "truth_scope": "withheld published-catalogue faults; not hidden competition truth",
+      "source": "evidence/holdout_g43_mclp.json"
+    },
+    "release": {
+      "submission_geotiff_created": true,
+      "format_audit": "PASS for both twins (independent re-read: CRS/shape/dtype/range/count/flank)",
+      "raster_novelty_audit": "PASS (Jaccard ~0.011 vs 3 hash-verified priors; duplicate threshold 0.80)",
+      "submission_slot_used": false
+    }
+  },
+  "decision": {
+    "as_of_utc": "2026-10-06",
+    "primary": "gems43-sup01-hgb21-sep40-n40000-20261006-bc2e4e9a8d6f-nan.tif",
+    "primary_unique_name": "GEMSDOE43-SUP01-HGB21-SE40",
+    "alternative": "docs/downloads/gemsdoe43-mclp-supoof-51053-20261006T114256Z-zeros.tif",
+    "rationale": "The SUP01 file is the only shipped layout whose exact emission family (sep-4.0 greedy packing, N=40,000) was scored at equal mass on the frozen protocol (0.262666 vs 0.250744, 4/4 folds; evidence/holdout_g43_mclp.json), and its build is reproducible from pinned inputs (scripts/build_submission_sup01.py). The MCLP file's prior is validated (0.286388 sep-3.0 packing; evidence/holdout_g43_cg01.json) but its shipped maximal-covering placement was never scored at equal mass (see superseded_by measurement_caveat), its channel stack and OOF surface were lost with .cache/, and an independent round-2 test of MCLP placement lost 0/4 folds (0.211122).",
+    "next_step": "Rebuild the supervised prior + validated sep-3.0/N40000 packing into a shippable file (the prior scores 0.286388 on the same protocol); score any MCLP emission at equal mass before promoting it. See research/review_log.md merge entry."
+  },
+  "merge_record": {
+    "merged_utc": "2026-10-06",
+    "lines": [
+      "main: MCLP sup_oof emission + H46 records (PR #3)",
+      "arena/dffca7c2: SUP01 round-2 release (PR #4)"
+    ],
+    "note": "Both release records are preserved verbatim (superseded_by + primary_release). The CG01 NO_GO base record is untouched."
   }
 }

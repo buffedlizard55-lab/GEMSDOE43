@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-10-06T11:56:13Z",
+  "generated_utc": "2026-10-06T14:55:42Z",
   "source_manifest": "registry/data_sources.json",
   "provenance_warning": "The files below are owner-published GitHub mirrors of competition inputs. SHA-256 values verify the mirror bytes against the prior-project manifest, not against a checksum published by DrivenData or DOE. The mirrors are used only as local inputs; raw files are not redistributed by this repository.",
   "files": [

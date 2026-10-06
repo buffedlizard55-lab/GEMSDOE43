@@ -75,9 +75,15 @@ def _esc(s) -> str:
     return html.escape(str(s))
 
 
-def layout(title: str, body: str, active: str, subtitle: str = "") -> str:
+def layout(title: str, body: str, active: str, subtitle: str = "",
+           prefix: str = "") -> str:
+    # prefix lets subdirectory pages (docs/research/*.html) link back to the
+    # docs root (prefix="../"); without it the nav targets resolve inside the
+    # subdirectory and 404.  (Merge fix, 2026-10-06: the research pages shipped
+    # with broken nav links because no check covered them.)
     nav = "".join(
-        f'<a href="{p}" class="{"on" if p == active else ""}">{_esc(n)}</a>' for p, n in NAV)
+        f'<a href="{prefix}{p}" class="{"on" if p == active else ""}">{_esc(n)}</a>'
+        for p, n in NAV)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">

@@ -33,6 +33,24 @@ def smooth(values: np.ndarray, sigma: float) -> np.ndarray:
     return gaussian_filter(np.asarray(values, dtype=F32), sigma=sigma, mode="constant").astype(F32)
 
 
+def masked_gaussian(values: np.ndarray, valid: np.ndarray, sigma: float) -> np.ndarray:
+    """Gaussian smoothing that does not invent an edge at a nodata/footprint boundary.
+
+    Normalized convolution over valid cells (nearest boundary mode). Shared by the
+    round-1 CG01 operator and round-2 surfaces; same formula as cg01._masked_gaussian.
+    """
+    if sigma <= 0.0:
+        raise ValueError("smoothing scale must be positive")
+    weights = np.asarray(valid, dtype=F32)
+    numerator = gaussian_filter(
+        np.where(valid, values, 0.0).astype(F32), sigma=sigma, mode="nearest"
+    )
+    denominator = gaussian_filter(weights, sigma=sigma, mode="nearest")
+    out = np.zeros(np.asarray(values).shape, dtype=F32)
+    np.divide(numerator, denominator, out=out, where=denominator > 1e-6)
+    return out
+
+
 def geometric_mean(terms: dict[str, np.ndarray], weights: dict[str, float]) -> np.ndarray:
     """Weighted geometric mean with a 0.05 floor (the H42 surface convention)."""
     if not terms or set(terms) != set(weights):

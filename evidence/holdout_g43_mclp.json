@@ -1,0 +1,482 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-10-06T15:34:30.170188+00:00",
+  "runtime": {
+    "python": "3.11.2",
+    "numpy": "2.4.6"
+  },
+  "frozen_run": true,
+  "params": {
+    "budget": 40000,
+    "candidate_cap": 300000,
+    "folds": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "design": {
+    "folds": 4,
+    "fold_cells": 200,
+    "fold_formula": "(row//200 + 2*(col//200)) % 4",
+    "outer_guard_px": 3.0,
+    "training_catalogue_guard_px": 2.0,
+    "equal_mass_comparison": "all arms scored at N=40000",
+    "truth_scope": "withheld pixels from the published catalogue; not hidden competition truth",
+    "known_catalogue_mask": "not passed to the metric: held-out catalogue positives are the truth"
+  },
+  "reference_drift_guard": {
+    "status": "PASS",
+    "round1_receipt": "evidence/holdout_g43_cg01.json",
+    "round1_reference_mean_dti": 0.250744,
+    "local_reference_mean_dti": 0.250744,
+    "mismatches": []
+  },
+  "sup01_features": [
+    "mag_anom",
+    "rtp",
+    "tmi_hg",
+    "geod_2ndinv",
+    "iso_grav_anom_slope",
+    "tc",
+    "geod_shearrate",
+    "geod_dilaterate",
+    "tmi_vg",
+    "deq_n100a15",
+    "iso_grav_anom_vg",
+    "det_elev",
+    "iso_grav_anom",
+    "tmi",
+    "depth_to_base_surf",
+    "ieq_n100a15",
+    "cond_surf",
+    "iso_grav_anom_hg",
+    "det_elev_slope",
+    "scarp_evidence",
+    "scarp_valid"
+  ],
+  "summary": {
+    "A_SH_MCLP|N40000": {
+      "mean_dti": 0.211122,
+      "min_dti": 0.194901,
+      "max_dti": 0.219514,
+      "folds": 4
+    },
+    "B_MG01_MCLP|N40000": {
+      "mean_dti": 0.150107,
+      "min_dti": 0.137502,
+      "max_dti": 0.168592,
+      "folds": 4
+    },
+    "C_MG01_sep4.0|N40000": {
+      "mean_dti": 0.205756,
+      "min_dti": 0.186375,
+      "max_dti": 0.221006,
+      "folds": 4
+    },
+    "D_SUP01_HGB|sep4.0|N40000": {
+      "mean_dti": 0.262666,
+      "min_dti": 0.258672,
+      "max_dti": 0.268965,
+      "folds": 4
+    },
+    "E_ENS_SH_MG01|sep4.0|N40000": {
+      "mean_dti": 0.241241,
+      "min_dti": 0.228388,
+      "max_dti": 0.249764,
+      "folds": 4
+    },
+    "REF_SH_basin_strong|sep4.0|N40000": {
+      "mean_dti": 0.250744,
+      "min_dti": 0.242272,
+      "max_dti": 0.258025,
+      "folds": 4
+    }
+  },
+  "gate": {
+    "A_SH_MCLP|N40000": {
+      "gate_definition": "preregistered: 4-fold mean strictly greater + >=3/4 wins",
+      "candidate_mean_dti": 0.211122,
+      "reference_mean_dti": 0.250744,
+      "candidate_mean_beats_reference": false,
+      "fold_wins_vs_reference": 0,
+      "minimum_fold_wins_required": 3,
+      "passes_holdout_promotion_gate": false
+    },
+    "B_MG01_MCLP|N40000": {
+      "gate_definition": "preregistered: 4-fold mean strictly greater + >=3/4 wins",
+      "candidate_mean_dti": 0.150107,
+      "reference_mean_dti": 0.250744,
+      "candidate_mean_beats_reference": false,
+      "fold_wins_vs_reference": 0,
+      "minimum_fold_wins_required": 3,
+      "passes_holdout_promotion_gate": false
+    },
+    "C_MG01_sep4.0|N40000": {
+      "gate_definition": "preregistered: 4-fold mean strictly greater + >=3/4 wins",
+      "candidate_mean_dti": 0.205756,
+      "reference_mean_dti": 0.250744,
+      "candidate_mean_beats_reference": false,
+      "fold_wins_vs_reference": 0,
+      "minimum_fold_wins_required": 3,
+      "passes_holdout_promotion_gate": false
+    },
+    "D_SUP01_HGB|sep4.0|N40000": {
+      "gate_definition": "corrected round-2b: folds 1-3 mean strictly greater + 3/3 wins (fold 0 excluded as selection fold)",
+      "candidate_mean_folds1_3": 0.26359,
+      "reference_mean_folds1_3": 0.253568,
+      "candidate_mean_beats_reference": true,
+      "fold_wins_folds1_3": 3,
+      "minimum_fold_wins_required": 3,
+      "candidate_mean_4fold": 0.262666,
+      "passes_holdout_promotion_gate": true
+    },
+    "E_ENS_SH_MG01|sep4.0|N40000": {
+      "gate_definition": "corrected round-2b: folds 1-3 mean strictly greater + 3/3 wins (fold 0 excluded as selection fold)",
+      "candidate_mean_folds1_3": 0.242389,
+      "reference_mean_folds1_3": 0.253568,
+      "candidate_mean_beats_reference": false,
+      "fold_wins_folds1_3": 0,
+      "minimum_fold_wins_required": 3,
+      "candidate_mean_4fold": 0.241241,
+      "passes_holdout_promotion_gate": false
+    }
+  },
+  "passing_arms": [
+    "D_SUP01_HGB|sep4.0|N40000"
+  ],
+  "primary_arm": "D_SUP01_HGB|sep4.0|N40000",
+  "folds": [
+    {
+      "fold": 0,
+      "evaluation_cells": 1261665,
+      "evaluation_truth_pixels": 14453,
+      "eligible_emission_cells": 1261665,
+      "mg01_valid_eligible_cells": 1261577,
+      "arms": {
+        "REF_SH_basin_strong|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4878.29,
+          "fp": 37987.56,
+          "fn": 9574.71,
+          "dti": 0.242272,
+          "credit_per_mass": 0.12196,
+          "note": "recomputed H42 reference; drift guard"
+        },
+        "A_SH_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 3873.83,
+          "fp": 37693.52,
+          "fn": 10579.17,
+          "dti": 0.194901,
+          "credit_per_mass": 0.09685,
+          "note": "H42-SH surface + MCLP lazy greedy",
+          "mclp_objective": 98604.91,
+          "mclp_recomputes": 877861,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 10.3
+        },
+        "B_MG01_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 2934.82,
+          "fp": 38134.87,
+          "fn": 11518.18,
+          "dti": 0.148401,
+          "credit_per_mass": 0.07337,
+          "note": "MG01 surface + MCLP lazy greedy",
+          "mclp_objective": 85760.093,
+          "mclp_recomputes": 892891,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 10.6
+        },
+        "C_MG01_sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4124.86,
+          "fp": 38254.43,
+          "fn": 10328.14,
+          "dti": 0.205849,
+          "credit_per_mass": 0.10312,
+          "note": "MG01 surface + fixed sep-4.0 packing (control)"
+        },
+        "E_ENS_SH_MG01|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4785.37,
+          "fp": 38021.49,
+          "fn": 9667.63,
+          "dti": 0.237797,
+          "credit_per_mass": 0.11963,
+          "note": "50/50 SH/MG01 geometric-mean ensemble + sep-4.0 (round-2b)"
+        },
+        "D_SUP01_HGB|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5246.94,
+          "fp": 37885.25,
+          "fn": 9206.06,
+          "dti": 0.259893,
+          "credit_per_mass": 0.13117,
+          "note": "SUP01 HGB ranker + sep-4.0 packing (round-2b)",
+          "sup_n_train": 3741424,
+          "sup_n_train_positive": 44542,
+          "sup_n_iter": 200,
+          "sup_train_seconds": 152.7
+        }
+      },
+      "seconds": 180.5
+    },
+    {
+      "fold": 1,
+      "evaluation_cells": 1184320,
+      "evaluation_truth_pixels": 12944,
+      "eligible_emission_cells": 1184320,
+      "mg01_valid_eligible_cells": 1184284,
+      "arms": {
+        "REF_SH_basin_strong|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4682.88,
+          "fp": 38084.5,
+          "fn": 8261.12,
+          "dti": 0.247658,
+          "credit_per_mass": 0.11707,
+          "note": "recomputed H42 reference; drift guard"
+        },
+        "A_SH_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4036.16,
+          "fp": 37569.07,
+          "fn": 8907.84,
+          "dti": 0.216112,
+          "credit_per_mass": 0.1009,
+          "note": "H42-SH surface + MCLP lazy greedy",
+          "mclp_objective": 87241.676,
+          "mclp_recomputes": 887495,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 11.7
+        },
+        "B_MG01_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 2550.94,
+          "fp": 38433.28,
+          "fn": 10393.06,
+          "dti": 0.137502,
+          "credit_per_mass": 0.06377,
+          "note": "MG01 surface + MCLP lazy greedy",
+          "mclp_objective": 73537.748,
+          "mclp_recomputes": 899078,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 11.1
+        },
+        "C_MG01_sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 3497.19,
+          "fp": 38548.1,
+          "fn": 9446.81,
+          "dti": 0.186375,
+          "credit_per_mass": 0.08743,
+          "note": "MG01 surface + fixed sep-4.0 packing (control)"
+        },
+        "E_ENS_SH_MG01|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4308.61,
+          "fp": 38241.94,
+          "fn": 8635.39,
+          "dti": 0.228388,
+          "credit_per_mass": 0.10772,
+          "note": "50/50 SH/MG01 geometric-mean ensemble + sep-4.0 (round-2b)"
+        },
+        "D_SUP01_HGB|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4901.73,
+          "fp": 38070.22,
+          "fn": 8042.27,
+          "dti": 0.258672,
+          "credit_per_mass": 0.12254,
+          "note": "SUP01 HGB ranker + sep-4.0 packing (round-2b)",
+          "sup_n_train": 3825085,
+          "sup_n_train_positive": 46142,
+          "sup_n_iter": 200,
+          "sup_train_seconds": 161.8
+        }
+      },
+      "seconds": 192.3
+    },
+    {
+      "fold": 2,
+      "evaluation_cells": 1248516,
+      "evaluation_truth_pixels": 14799,
+      "eligible_emission_cells": 1248516,
+      "mg01_valid_eligible_cells": 1248330,
+      "arms": {
+        "REF_SH_basin_strong|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5219.24,
+          "fp": 37914.53,
+          "fn": 9579.76,
+          "dti": 0.255021,
+          "credit_per_mass": 0.13048,
+          "note": "recomputed H42 reference; drift guard"
+        },
+        "A_SH_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4321.35,
+          "fp": 37466.89,
+          "fn": 10477.65,
+          "dti": 0.213962,
+          "credit_per_mass": 0.10803,
+          "note": "H42-SH surface + MCLP lazy greedy",
+          "mclp_objective": 92058.792,
+          "mclp_recomputes": 882506,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 11.4
+        },
+        "B_MG01_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 2928.34,
+          "fp": 38208.61,
+          "fn": 11870.66,
+          "dti": 0.145931,
+          "credit_per_mass": 0.07321,
+          "note": "MG01 surface + MCLP lazy greedy",
+          "mclp_objective": 79119.402,
+          "mclp_recomputes": 899842,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 10.7
+        },
+        "C_MG01_sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4269.06,
+          "fp": 38278.81,
+          "fn": 10529.94,
+          "dti": 0.209794,
+          "credit_per_mass": 0.10673,
+          "note": "MG01 surface + fixed sep-4.0 packing (control)"
+        },
+        "E_ENS_SH_MG01|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5107.36,
+          "fp": 37940.42,
+          "fn": 9691.64,
+          "dti": 0.249764,
+          "credit_per_mass": 0.12768,
+          "note": "50/50 SH/MG01 geometric-mean ensemble + sep-4.0 (round-2b)"
+        },
+        "D_SUP01_HGB|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5393.49,
+          "fp": 37896.38,
+          "fn": 9405.51,
+          "dti": 0.263133,
+          "credit_per_mass": 0.13484,
+          "note": "SUP01 HGB ranker + sep-4.0 packing (round-2b)",
+          "sup_n_train": 3757085,
+          "sup_n_train_positive": 44210,
+          "sup_n_iter": 200,
+          "sup_train_seconds": 153.4
+        }
+      },
+      "seconds": 183.1
+    },
+    {
+      "fold": 3,
+      "evaluation_cells": 1145742,
+      "evaluation_truth_pixels": 14809,
+      "eligible_emission_cells": 1145742,
+      "mg01_valid_eligible_cells": 1145739,
+      "arms": {
+        "REF_SH_basin_strong|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5282.75,
+          "fp": 37850.24,
+          "fn": 9526.25,
+          "dti": 0.258025,
+          "credit_per_mass": 0.13207,
+          "note": "recomputed H42 reference; drift guard"
+        },
+        "A_SH_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4432.95,
+          "fp": 37302.86,
+          "fn": 10376.05,
+          "dti": 0.219514,
+          "credit_per_mass": 0.11082,
+          "note": "H42-SH surface + MCLP lazy greedy",
+          "mclp_objective": 92624.453,
+          "mclp_recomputes": 899190,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 11.9
+        },
+        "B_MG01_MCLP|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 3386.14,
+          "fp": 37801.85,
+          "fn": 11422.86,
+          "dti": 0.168592,
+          "credit_per_mass": 0.08465,
+          "note": "MG01 surface + MCLP lazy greedy",
+          "mclp_objective": 78896.486,
+          "mclp_recomputes": 909706,
+          "mclp_candidates": 300000,
+          "mclp_seconds": 12.6
+        },
+        "C_MG01_sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 4502.6,
+          "fp": 38127.14,
+          "fn": 10306.4,
+          "dti": 0.221006,
+          "credit_per_mass": 0.11256,
+          "note": "MG01 surface + fixed sep-4.0 packing (control)"
+        },
+        "E_ENS_SH_MG01|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5091.64,
+          "fp": 37907.9,
+          "fn": 9717.36,
+          "dti": 0.249015,
+          "credit_per_mass": 0.12729,
+          "note": "50/50 SH/MG01 geometric-mean ensemble + sep-4.0 (round-2b)"
+        },
+        "D_SUP01_HGB|sep4.0|N40000": {
+          "n_px": 40000,
+          "mass": 40000.0,
+          "tp": 5516.48,
+          "fp": 37797.52,
+          "fn": 9292.52,
+          "dti": 0.268965,
+          "credit_per_mass": 0.13791,
+          "note": "SUP01 HGB ranker + sep-4.0 packing (round-2b)",
+          "sup_n_train": 3871135,
+          "sup_n_train_positive": 44292,
+          "sup_n_iter": 200,
+          "sup_train_seconds": 168.2
+        }
+      },
+      "seconds": 200.4
+    }
+  ],
+  "interpretation_limit": "This holdout tests recovery of spatially withheld published faults only. It is not an estimate or guarantee of public-board, private Phase 1, or final Phase 2 score.",
+  "elapsed_seconds": 838.3
+}

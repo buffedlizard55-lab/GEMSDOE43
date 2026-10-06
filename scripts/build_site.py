@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
-"""Render the GitHub Pages site from the measured evidence.
+"""Render the generated part of the GitHub Pages site from the measured evidence.
 
-Nothing on the site is typed by hand: every number comes from ``evidence/*.json``,
-``registry/*.json`` or ``docs/score-ledger.csv``.  Anything not measured is labelled as such.
+MERGE NOTE (2026-10-06, PR #3 + PR #4): the six charter-required pages
+(index, executive-summary, hypotheses, research, leaderboard, sources) plus
+mclp-line.html are now hand-maintained merged versions covering BOTH release
+lines, and ``docs/assets/site.css`` is the hand-kept light theme (the generated
+pages below are inline-styled and do not use it).  This script MUST NOT
+overwrite those files.  It still regenerates the MCLP-line irregularities page,
+the research-note HTML, and the ``docs/data/*`` feeds.  Every number emitted
+comes from ``evidence/*.json``, ``registry/*.json`` or ``docs/score-ledger.csv``.
+Anything not measured is labelled as such.
 """
 from __future__ import annotations
 
@@ -130,10 +137,23 @@ IRREG = [
 # --------------------------------------------------------------------------------------
 def _inline(t: str) -> str:
     import re as _re
+
+    def _link(m: "_re.Match") -> str:
+        # The research .md files live at docs/research/*.md, so a relative
+        # target is resolved against the repository root and pointed at the
+        # rendered GitHub blob view: Pages serves docs/ as its root, where a
+        # raw ../.. link would 404.  (Merge fix, 2026-10-06.)
+        text, target = m.group(1), m.group(2)
+        if target.startswith("../"):
+            import posixpath as _pp
+            repo_rel = _pp.normpath(_pp.join("docs/research", target))
+            target = ("https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/" + repo_rel)
+        return f'<a href="{target}">{text}</a>'
+
     t = site._esc(t)
     t = _re.sub(r"`([^`]+)`", r"<code>\1</code>", t)
     t = _re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", t)
-    t = _re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r'<a href="\2">\1</a>', t)
+    t = _re.sub(r"\[([^\]]+)\]\(([^)]+)\)", _link, t)
     return t
 
 
@@ -217,7 +237,8 @@ def render_research_pages() -> None:
         body = f'<div class="panel"><h2 style="margin-top:0;border:0">{site._esc(title)}</h2>' \
                f'{md_to_html(src.read_text())}</div>'
         page = site.layout(f"GEMSDOE43 — {title}", body, "research.html",
-                           "Research note — source of truth is the .md in the repository")
+                           "Research note — source of truth is the .md in the repository",
+                           prefix="../")
         (DOCS / "research" / (src.stem + ".html")).write_text(page, encoding="utf-8")
         print(f"  wrote docs/research/{src.stem}.html ({len(page):,} bytes)")
 
@@ -775,20 +796,32 @@ not support the claim that would otherwise be made.</p>
                        "Flagged, not asserted. ● red = blocker, amber = caveat, green = resolved.")
 
 
+HAND_KEPT_PAGES = (
+    # Merged PR #3 + PR #4 pages.  Never write these from the generator.
+    "index.html",
+    "executive-summary.html",
+    "hypotheses.html",
+    "research.html",
+    "leaderboard.html",
+    "sources.html",
+    "mclp-line.html",
+)
+
+
 def main() -> int:
     pages = {
-        "index.html": page_index(),
-        "executive-summary.html": page_exec(),
-        "hypotheses.html": page_hyp(),
-        "research.html": page_research(),
-        "leaderboard.html": page_leaderboard(),
-        "sources.html": page_sources(),
+        # Only the MCLP-line irregularities page is still generated; the page_*
+        # renderers for the hand-kept pages above are retained for reference but
+        # MUST NOT be written back (see HAND_KEPT_PAGES).
         "irregularities.html": page_irreg(),
     }
     for name, html in pages.items():
+        assert name not in HAND_KEPT_PAGES, f"refusing to overwrite hand-kept {name}"
         (DOCS / name).write_text(html)
         print(f"  wrote docs/{name} ({len(html):,} bytes)")
-    (DOCS / "assets" / "site.css").write_text(site.CSS)
+    print("  skipped hand-kept merged pages: " + ", ".join(HAND_KEPT_PAGES))
+    # NOTE: docs/assets/site.css is the hand-kept light theme; do not overwrite
+    # it with site.CSS (the generated pages are inline-styled and do not use it).
     (DOCS / ".nojekyll").write_text("")
     # site data feeds
     if pipe:

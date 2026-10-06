@@ -1,112 +1,85 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hypotheses and validation</title>
-<style>
-:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c2230;--ink:#e6edf3;--dim:#9aa7b4;--acc:#4cc2ff;
---good:#3fb950;--warn:#d29922;--bad:#f85149;--line:#2a313c}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-a{color:var(--acc)}
-header{background:linear-gradient(180deg,#12171f,#0e1116);border-bottom:1px solid var(--line);
-padding:22px 0 14px}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-h1{font-size:26px;margin:0 0 4px}
-h2{font-size:20px;margin-top:30px;border-bottom:1px solid var(--line);padding-bottom:6px}
-h3{font-size:16px;margin-top:22px;color:var(--acc)}
-nav{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
-nav a{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:5px 11px;
-text-decoration:none;color:var(--ink);font-size:13px}
-nav a:hover{border-color:var(--acc)}
-nav a.on{background:#123047;border-color:var(--acc)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
-margin:16px 0}
-.hero{background:linear-gradient(135deg,#123047,#161b22);border:1px solid #1f5b7d}
-table{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
-th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
-th{background:var(--panel2);font-weight:600}
-td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-code{background:#0b0f14;border:1px solid var(--line);border-radius:4px;padding:1px 5px;
-font-size:12.5px}
-pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;
-font-size:12.5px}
-.btn{display:inline-block;background:var(--good);color:#04150a;font-weight:700;text-decoration:none;
-padding:11px 20px;border-radius:8px;font-size:15px;margin:6px 8px 6px 0}
-.btn.alt{background:var(--panel2);color:var(--ink);border:1px solid var(--line);font-weight:600}
-.small{font-size:12.5px;color:var(--dim)}
-.tag{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;
-padding:1px 8px;color:var(--dim);margin-right:4px}
-.ok{color:var(--good)}.no{color:var(--bad)}.wn{color:var(--warn)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px}
-.card .v{font-size:22px;font-weight:700}
-.card .k{font-size:12px;color:var(--dim)}
-ul{padding-left:20px}
-footer{border-top:1px solid var(--line);margin-top:40px;padding:18px 0;color:var(--dim);font-size:12.5px}
-.step{background:var(--panel2);border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0;
-border-radius:0 8px 8px 0}
-</style></head><body>
-<header><div class="wrap">
-<h1>Hypotheses and validation</h1>
-<div class="small">Five untried geological hypotheses, ranked, then measured.</div>
-<nav><a href="index.html" class="">Overview</a><a href="executive-summary.html" class="">How to submit</a><a href="hypotheses.html" class="on">Hypotheses</a><a href="research.html" class="">Method</a><a href="leaderboard.html" class="">Scores</a><a href="sources.html" class="">Sources</a><a href="irregularities.html" class="">Irregularities</a></nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Preregistered hypothesis slates across all GEMSDOE43 lines: round 1, round 2, H43, H46, and the supervised priors.">
+  <title>Ranked hypotheses · GEMSDOE43</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a aria-current="page" href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a><a href="mclp-line.html">MCLP line</a><a href="irregularities.html">Irregularities</a></nav>
 </div></header>
-<div class="wrap">
-<div class="panel">
-<h2 style="margin-top:0;border:0">The five candidates</h2>
-<p>Full write-up with layers, physical signature, off-catalogue mechanism, novelty and cost:
-<a href="research/h43-hypotheses.html">H43 hypotheses</a> (also
-<code>docs/research/h43-hypotheses.md</code> in the repository). Summary:</p>
-<table>
-<tr><th>#</th><th>hypothesis</th><th>layers</th><th>signature</th><th>status</th></tr>
-<tr><td class="n">1</td><td>Magnetic source-edge lineaments</td>
-<td><code>tc</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>tmi</code>, <code>rtp</code></td>
-<td>analytic signal + tilt-angle edge/zero-band + Frangi line response</td>
-<td class="ok">built, measured</td></tr>
-<tr><td class="n">2</td><td>Concealed basin-bounding faults</td>
-<td><code>depth_to_base_surf</code>, <code>cond_surf</code>, <code>geod_shearrate</code></td>
-<td>3-way coincidence × <b>concealment gate</b></td><td class="ok">built, measured</td></tr>
-<tr><td class="n">3</td><td>Geothermal-fluid conduit alignment</td>
-<td>GDR thermal springs + volcanic vents</td>
-<td>locality-constrained PCA lineament through the point pattern</td>
-<td class="ok">built, measured</td></tr>
-<tr><td class="n">4</td><td>Gravity source-parameter imaging</td>
-<td>4 <code>iso_grav_anom*</code> bands</td>
-<td>tilt-depth SPI + gravity analytic signal</td><td class="ok">built, measured</td></tr>
-<tr><td class="n">5</td><td>Sub-km seismicity lineaments</td>
-<td>raw USGS FDSN catalogue</td><td>epicentres + nodal-plane strikes</td>
-<td class="no"><b>BLOCKED</b> — host unreachable here</td></tr>
-</table>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">Is the instrument any good? (the question that has to come first)</h2>
-<p>Spearman rank correlation of each frame family against the owner-reported live scores, over the
-artifacts whose live score is already known:</p>
-<table><tr><th>frame family</th><th class="n">n</th><th class="n">ρ</th>
-<th class="n">p</th></tr><tr><td>A</td><td class="n">8</td><td class="n">+0.180</td><td class="n">0.670</td></tr><tr><td>B</td><td class="n">8</td><td class="n">+0.455</td><td class="n">0.257</td></tr><tr><td>C</td><td class="n">8</td><td class="n">+0.180</td><td class="n">0.670</td></tr></table>
-<p><b>Reference bar</b> — the best mean DTI achieved on each family by an artifact that has a known
-live score. A candidate must clear this before it is promoted:</p>
-<table><tr><th>family</th><th>artifact</th><th class="n">its live score</th>
-<th class="n">its mean DTI on this family</th></tr>
-<tr><td>A</td><td>GEMSDOE25 / GEMSDOE30 D2.8</td><td class="n">0.2600</td><td class="n">0.1087</td></tr><tr><td>B</td><td>GEMSDOE27 TGC</td><td class="n">0.2449</td><td class="n">0.0870</td></tr><tr><td>C</td><td>GEMSDOE25 / GEMSDOE30 D2.8</td><td class="n">0.2600</td><td class="n">0.1160</td></tr></table>
-<p class="small">The parent project measured ρ ≈ +0.51 (n = 12, p ≈ 0.09) for its catalogue
-instrument. A correlation of that size is a <b>screen</b>, not evidence of a leaderboard gain,
-and no submission is described here as a predicted score.</p>
-</div>
-
-<div class="panel">
-<h2 style="margin-top:0;border:0">Measured results — every surface × every budget</h2>
-<p>Pooled mean DW-Tversky over the four spatial blocks of each family. <b>A</b> = catalogue
-components held out by block; <b>B</b> = SGMC faults the catalogue does not contain;
-<b>C</b> = catalogue components with a 300 m flank deleted. Top 40 rows of
-14 surfaces × budgets.</p>
-<table><tr><th>surface</th><th class="n">K</th><th class="n">A</th><th class="n">B</th>
-<th class="n">C</th><th class="n">pooled</th><th class="n">K* (marginal rule)</th></tr><tr><td>lf_ext_sgmc</td><td class="n">20,000</td><td class="n">0.0942</td><td class="n">0.3977</td><td class="n">0.0985</td><td class="n"><b>0.1968</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">60,000</td><td class="n">0.1162</td><td class="n">0.3477</td><td class="n">0.1251</td><td class="n"><b>0.1963</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">56,019</td><td class="n">0.1156</td><td class="n">0.3395</td><td class="n">0.1241</td><td class="n"><b>0.1931</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">46,740</td><td class="n">0.1127</td><td class="n">0.3359</td><td class="n">0.1201</td><td class="n"><b>0.1896</b></td><td class="n">56,019</td></tr><tr><td>lf_ext_sgmc</td><td class="n">40,000</td><td class="n">0.1094</td><td class="n">0.3398</td><td class="n">0.1161</td><td class="n"><b>0.1885</b></td><td class="n">56,019</td></tr><tr><td>sup_oof</td><td class="n">51,053</td><td class="n">0.1446</td><td class="n">0.2258</td><td class="n">0.1583</td><td class="n"><b>0.1762</b></td><td class="n">51,053</td></tr><tr><td>sup_oof</td><td class="n">40,000</td><td class="n">0.1441</td><td class="n">0.2279</td><td class="n">0.1564</td><td class="n"><b>0.1761</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">50,992</td><td class="n">0.1446</td><td class="n">0.2252</td><td class="n">0.1583</td><td class="n"><b>0.1760</b></td><td class="n">50,992</td></tr><tr><td>sup_x_fluids</td><td class="n">40,000</td><td class="n">0.1438</td><td class="n">0.2273</td><td class="n">0.1562</td><td class="n"><b>0.1758</b></td><td class="n">50,992</td></tr><tr><td>sup_x_concealed</td><td class="n">50,715</td><td class="n">0.1449</td><td class="n">0.2228</td><td class="n">0.1588</td><td class="n"><b>0.1755</b></td><td class="n">50,715</td></tr><tr><td>sup_x_concealed</td><td class="n">40,000</td><td class="n">0.1440</td><td class="n">0.2247</td><td class="n">0.1565</td><td class="n"><b>0.1751</b></td><td class="n">50,715</td></tr><tr><td>sup_oof</td><td class="n">36,293</td><td class="n">0.1426</td><td class="n">0.2283</td><td class="n">0.1541</td><td class="n"><b>0.1750</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">36,055</td><td class="n">0.1424</td><td class="n">0.2277</td><td class="n">0.1540</td><td class="n"><b>0.1747</b></td><td class="n">50,992</td></tr><tr><td>sup_oof</td><td class="n">60,000</td><td class="n">0.1427</td><td class="n">0.2223</td><td class="n">0.1571</td><td class="n"><b>0.1740</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">60,000</td><td class="n">0.1429</td><td class="n">0.2214</td><td class="n">0.1573</td><td class="n"><b>0.1739</b></td><td class="n">50,992</td></tr><tr><td>sup_x_concealed</td><td class="n">35,571</td><td class="n">0.1419</td><td class="n">0.2250</td><td class="n">0.1536</td><td class="n"><b>0.1735</b></td><td class="n">50,715</td></tr><tr><td>sup_x_concealed</td><td class="n">60,000</td><td class="n">0.1429</td><td class="n">0.2192</td><td class="n">0.1575</td><td class="n"><b>0.1732</b></td><td class="n">50,715</td></tr><tr><td>sup_oof</td><td class="n">20,000</td><td class="n">0.1285</td><td class="n">0.2138</td><td class="n">0.1365</td><td class="n"><b>0.1596</b></td><td class="n">51,053</td></tr><tr><td>sup_x_fluids</td><td class="n">20,000</td><td class="n">0.1280</td><td class="n">0.2129</td><td class="n">0.1360</td><td class="n"><b>0.1590</b></td><td class="n">50,992</td></tr><tr><td>sup_x_concealed</td><td class="n">20,000</td><td class="n">0.1280</td><td class="n">0.2097</td><td class="n">0.1361</td><td class="n"><b>0.1579</b></td><td class="n">50,715</td></tr><tr><td>sup_x_multiphysics</td><td class="n">60,000</td><td class="n">0.0892</td><td class="n">0.1720</td><td class="n">0.0953</td><td class="n"><b>0.1188</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">57,194</td><td class="n">0.0890</td><td class="n">0.1713</td><td class="n">0.0950</td><td class="n"><b>0.1184</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">40,000</td><td class="n">0.0836</td><td class="n">0.1594</td><td class="n">0.0883</td><td class="n"><b>0.1104</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">36,014</td><td class="n">0.0817</td><td class="n">0.1542</td><td class="n">0.0861</td><td class="n"><b>0.1073</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">21,588</td><td class="n">0.0677</td><td class="n">0.1275</td><td class="n">0.0703</td><td class="n"><b>0.0885</b></td><td class="n">36,014</td></tr><tr><td>sup_x_multiphysics</td><td class="n">20,000</td><td class="n">0.0653</td><td class="n">0.1225</td><td class="n">0.0678</td><td class="n"><b>0.0852</b></td><td class="n">36,014</td></tr><tr><td>lf_line_agreement</td><td class="n">60,000</td><td class="n">0.0349</td><td class="n">0.0861</td><td class="n">0.0356</td><td class="n"><b>0.0522</b></td><td class="n">45,431</td></tr><tr><td>lf_line_agreement</td><td class="n">45,431</td><td class="n">0.0317</td><td class="n">0.0773</td><td class="n">0.0322</td><td class="n"><b>0.0471</b></td><td class="n">45,431</td></tr><tr><td>lf_h431_mag_edge</td><td class="n">60,000</td><td class="n">0.0394</td><td class="n">0.0522</td><td class="n">0.0404</td><td class="n"><b>0.0440</b></td><td class="n">26,326</td></tr><tr><td>lf_line_agreement</td><td class="n">40,000</td><td class="n">0.0295</td><td class="n">0.0719</td><td class="n">0.0299</td><td class="n"><b>0.0437</b></td><td class="n">45,431</td></tr><tr><td>lf_h431_multiphysics</td><td class="n">60,000</td><td class="n">0.0270</td><td class="n">0.0693</td><td class="n">0.0274</td><td class="n"><b>0.0412</b></td><td class="n">30,331</td></tr><tr><td>lf_h432_concealed</td><td class="n">60,000</td><td class="n">0.0433</td><td class="n">0.0297</td><td class="n">0.0448</td><td class="n"><b>0.0393</b></td><td class="n">30,297</td></tr><tr><td>lf_h431_mag_edge</td><td class="n">44,150</td><td class="n">0.0348</td><td class="n">0.0452</td><td class="n">0.0355</td><td class="n"><b>0.0385</b></td><td class="n">26,326</td></tr><tr><td>lf_h432_concealed</td><td class="n">51,031</td><td class="n">0.0413</td><td class="n">0.0277</td><td class="n">0.0425</td><td class="n"><b>0.0372</b></td><td class="n">30,297</td></tr><tr><td>lf_h431_mag_edge</td><td class="n">40,000</td><td class="n">0.0335</td><td class="n">0.0428</td><td class="n">0.0341</td><td class="n"><b>0.0368</b></td><td class="n">26,326</td></tr><tr><td>sup_x_fused</td><td class="n">20,000</td><td class="n">0.0378</td><td class="n">0.0334</td><td class="n">0.0391</td><td class="n"><b>0.0368</b></td><td class="n">17,558</td></tr><tr><td>lf_h431_multiphysics</td><td class="n">45,558</td><td class="n">0.0241</td><td class="n">0.0615</td><td class="n">0.0245</td><td class="n"><b>0.0367</b></td><td class="n">30,331</td></tr><tr><td>sup_x_fused</td><td class="n">17,558</td><td class="n">0.0375</td><td class="n">0.0335</td><td class="n">0.0387</td><td class="n"><b>0.0366</b></td><td class="n">17,558</td></tr><tr><td>sup_x_fused</td><td class="n">28,758</td><td class="n">0.0373</td><td class="n">0.0326</td><td class="n">0.0388</td><td class="n"><b>0.0362</b></td><td class="n">17,558</td></tr><tr><td>lf_line_agreement</td><td class="n">29,455</td><td class="n">0.0236</td><td class="n">0.0583</td><td class="n">0.0239</td><td class="n"><b>0.0352</b></td><td class="n">45,431</td></tr></table>
-</div>
-</div>
-<footer><div class="wrap">GEMSDOE43 &middot; DOE GEMS Prize Challenge (DrivenData #306) &middot;
-rendered 2026-10-06 14:56 UTC from <code>evidence/*.json</code> &middot;
-<a href="https://github.com/buffedlizard55-lab/GEMSDOE43">repository</a></div></footer>
-</body></html>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Five preregistered slates · ranked before scoring</div><h1>Rank the idea before the code.</h1><p>Round 1 tested magnetic–gravity concordance (failed). Round 2 tested optimal covering placement, a triple-gradient surface, a supervised ranker, and an ensemble. The merged MCLP line adds H43 physical surfaces, the H46 geochemistry/geology slate, and a supervised out-of-fold prior. Expected improvements were qualitative priors, never score forecasts.</p></div><div class="hero-side"><span class="badge pass">Two validated detectors</span><strong>0.2864 / 0.2627</strong><span>sup_oof + SUP01 means · local catalogue CV</span></div></div></section>
+<main class="wrap">
+<section class="section"><div class="callout info"><strong>Decision rule</strong><p>Every candidate runs on frozen, spatially blocked, equal-mass validation first. Preregistered arms must beat the reproduced H42 baseline mean and win ≥3/4 folds (3/3 of clean folds for post-exploration arms). Winners must also pass novelty, input, format, rights, and disclosure checks — and only an exact validated emission becomes the primary file. The holdout cannot forecast organizer hidden truth.</p></div></section>
+<section class="section" id="sup01"><div class="section-head"><div><div class="kicker">Round 2b · promoted · primary file</div><h2>G43-SUP01 — supervised gradient-boosting ranker</h2></div><span class="badge pass">Passed gate</span></div>
+<div class="grid">
+<article class="card"><h3>Layers &amp; signature</h3><p>All 19 competition bands in band order + LiDAR scarp evidence (0-imputed) + scarp-validity flag = 21 features. Histogram gradient boosting (200 trees max, lr 0.06, 63 leaves, balanced classes, early stopping), trained per fold on training-block cells only. No coordinates.</p></article>
+<article class="card"><h3>Off-catalogue rationale</h3><p>Supervised ranking learns nonlinear band interactions (magnetic × gravity × strain × conductivity × scarp) that hand-built geometric means cannot express. Trained strictly on mapped faults, it generalizes the learned multi-physics signature to unmapped structures.</p></article>
+<article class="card"><h3>Prior-work difference</h3><p>H42/CG01/MG01 are hand-built unsupervised surfaces; H43's classifier used a different withheld-strand instrument; the organizer reference is a U-Net on random patches. SUP01 is the first per-fold boosted ranker evaluated on G43's 20-km blocked protocol with fixed packing.</p></article>
+<article class="card"><h3>Expected improvement &amp; cost</h3><p>Registered as a backup after MCLP falsification: moderate-to-high expected value (supervised ceiling above hand-built), medium cost (CPU training ≈3 min/fold). No new external data.</p></article>
+<article class="card"><h3>Measured result</h3><p>Mean DTI <strong>0.262666</strong> vs H42 0.250744 (<strong>+0.011922</strong>), wins folds 0–3. Corrected gate (folds 1–3): 3/3, mean 0.263590 vs 0.253568. Shipped as the primary; live-UNSCRED.</p></article>
+<article class="card"><h3>External data &amp; status</h3><p>No new external data. Scarp feature carries the same owner-mirror caveat as the H42 baseline. Shipped after format + novelty audits passed.</p></article>
+</div></section>
+<section class="section" id="supoof"><div class="section-head"><div><div class="kicker">MCLP line · validated prior · alternative file</div><h2>sup_oof — supervised out-of-fold prior + MCLP emission</h2></div><span class="badge caution">Prior passed · placement open</span></div>
+<div class="grid">
+<article class="card"><h3>Layers &amp; signature</h3><p>Gradient-boosted model over 62 derived channels (19 bands + analytic-signal, tilt-angle, Frangi, SPI, SGMC-lithology and fusion channels), trained out-of-fold per spatial block; per-pixel fault posterior. The shipped file emits 51,053 dots via Dinkelbach-budget maximal covering with no separation constraint.</p></article>
+<article class="card"><h3>Off-catalogue rationale</h3><p>Same supervised-ceiling argument as SUP01 with a richer channel stack; frame B additionally screens against the off-catalogue SGMC fault inventory (excluded from selection to avoid circularity).</p></article>
+<article class="card"><h3>Measured result</h3><p>Prior + sep-3.0/N40000 packing: <strong>0.286388, 4/4 folds</strong> on the shared protocol — the best validated surface here. Frames A/C clear a live-anchored reference bar (+33%/+36%). The shipped MCLP placement itself was never scored at equal mass; build cache lost. Alternative file; live-UNSCRED.</p></article>
+<article class="card"><h3>Status &amp; record</h3><p>Preserved: <a href="mclp-line.html">MCLP-line detail</a>, <code>evidence/submission.json</code>, <code>evidence/pipeline_probe.json</code>, <code>evidence/instrument_calibration.json</code>. Top next step: rebuild prior + validated packing into a shippable file.</p></article>
+</div></section>
+<section class="section" id="mclp"><div class="section-head"><div><div class="kicker">Round 2 · rank 1 · tested</div><h2>G43-MCLP01 — lazy-greedy maximum expected coverage</h2></div><span class="badge no-go">Failed gate</span></div>
+<div class="grid">
+<article class="card"><h3>Method &amp; signature</h3><p>Church–ReVelle covering on any continuous [0,1] surface: maximize Σ p·max-kernel-coverage at |S|=40,000 with the official triangular 300-m kernel. Exact lazy greedy (Minoux 1978), top-300k candidates by initial gain, deterministic ties. (1−1/e) guarantee over the candidate set <em>for covering the surface</em>.</p></article>
+<article class="card"><h3>Off-catalogue rationale</h3><p>Placement, not geology: fixed spacing wastes budget on broad surfaces and starves ridges. Optimal covering converts the same geology into more expected kernel credit per dot — a formal floor no spacing constant carries.</p></article>
+<article class="card"><h3>Prior-work difference</h3><p>All G43 arms used fixed-separation packing. Siblings tried max-cover on other surfaces: G32's smooth-maxcov was quarantined defective; G28's H37-1 passed interleaved but tied LOSFO far-field. This test used 20-km blocks, an exact solver, and matched mass.</p></article>
+<article class="card"><h3>Measured result</h3><p>Arm A (H42 surface): mean <strong>0.211122</strong>, 0/4 wins. Arm B (MG01): <strong>0.150107</strong>, 0/4. Seven demand variants (raw, squared, blurred, binary, calibrated) all trailed packing on fold-0 exploration too. Rejected with mechanism documented.</p></article>
+<article class="card"><h3>Why it lost</h3><p>Optimizer's curse on a miscalibrated map: surface mass sits in mid-value flats while truth concentrates on sharp top-score ridges, so mass-covering spreads dots over flats. Packing exploits the rank tail. Lesson: <strong>placement is downstream of probability quality</strong>.</p></article>
+<article class="card"><h3>External data &amp; status</h3><p>No new data. Code, brute-force-verified tests, and the falsification receipt stay in the repo; a calibrated-surface + MCLP combination remains the principled untested arm — and the MCLP-line file is its closest existing instance.</p></article>
+</div></section>
+<section class="section" id="mg01"><div class="section-head"><div><div class="kicker">Round 2 · rank 2 · tested</div><h2>G43-MG01 — magnetic triple-gradient conjunction (+ ensemble)</h2></div><span class="badge no-go">Failed gate</span></div>
+<div class="grid">
+<article class="card"><h3>Layers &amp; signature</h3><p>Competition <code>tmi_hg</code>, <code>|tmi_vg|</code>, <code>|∇rtp|</code> at σ=2 px, 99th-percentile normalized, H42-style geometric mean (0.05 floor). Rewards locations strong in all three magnetic derivatives at once.</p></article>
+<article class="card"><h3>Off-catalogue rationale</h3><p>Triple-derivative agreement suppresses shallow noise and survey artifacts, retaining weak/deep susceptibility contacts under cover that never got mapped.</p></article>
+<article class="card"><h3>Prior-work difference</h3><p>H42 used <code>tmi_hg</code> magnitude alone; CG01 used RTP-vs-gravity vector alignment. No audited operator required triple magnetic-derivative conjunction.</p></article>
+<article class="card"><h3>Measured result</h3><p>Arm C (MG01 + sep4 packing): mean <strong>0.205756</strong>, 0/4 wins — trails H42. Arm E (50/50 SH/MG01 ensemble + packing): <strong>0.241241</strong>, 0/3 clean folds. Magnetic-only signal cannot replace scarp on catalogue truth.</p></article>
+</div></section>
+<section class="section" id="cg01"><div class="section-head"><div><div class="kicker">Round 1 · tested</div><h2>G43-CG01 — magnetic–gravity cross-gradient concordance</h2></div><span class="badge no-go">Failed gate</span></div>
+<div class="grid">
+<article class="card"><h3>Layers &amp; signature</h3><p>Competition RTP magnetic field (<code>rtp</code>) and isostatic gravity anomaly (<code>iso_grav_anom</code>). At σ=2, 4, 8 grid cells, calculate gradient magnitudes and vector directions. Reward sharp, co-located gradients with appreciable strength and parallel or antiparallel normals; take the pixelwise median across scales.</p></article>
+<article class="card"><h3>Off-catalogue rationale</h3><p>A buried fault/contact may juxtapose units with both magnetic-susceptibility and density contrasts. Concordant potential-field boundaries could continue beneath basin fill where there is no mapped scarp. The score surface itself reads no label or catalogue pixels.</p></article>
+<article class="card"><h3>Prior-work difference</h3><p>Not an Euler source-depth cloud, terrain/LiDAR-scarp ranker, magnetic “worming” or catalogue-trained classifier. It is an unsupervised operator coupling two potential fields.</p></article>
+<article class="card"><h3>Measured result</h3><p>Equal-mass 40,000-pixel emission, 4-pixel spacing: mean DTI <strong>0.211567</strong> vs H42 0.250744 (−0.039177). Lost all four folds; not promoted. Original receipt: <code>evidence/holdout_g43_cg01_round1.json</code>.</p></article>
+</div></section>
+<section class="section" id="h43"><div class="section-head"><div><div class="kicker">MCLP line · H43 slate · measured on frames</div><h2>H43 physical-surface hypotheses</h2></div><p>Full write-up: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/docs/research/h43-hypotheses.md">docs/research/h43-hypotheses.md</a>. Four built and measured on the frame families; none promoted over sup_oof.</p></div>
+<div class="table-wrap"><table><thead><tr><th>#</th><th>Hypothesis</th><th>Layers</th><th>Signature</th><th>Status</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>Magnetic source-edge lineaments</strong></td><td><code>tc</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>tmi</code>, <code>rtp</code></td><td>Analytic signal + tilt-angle edge/zero-band + Frangi line response</td><td>Built, measured</td></tr>
+<tr><td>2</td><td><strong>Concealed basin-bounding faults</strong></td><td><code>depth_to_base_surf</code>, <code>cond_surf</code>, <code>geod_shearrate</code></td><td>3-way coincidence × concealment gate</td><td>Built, measured</td></tr>
+<tr><td>3</td><td><strong>Geothermal-fluid conduit alignment</strong></td><td>GDR thermal springs + volcanic vents</td><td>Locality-constrained PCA lineament through the point pattern</td><td>Built, measured</td></tr>
+<tr><td>4</td><td><strong>Gravity source-parameter imaging</strong></td><td>4 <code>iso_grav_anom*</code> bands</td><td>Tilt-depth SPI + gravity analytic signal</td><td>Built, measured</td></tr>
+<tr><td>5</td><td><strong>Sub-km seismicity lineaments</strong></td><td>Raw USGS FDSN catalogue</td><td>Epicentres + nodal-plane strikes</td><td>Blocked — host unreachable from sandbox</td></tr>
+</tbody></table></div></section>
+<section class="section" id="h46"><div class="section-head"><div><div class="kicker">MCLP line · H46 slate · preregistered</div><h2>H46 geochemistry / geology / alteration hypotheses</h2></div><p>Frozen in <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/PREREGISTRATION-2026-10-06.md">research/PREREGISTRATION-2026-10-06.md</a>; amendments in <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/AMENDMENT-2026-10-06-H46B-holdout.md">research/AMENDMENT-2026-10-06-*.md</a>.</p></div>
+<div class="table-wrap"><table><thead><tr><th>Rank</th><th>Hypothesis</th><th>Layers &amp; signature</th><th>Status</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>H46-A — NURE hydrothermal pathfinder × TMI edge</strong></td><td>USGS NGB stream-sediment As–Sb–Ag–Pb–Au–Zn enrichment index × TMI horizontal-gradient percentile</td><td><strong>Stopped before scoring</strong> — failed source gate (451 eligible samples; needed 1,000)</td></tr>
+<tr><td>2</td><td><strong>H46-B — faulted lithologic contacts</strong></td><td>USGS SGMC v1.1 (NV/CA) age/lithology-contrast boundaries × linear magnetic/gravity boundaries; depositional contacts suppressed</td><td><strong>Failed promotion</strong> — +0.000923 mean, 2/4 wins (needed +0.005, 3/4); raster removed from tree</td></tr>
+<tr><td>3</td><td><strong>H46-C — persistent multispectral alteration margins</strong></td><td>Multi-year Landsat Collection 2 surface reflectance; persistent iron-oxide/clay boundaries + lineament agreement</td><td>Untested — scene coverage and sharing terms unverified</td></tr>
+</tbody></table></div></section>
+<section class="section"><div class="section-head"><div><div class="kicker">Back-up slates · untested</div><h2>Remaining geological hypotheses</h2></div><p>Research options, not tested winners. Check official coverage/rights and preregister a complete operator before selecting one.</p></div>
+<div class="table-wrap"><table><thead><tr><th>Rank / hypothesis</th><th>Layers &amp; targeted physical signature</th><th>Why it may reveal an absent fault / difference from prior approaches</th><th>Expected improvement, cost &amp; official data</th><th>Status</th></tr></thead><tbody>
+<tr><td><strong>R2-3 · G43-BG01</strong><br>Basement-step × gravity coupling</td><td><code>depth_to_base_surf</code> × <code>iso_grav_anom</code>; frozen multi-scale |cosine| form, median of σ=2/4/8.</td><td>Basin-bounding faults step the basement under cover; independent of magnetics, so it catches non-magnetic cover faults CG01 is blind to.</td><td>Low-to-moderate; low cost; bands in hand.</td><td>Unimplemented</td></tr>
+<tr><td><strong>R2-4 · G43-GT01</strong><br>Gravity structure-tensor lineaments</td><td><code>iso_grav_anom</code> gradient structure tensor over 7×7 windows; linearity × gradient strength.</td><td>Straight density steps mark fault-juxtaposed blocks; tensor linearity rejects circular anomalies (plutons) that fool magnitude detectors.</td><td>Low, uncertain; low cost; bands in hand.</td><td>Unimplemented</td></tr>
+<tr><td><strong>R2-5 · G43-SC01</strong><br>Dilational-strain × conductivity pathways</td><td><code>geod_dilaterate</code> (+ part), <code>geod_shearrate</code>, <code>geod_2ndinv</code>, <code>cond_surf</code>; geometric mean.</td><td>Blind geothermal faults are extending + shearing + conductive corridors. No prior work combined the strain-rate tensor with MT conductance.</td><td>Low, uncertain; low cost; bands in hand.</td><td>Unimplemented</td></tr>
+<tr><td><strong>R1-2 · G43-CH01</strong><br>Drainage deflection / knickpoints</td><td>USGS 3DEP DEMs; channel networks, paired reach kinks, persistent knickpoints.</td><td>Fault offsets persist in network topology where compilations lack traces.</td><td>Moderate-to-high if covered; high cost; exact 1-m tiles not acquired.</td><td>Unimplemented</td></tr>
+<tr><td><strong>R1-3 · G43-SEIS01</strong><br>Hypocenter-plane coherence</td><td>USGS FDSN event locations/depths/uncertainties; local 3-D plane tensors projected to surface.</td><td>Event planes delineate active blind faults; differs from smooth density bands. FDSN availability checked (4,260 events, broad query).</td><td>Low-to-moderate; medium cost.</td><td>Unimplemented</td></tr>
+<tr><td><strong>R1-4 · G43-RAD01</strong><br>Radiometric alteration ratios</td><td>GeoDAWN K/U/Th; K/Th, U/Th, K/U gradients at structural co-location.</td><td>Alteration boundaries may mark fluid pathways over unmapped structures. GeoDAWN CC0; footprint overlap unchecked.</td><td>Uncertain; medium-to-high cost.</td><td>Unimplemented</td></tr>
+<tr><td><strong>R1-5 · G43-MT01</strong><br>Depth-persistent conductance</td><td>Great Basin MT conductance depth stack; vertical boundary persistence.</td><td>Conductive corridors may be vertically continuous and blind at surface. Files/coverage unverified.</td><td>Low-to-moderate; high cost.</td><td>Unimplemented</td></tr>
+</tbody></table></div></section>
+<section class="section"><div class="callout warn"><strong>Novelty is not assumed.</strong><p>“Untried” means the operator was not found in the bounded set of inspected sibling-project code and artifacts. Before publishing any raster, exact bytes and pixel arrays are compared against prior artifacts — the SUP01 layout shares only ~2% of dots with any checked prior, and the MCLP layout passed a 221-artifact coverage-IoU screen.</p></div></section>
+<section class="section"><div class="notice">Full registrations: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/hypotheses.md">round 1</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/hypotheses_round2.md">round 2</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/amendment_round2b.md">round-2b amendment</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/PREREGISTRATION-2026-10-06.md">H46 preregistration</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/docs/research/h43-hypotheses.md">H43 slate</a> · <a href="sources.html">source register</a>.</div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="research.html">Validation</a></span></div></footer>
+</body>
+</html>
