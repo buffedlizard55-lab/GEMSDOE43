@@ -7,6 +7,7 @@ import hashlib
 import json
 import sys
 import traceback
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,16 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def archive_inventory(path: Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    with zipfile.ZipFile(path) as archive:
+        return [
+            {"name": item.filename, "bytes": item.file_size}
+            for item in archive.infolist()
+        ][:250]
 
 
 def main() -> None:
@@ -104,6 +115,7 @@ def main() -> None:
                     "exists": path.exists(),
                     "bytes": path.stat().st_size if path.exists() else None,
                     "sha256": sha256(path) if path.exists() else None,
+                    "archive_members_first_250": archive_inventory(path),
                 }
                 for state, path in archives.items()
             },
