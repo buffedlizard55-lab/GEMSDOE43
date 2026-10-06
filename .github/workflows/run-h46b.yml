@@ -2,6 +2,11 @@ name: H46-B blocked holdout and candidate build
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - arena/7bd177bc-gemsdoe43
+    paths:
+      - .github/workflows/run-h46b.yml
 
 permissions:
   contents: write
