@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Auditable DOE GEMS fault-mapping research, provenance, spatial validation and no-go decision.">
+  <title>GEMSDOE43 · GEMS research</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a aria-current="page" href="index.html">Overview</a>
+        <a href="executive-summary.html">Summary &amp; submission guide</a>
+        <a href="hypotheses.html">Hypotheses</a>
+        <a href="research.html">Validation</a>
+        <a href="sources.html">Sources</a>
+        <a href="leaderboard.html">Leaderboard note</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">DOE GEMS · research record · 06 Oct 2026</div>
+        <h1>Better fault maps start with honest holdouts.</h1>
+        <p>GEMSDOE43 is a reproducible research and submission workflow for the GEMS Prize. Every score claim has an attribution; every candidate has to clear a spatially blocked gate before it is eligible for a portal slot.</p>
+        <div class="button-row">
+          <span class="button disabled" aria-disabled="true">No eligible submission download</span>
+          <a class="button secondary" href="executive-summary.html">Read the decision &amp; guide</a>
+        </div>
+        <p class="small">No submission slot has been used. The failed G43-CG01 raster is not offered as a submission.</p>
+      </div>
+      <div class="hero-side">
+        <span class="badge no-go">Current decision · no-go</span>
+        <strong>0.211567</strong>
+        <span>G43-CG01 mean blocked-holdout DTI</span>
+        <strong style="margin-top:22px">0.250744</strong>
+        <span>reproduced H42 mean DTI · same four folds and mass</span>
+      </div>
+    </div>
+  </section>
+  <main class="wrap">
+    <section class="section">
+      <div class="callout">
+        <strong>G43-CG01 failed the preregistered promotion gate.</strong>
+        <p>It scored below H42 in all four folds (0/4 wins). Under the project charter, no GeoTIFF is made downloadable and no competition slot is used. Full fold data and the exact H42 reproduction check are in the <a href="research.html">validation record</a>.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><div class="kicker">Evidence at a glance</div><h2>What is known—and what is not</h2></div>
+        <p>Local validation is not a public leaderboard score, and an owner projection is not an organizer result.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <span class="badge pass">Baseline reproduced</span>
+          <div class="metric"><strong>0.250744</strong></div>
+          <p>H42 `SH_basin_strong`, sep 4 px, 40,000 pixels. All four folds match the owner report within 1e-6. Local catalogue CV only.</p>
+          <a href="research.html">See baseline method and checks →</a>
+        </article>
+        <article class="card">
+          <span class="badge no-go">Candidate not promoted</span>
+          <div class="metric"><strong>0.211567</strong></div>
+          <p>G43-CG01 magnetic–gravity concordance; 0/4 fold wins against H42. No download, no portal slot.</p>
+          <a href="hypotheses.html#cg01">Review the hypothesis and result →</a>
+        </article>
+        <article class="card">
+          <span class="badge caution">Mirror provenance</span>
+          <div class="metric"><strong>4 / 4</strong><span>rasters hash-checked</span></div>
+          <p>Byte integrity matches owner-published manifests. No checksum or authenticated download from DrivenData was available here.</p>
+          <a href="sources.html#inputs">Review data provenance →</a>
+        </article>
+        <article class="card wide">
+          <h3>Equal-mass fold comparison</h3>
+          <p>The same four-colour 20-km spatial blocks and 40,000-pixel emission budget are used for H42 and CG01. Values are local, rounded to six decimals, and must not be described as a competition score.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Fold</th><th>H42 baseline</th><th>G43-CG01</th><th>Difference</th></tr></thead>
+              <tbody>
+                <tr><td>0</td><td>0.242272</td><td>0.207406</td><td>−0.034866</td></tr>
+                <tr><td>1</td><td>0.247658</td><td>0.206557</td><td>−0.041101</td></tr>
+                <tr><td>2</td><td>0.255021</td><td>0.204019</td><td>−0.051002</td></tr>
+                <tr><td>3</td><td>0.258025</td><td>0.228287</td><td>−0.029738</td></tr>
+                <tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.211567</strong></td><td><strong>−0.039177</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="card">
+          <span class="badge info">H33-2-B2 attribution</span>
+          <div class="metric"><strong>0.2747</strong><span>projected, owner model</span></div>
+          <p>The 0.2747 value is an owner-calibrated projection from owner-reported anchors—not an organizer-confirmed score.</p>
+          <a href="executive-summary.html#h33">Read the careful explanation →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div><div class="kicker">Research sequence</div><h2>What happens next</h2></div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>01 · Choose next hypothesis</h3>
+          <p>Five candidates were ranked before implementation. CG01 is now a documented no-go; do not relax its gate after seeing the result.</p>
+          <a href="hypotheses.html">Open the ranked slate →</a>
+        </article>
+        <article class="card">
+          <h3>02 · Preregister the next test</h3>
+          <p>Freeze layers, operator, spatial folds, score budget, comparison baseline, and stopping rule before inspecting holdout scores.</p>
+          <a href="research.html#workflow">Read the reproducible workflow →</a>
+        </article>
+        <article class="card">
+          <h3>03 · Publish only if it wins</h3>
+          <p>Before a future download, compare candidate arrays against prior artifacts, audit the GeoTIFF, verify data rights, and prepare the AI-use narrative.</p>
+          <a href="executive-summary.html#submission-guide">Submission guide →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="callout warn">
+        <strong>Leaderboard snapshot is historical.</strong>
+        <p>The last recorded public observation is 2026-10-05 (rank 1: 0.3345). It was not refreshed on 2026-10-06 because DrivenData's Terms of Use prohibit monitoring/copying without prior written permission. Visit the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official page</a> directly if authorized; this site does not poll or mirror it. <a href="leaderboard.html">Details →</a></p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Core Values: Maximize P(Win) · Own the Outcome</span><span><a href="sources.html">Source register</a><a href="executive-summary.html">Decision &amp; guide</a></span></div></footer>
+</body>
+</html>

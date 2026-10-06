@@ -1,0 +1,14 @@
+# Local environments and reproducible caches
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Raw/mirrored competition and external inputs are not redistributed from this repository.
+data/*
+!data/README.md
+
+# Temporary artifacts
+*.partial
+*.assembling
