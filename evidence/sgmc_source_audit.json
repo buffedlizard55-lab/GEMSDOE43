@@ -41,8 +41,8 @@
     "at_least_90_percent_polygon_coverage": true,
     "outside_footprint_contact_strength_zero": true
   },
-  "github_actions_run_id": 37454306845,
-  "github_check_run_id": 112238031452,
+  "github_actions_run_id": 37455479306,
+  "github_check_run_id": 112241912563,
   "interpretation": "Official-source, schema, polygon-coverage and support audit only; not a fault score or holdout result.",
   "label_access": "No labels or sample-template pixel values were read; finite mask and grid metadata only.",
   "polygon_rasterization": {
@@ -78,6 +78,7 @@
           ],
           "lithology": "lith.lith1"
         },
+        "geometry_layer_used": "geol_poly polygons only",
         "geometry_transform_errors": 0,
         "lith_rank_filter": "major only; exact case-insensitive match",
         "lith_rows": 18418,
@@ -99,6 +100,8 @@
         "polygon_shapefile": "CA_geol_poly.shp",
         "rasterization_warnings": 0,
         "source_crs": "EPSG:4326",
+        "structure_layer_member_count_not_opened": 4,
+        "structure_layer_opened": false,
         "units_with_major_lith1": 6569
       },
       "NV": {
@@ -114,6 +117,7 @@
           ],
           "lithology": "lith.lith1"
         },
+        "geometry_layer_used": "geol_poly polygons only",
         "geometry_transform_errors": 0,
         "lith_rank_filter": "major only; exact case-insensitive match",
         "lith_rows": 18418,
@@ -135,6 +139,8 @@
         "polygon_shapefile": "NV_geol_poly.shp",
         "rasterization_warnings": 0,
         "source_crs": "EPSG:4326",
+        "structure_layer_member_count_not_opened": 4,
+        "structure_layer_opened": false,
         "units_with_major_lith1": 6569
       }
     },
@@ -177,5 +183,5 @@
     "width": 3292
   },
   "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
-  "workflow_url": "https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37454306845"
+  "workflow_url": "https://github.com/buffedlizard55-lab/GEMSDOE43/actions/runs/37455479306"
 }
