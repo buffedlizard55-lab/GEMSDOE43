@@ -1,0 +1,166 @@
+{
+  "competition_features": {
+    "bytes": 418912844,
+    "path": "/home/runner/work/_temp/gems-inputs/competition/training_features.tif",
+    "provenance": "integrity-pinned owner-supplied mirror, not organizer-authenticated",
+    "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+  },
+  "grid_metadata": {
+    "features": {
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "count": 19,
+      "crs": "EPSG:32611",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "labels": {
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "count": 1,
+      "crs": "EPSG:32611",
+      "dtype": "int8",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "lidar": {
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "count": 12,
+      "crs": "EPSG:32611",
+      "dtype": "uint8",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "template": {
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "count": 1,
+      "crs": "EPSG:32611",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    }
+  },
+  "labels": {
+    "bytes": 425830,
+    "path": "/home/runner/work/_temp/gems-inputs/competition/labels.tif",
+    "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "use": "public catalogue only for blocked proxy fold/guard/DTI after candidate construction"
+  },
+  "lidar": {
+    "bytes": 36943606,
+    "path": "/home/runner/work/_temp/gems-inputs/external/lidar_scarp_features_u8.tif",
+    "provenance": "USGS 3DEP-derived 12-band LiDAR scarp product in pinned owner mirror",
+    "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568"
+  },
+  "sample_template": {
+    "bytes": 1599597,
+    "path": "/home/runner/work/_temp/gems-inputs/competition/sample_submission.tif",
+    "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "use": "finite mask/grid metadata only; sample pixel values not used"
+  },
+  "sgmc_archives": {
+    "CA": {
+      "bytes": 24977406,
+      "official_url": "https://mrdata.usgs.gov/geology/state/shp/CA.zip",
+      "path": "/home/runner/work/_temp/gems-sgmc/CA.zip",
+      "sha256": "78765ba4428df9f25a84f86e0b2529bd0508fc8a2cf65d2f41a830e82bccfd58",
+      "verification": "exact byte count and SHA-256 match"
+    },
+    "NV": {
+      "bytes": 69056094,
+      "official_url": "https://mrdata.usgs.gov/geology/state/shp/NV.zip",
+      "path": "/home/runner/work/_temp/gems-sgmc/NV.zip",
+      "sha256": "3b333ac025e59aae7f0d827db45ba32c425cf867eb341561a788af1de186b76b",
+      "verification": "exact byte count and SHA-256 match"
+    },
+    "tables": {
+      "bytes": 1573709,
+      "official_url": "https://www.sciencebase.gov/catalog/file/get/5888bf4fe4b05ccb964bab9d?name=USGS_SGMC_Tables_CSV.zip",
+      "path": "/home/runner/work/_temp/gems-sgmc/USGS_SGMC_Tables_CSV.zip",
+      "sha256": "8859dd1f00ec6ec3d397634dc86fa288e440b432aad8a98a5fb0c7f9b6bc0bde",
+      "verification": "exact byte count and SHA-256 match"
+    }
+  },
+  "template_footprint": {
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "crs": "EPSG:32611",
+    "finite_footprint_cells": 5167373,
+    "shape": [
+      3730,
+      3292
+    ],
+    "template_nodata": "nan",
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  }
+}
