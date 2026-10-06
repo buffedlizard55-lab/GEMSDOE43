@@ -1,0 +1,537 @@
+{
+  "baseline_surface": {
+    "arm": "H42 SH_basin_strong|sep4.0|N40000",
+    "formula": "GM((slope^0.5*(1-detrended_elevation)^1.5)^0.55, lidar_scarp^0.25, tmi_hg^0.20)",
+    "lidar": {
+      "evidence_max": 0.9763779640197754,
+      "lidar_valid_cells": 3894460
+    },
+    "normalization": "sigma=1 pixel constant Gaussian; p99 within finite footprint; H42 geometric-mean floor=.05",
+    "surface_max": 0.99068284034729,
+    "surface_min": 0.0
+  },
+  "candidate_source": {
+    "arm": "H46-B SGMC lithology/age contact x TMI evidence, combined with H42 incumbent",
+    "auxiliary_surface": {
+      "max": 0.9999996423721313,
+      "positive_cells": 476338
+    },
+    "candidate_surface": {
+      "finite_inside": true,
+      "inside_max": 0.9453405141830444,
+      "inside_min": 0.0,
+      "outside_nonzero_cells": 0,
+      "positive_cells": 5167373
+    },
+    "contact_contrast_audit": {
+      "both_class_coverage_fraction": 0.9632885026879229,
+      "cells_with_major_lith1_and_era_pair": 4977671,
+      "contrast_definition": "mean of available major-lith1 and min/max-era categorical differences across four-neighbour unit boundaries; max incident contrast per cell",
+      "contrast_max": 1.0,
+      "distinct_rasterized_unit_ids": 86,
+      "footprint_cells": 5167373,
+      "known_age_comparisons": 1022040,
+      "known_lithology_comparisons": 956953,
+      "mapped_unit_cells": 5167373,
+      "outside_footprint_nonzero_cells": 0,
+      "positive_contrast_cells": 476338,
+      "unit_boundary_adjacency_pairs": 1034158,
+      "unit_coverage_fraction": 1.0
+    },
+    "fixed_formula": "geometric_mean(H42 incumbent^0.75, (contact_contrast * empirical_percentile(smoothed TMI-HG))^0.25); existing 0.05 geometric-mean floor",
+    "sgmc_rasterization": {
+      "attribute_table_archive": {
+        "member_count": 6,
+        "members": [
+          "USGS_SGMC_Tables_CSV/",
+          "USGS_SGMC_Tables_CSV/SGMC_Age.csv",
+          "USGS_SGMC_Tables_CSV/SGMC_Lithology.csv",
+          "USGS_SGMC_Tables_CSV/SGMC_References.csv",
+          "USGS_SGMC_Tables_CSV/SGMC_Units.csv",
+          "USGS_SGMC_Tables_CSV/SGMC_Unit_Ref_Link.csv"
+        ],
+        "name": "USGS_SGMC_Tables_CSV.zip"
+      },
+      "polygon_bboxes_intersecting_grid": 12469,
+      "polygon_geometries_transformed": 12469,
+      "polygon_geometry_transform_errors": 0,
+      "polygon_shape_count_total": 41228,
+      "polygons_missing_unit_link_in_grid_bounds": 0,
+      "rasterization_warnings": 0,
+      "states": {
+        "CA": {
+          "age_rows": 6624,
+          "age_table": "SGMC_Age.csv",
+          "age_units_with_era_pair": 6269,
+          "archive": "CA.zip",
+          "archive_member_count": 11,
+          "class_fields": {
+            "age": [
+              "age.min_era",
+              "age.max_era"
+            ],
+            "lithology": "lith.lith1"
+          },
+          "geometry_layer_used": "geol_poly polygons only",
+          "geometry_transform_errors": 0,
+          "lith_rank_filter": "major only; exact case-insensitive match",
+          "lith_rows": 18418,
+          "lith_table": "SGMC_Lithology.csv",
+          "missing_unit_link_bboxes_intersecting_grid": 0,
+          "polygon_bboxes_intersecting_grid": 647,
+          "polygon_fields": [
+            "generalize",
+            "orig_label",
+            "ref_id",
+            "sgmc_label",
+            "src_url",
+            "state",
+            "unit_link",
+            "url"
+          ],
+          "polygon_geometries_transformed": 647,
+          "polygon_shape_count": 10465,
+          "polygon_shapefile": "CA_geol_poly.shp",
+          "rasterization_warnings": 0,
+          "source_crs": "EPSG:4326",
+          "structure_layer_member_count_not_opened": 4,
+          "structure_layer_opened": false,
+          "units_with_major_lith1": 6569
+        },
+        "NV": {
+          "age_rows": 6624,
+          "age_table": "SGMC_Age.csv",
+          "age_units_with_era_pair": 6269,
+          "archive": "NV.zip",
+          "archive_member_count": 11,
+          "class_fields": {
+            "age": [
+              "age.min_era",
+              "age.max_era"
+            ],
+            "lithology": "lith.lith1"
+          },
+          "geometry_layer_used": "geol_poly polygons only",
+          "geometry_transform_errors": 0,
+          "lith_rank_filter": "major only; exact case-insensitive match",
+          "lith_rows": 18418,
+          "lith_table": "SGMC_Lithology.csv",
+          "missing_unit_link_bboxes_intersecting_grid": 0,
+          "polygon_bboxes_intersecting_grid": 11822,
+          "polygon_fields": [
+            "generalize",
+            "orig_label",
+            "ref_id",
+            "sgmc_label",
+            "src_url",
+            "state",
+            "unit_link",
+            "url"
+          ],
+          "polygon_geometries_transformed": 11822,
+          "polygon_shape_count": 30763,
+          "polygon_shapefile": "NV_geol_poly.shp",
+          "rasterization_warnings": 0,
+          "source_crs": "EPSG:4326",
+          "structure_layer_member_count_not_opened": 4,
+          "structure_layer_opened": false,
+          "units_with_major_lith1": 6569
+        }
+      },
+      "target_crs": "EPSG:32611",
+      "target_shape": [
+        3730,
+        3292
+      ],
+      "target_transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "unit_key_count_in_grid_bounds": 130
+    },
+    "source_viability_gates": {
+      "at_least_5000_positive_contrast_cells": true,
+      "at_least_60_percent_cells_have_lith_and_age": true,
+      "at_least_90_percent_polygon_coverage": true,
+      "outside_footprint_contact_strength_zero": true
+    },
+    "tmi_feature": {
+      "band": 3,
+      "description": "TMI horizontal gradient",
+      "gaussian_sigma_pixels": 1.0,
+      "rank": "empirical percentile within finite footprint"
+    }
+  },
+  "experiment_id": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006",
+  "holdout": {
+    "design": "20 km four-colour geographic blocks; equal 40,000 binary mass/fold; 400 m packing; 300 m fold boundary and two-pixel training-trace guard",
+    "fold_formula": "((row//200) + 2*(col//200)) % 4",
+    "folds": [
+      {
+        "allowed_cells": 1261665,
+        "arms": {
+          "h46b": {
+            "dti": 0.242266,
+            "fp_weighted": 37999.51484,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 4878.75843,
+            "truth_pixels": 14453
+          },
+          "incumbent": {
+            "dti": 0.242272,
+            "fp_weighted": 37987.55971,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 4878.29349,
+            "truth_pixels": 14453
+          }
+        },
+        "evaluation_cells": 1261665,
+        "fold": 0,
+        "held_cells": 1346770,
+        "seconds": 3.72,
+        "training_label_pixels": 44613
+      },
+      {
+        "allowed_cells": 1184320,
+        "arms": {
+          "h46b": {
+            "dti": 0.247607,
+            "fp_weighted": 38102.84819,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 4682.82812,
+            "truth_pixels": 12944
+          },
+          "incumbent": {
+            "dti": 0.247658,
+            "fp_weighted": 38084.49574,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 4682.88426,
+            "truth_pixels": 12944
+          }
+        },
+        "evaluation_cells": 1184320,
+        "fold": 1,
+        "held_cells": 1266895,
+        "seconds": 3.66,
+        "training_label_pixels": 46211
+      },
+      {
+        "allowed_cells": 1248516,
+        "arms": {
+          "h46b": {
+            "dti": 0.256993,
+            "fp_weighted": 37919.07454,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 5262.0423,
+            "truth_pixels": 14799
+          },
+          "incumbent": {
+            "dti": 0.255021,
+            "fp_weighted": 37914.53081,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 5219.23953,
+            "truth_pixels": 14799
+          }
+        },
+        "evaluation_cells": 1248516,
+        "fold": 2,
+        "held_cells": 1331706,
+        "seconds": 3.73,
+        "training_label_pixels": 44269
+      },
+      {
+        "allowed_cells": 1145742,
+        "arms": {
+          "h46b": {
+            "dti": 0.259801,
+            "fp_weighted": 37852.09938,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 5321.21865,
+            "truth_pixels": 14809
+          },
+          "incumbent": {
+            "dti": 0.258025,
+            "fp_weighted": 37850.23764,
+            "mass": 40000.0,
+            "prediction_pixels": 40000,
+            "tp_weighted": 5282.75405,
+            "truth_pixels": 14809
+          }
+        },
+        "evaluation_cells": 1145742,
+        "fold": 3,
+        "held_cells": 1222002,
+        "seconds": 3.67,
+        "training_label_pixels": 44370
+      }
+    ],
+    "h46b": {
+      "fold_deltas": [
+        -6e-06,
+        -5.1e-05,
+        0.001972,
+        0.001776
+      ],
+      "fold_dti": [
+        0.242266,
+        0.247607,
+        0.256993,
+        0.259801
+      ],
+      "mean_delta_vs_same_run_incumbent": 0.000923,
+      "mean_dti": 0.251667,
+      "wins": 2
+    },
+    "incumbent_prior_reference": {
+      "fold_dti": [
+        0.242272,
+        0.247658,
+        0.255021,
+        0.258025
+      ],
+      "fold_errors_vs_prior": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean_dti": 0.250744,
+      "same_run_fold_dti": [
+        0.242272,
+        0.247658,
+        0.255021,
+        0.258025
+      ],
+      "same_run_mean_dti": 0.250744
+    },
+    "labels_used_only_for": "fold assignment, training-trace emission guard, and public-catalogue proxy scoring; H42 and H46-B surfaces are built before labels are loaded",
+    "promotion_gate": {
+      "baseline_must_reproduce_prior_h42_each_fold_within_1e-5": true,
+      "gate_passed": false,
+      "h46b_wins_at_least_3_of_4_folds": false,
+      "no_fold_more_than_0_010_worse": true,
+      "reason": "A catalogue-transfer proxy is not private-set validation; no submission slot is automatically authorized.",
+      "same_run_mean_delta_at_least_0_005": false,
+      "submission_slot_authorized": false
+    },
+    "score_interpretation": "Public-catalogue spatial-transfer proxy only; not private-set validation or a DrivenData leaderboard score."
+  },
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python_version": "3.11.16 (main, Aug 13 2026, 02:46:14) [GCC 13.3.0]",
+  "run_timestamp_utc": "2026-10-06T11:21:21Z",
+  "schema_version": 1,
+  "sources": {
+    "competition_features": {
+      "bytes": 418912844,
+      "path": "/home/runner/work/_temp/gems-inputs/competition/training_features.tif",
+      "provenance": "integrity-pinned owner-supplied mirror, not organizer-authenticated",
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+    },
+    "grid_metadata": {
+      "features": {
+        "bounds": [
+          243350.0,
+          4135550.0,
+          572550.0,
+          4508550.0
+        ],
+        "count": 19,
+        "crs": "EPSG:32611",
+        "dtype": "float32",
+        "shape": [
+          3730,
+          3292
+        ],
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      },
+      "labels": {
+        "bounds": [
+          243350.0,
+          4135550.0,
+          572550.0,
+          4508550.0
+        ],
+        "count": 1,
+        "crs": "EPSG:32611",
+        "dtype": "int8",
+        "shape": [
+          3730,
+          3292
+        ],
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      },
+      "lidar": {
+        "bounds": [
+          243350.0,
+          4135550.0,
+          572550.0,
+          4508550.0
+        ],
+        "count": 12,
+        "crs": "EPSG:32611",
+        "dtype": "uint8",
+        "shape": [
+          3730,
+          3292
+        ],
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      },
+      "template": {
+        "bounds": [
+          243350.0,
+          4135550.0,
+          572550.0,
+          4508550.0
+        ],
+        "count": 1,
+        "crs": "EPSG:32611",
+        "dtype": "float32",
+        "shape": [
+          3730,
+          3292
+        ],
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ]
+      }
+    },
+    "labels": {
+      "bytes": 425830,
+      "path": "/home/runner/work/_temp/gems-inputs/competition/labels.tif",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "use": "public catalogue only for blocked proxy fold/guard/DTI after candidate construction"
+    },
+    "lidar": {
+      "bytes": 36943606,
+      "path": "/home/runner/work/_temp/gems-inputs/external/lidar_scarp_features_u8.tif",
+      "provenance": "USGS 3DEP-derived 12-band LiDAR scarp product in pinned owner mirror",
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568"
+    },
+    "sample_template": {
+      "bytes": 1599597,
+      "path": "/home/runner/work/_temp/gems-inputs/competition/sample_submission.tif",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "use": "finite mask/grid metadata only; sample pixel values not used"
+    },
+    "sgmc_archives": {
+      "CA": {
+        "bytes": 24977406,
+        "official_url": "https://mrdata.usgs.gov/geology/state/shp/CA.zip",
+        "path": "/home/runner/work/_temp/gems-sgmc/CA.zip",
+        "sha256": "78765ba4428df9f25a84f86e0b2529bd0508fc8a2cf65d2f41a830e82bccfd58",
+        "verification": "exact byte count and SHA-256 match"
+      },
+      "NV": {
+        "bytes": 69056094,
+        "official_url": "https://mrdata.usgs.gov/geology/state/shp/NV.zip",
+        "path": "/home/runner/work/_temp/gems-sgmc/NV.zip",
+        "sha256": "3b333ac025e59aae7f0d827db45ba32c425cf867eb341561a788af1de186b76b",
+        "verification": "exact byte count and SHA-256 match"
+      },
+      "tables": {
+        "bytes": 1573709,
+        "official_url": "https://www.sciencebase.gov/catalog/file/get/5888bf4fe4b05ccb964bab9d?name=USGS_SGMC_Tables_CSV.zip",
+        "path": "/home/runner/work/_temp/gems-sgmc/USGS_SGMC_Tables_CSV.zip",
+        "sha256": "8859dd1f00ec6ec3d397634dc86fa288e440b432aad8a98a5fb0c7f9b6bc0bde",
+        "verification": "exact byte count and SHA-256 match"
+      }
+    },
+    "template_footprint": {
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "crs": "EPSG:32611",
+      "finite_footprint_cells": 5167373,
+      "shape": [
+        3730,
+        3292
+      ],
+      "template_nodata": "nan",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    }
+  },
+  "status": "public-catalogue blocked proxy complete; not private-set validated and not a leaderboard score",
+  "submission": {
+    "bytes": 381558,
+    "checks": {
+      "crs_epsg_32611": true,
+      "dtype_float32": true,
+      "exactly_40000_predictions": true,
+      "grid_transform_preserved": true,
+      "inside_cells_finite": true,
+      "inside_values_in_0_1": true,
+      "outside_cells_nodata_nan": true,
+      "shape_matches_footprint": true,
+      "single_band": true
+    },
+    "footprint_cells": 5167373,
+    "grid": {
+      "crs": "EPSG:32611",
+      "height": 3730,
+      "nodata": "NaN",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "width": 3292
+    },
+    "holdout_proxy_gate_passed": false,
+    "leaderboard_score": null,
+    "path": "docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif",
+    "prediction_pixels": 40000,
+    "private_set_validation": false,
+    "sha256": "c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6",
+    "submission_name": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006"
+  }
+}
