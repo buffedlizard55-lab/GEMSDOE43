@@ -14,3 +14,5 @@ __pycache__/
 
 # Local generated outputs (the reviewed deliverable is explicitly tracked under docs/downloads/)
 /outputs/
+
+/intake/
