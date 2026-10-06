@@ -1,0 +1,79 @@
+{
+  "experiment_id": "G43-CG01",
+  "status": "evaluated_no_go",
+  "preregistration_status": "frozen_before_holdout_evaluation",
+  "registered_utc": "2026-10-06",
+  "question": "Does multi-scale agreement between total-field magnetic and isostatic-gravity boundaries recover spatially withheld mapped faults better than the published H42 basin-margin/scarp baseline?",
+  "hypothesis": "Buried faults or contacts can juxtapose rocks with both magnetic-susceptibility and density contrasts. Co-located, sharp gradient vectors that remain directionally concordant across scales may identify blind or uncatalogued structures without using the training catalogue to shape the score.",
+  "inputs": {
+    "feature_raster": "data/training_features.tif",
+    "magnetic_band_name": "rtp",
+    "gravity_band_name": "iso_grav_anom",
+    "valid_domain": "finite cells within sample_submission.tif footprint",
+    "not_used": [
+      "labels.tif while constructing the score surface",
+      "lidar_scarp_features_u8.tif in CG01 score construction",
+      "previous submission rasters in score construction",
+      "leaderboard values"
+    ]
+  },
+  "frozen_operator": {
+    "smoothing_sigma_grid_cells": [2.0, 4.0, 8.0],
+    "gaussian_mask_handling": "normalized convolution over valid cells; nearest boundary mode",
+    "gradient": "numpy.gradient on the smoothed fields in the common raster grid",
+    "magnitude_normalization": "independent 99th percentile over valid footprint cells, clipped to [0,1]",
+    "single_scale_response": "sqrt(normalized_magnetic_gradient_magnitude * normalized_gravity_gradient_magnitude) * abs(cosine_between_gradient_vectors)",
+    "multiscale_aggregation": "pixelwise median of the three single-scale responses; requires concordance at at least two of three scales",
+    "emission": "stable score-descending greedy packing; 4.0-pixel minimum separation; 40,000 binary pixels; exclude evaluation-domain cells within 2 pixels of training traces"
+  },
+  "holdout": {
+    "protocol_source": "buffedlizard55-lab/GEMSDOE41 scripts/holdout_h42.py; copied owner report saved as evidence/h42_holdout_owner_reference.json",
+    "folds": 4,
+    "block_cells": 200,
+    "fold_formula": "(row//200 + 2*(col//200)) % 4",
+    "held_boundary_guard_cells": 3,
+    "training_catalogue_guard_cells": 2,
+    "scoring_domain": "held-fold interior after 3-cell guard",
+    "truth": "withheld positives from the published catalogue; not the hidden competition truth",
+    "metric": "official 300-m triangular-kernel DTI formula, applied to the spatial holdout without the official known-catalogue mask so held-out positives remain truth",
+    "equal_mass": 40000,
+    "random_seed_for_control": 20261006
+  },
+  "reference": {
+    "arm": "SH_basin_strong|sep4.0|N40000",
+    "owner_reported_mean_dti": 0.250744,
+    "owner_reported_min_fold_dti": 0.242272,
+    "owner_reported_max_fold_dti": 0.258025,
+    "provenance": "GEMSDOE41 owner-maintained report; not organizer-confirmed and not yet independently reproduced at registration time"
+  },
+  "promotion_gate": {
+    "must_first_reproduce_reference_within_absolute_1e-6_per_fold_and_summary": true,
+    "candidate_mean_must_strictly_exceed_local_reproduced_H42_mean": true,
+    "candidate_must_win_at_least_3_of_4_folds": true,
+    "must_pass_tests_and_input_integrity_audit": true,
+    "must_pass_raster_novelty_comparison_before_download_or_submission": true,
+    "must_pass_single_band_geotiff_geometry_value_and_mask_audit": true,
+    "must_review_rules_and_disclose_AI_use": true,
+    "submission_slot_authorized_only_if_all_prior_conditions_pass": true,
+    "holdout_is_not_a_public_score_forecast": true
+  },
+  "official_data_and_leaderboard_policy": {
+    "use_competition_authorized_downloads_when_available": true,
+    "current_inputs_are_owner_mirrors_and_are_not_organizer_authenticated": true,
+    "no_automated_leaderboard_access_or_polling_without_authorized_api_or_written_permission": true,
+    "do_not_refresh_or_copy_leaderboard_without_written_permission": true
+  },
+  "outcome": {
+    "receipt": "evidence/holdout_g43_cg01.json",
+    "h42_reproduction_status": "PASS",
+    "h42_mean_dti": 0.250744,
+    "cg01_mean_dti": 0.211567,
+    "cg01_min_fold_dti": 0.204019,
+    "cg01_max_fold_dti": 0.228287,
+    "cg01_fold_wins": 0,
+    "cg01_gate_passed": false,
+    "submission_raster_created": false,
+    "submission_slot_used": false,
+    "interpretation": "candidate failed the frozen local spatial-catalogue gate; do not submit or offer it as a submission"
+  }
+}

@@ -151,12 +151,12 @@
 
     <section id="artifact" aria-labelledby="artifact-title">
       <div class="section-heading"><div><div class="kicker">File receipt</div><h2 id="artifact-title">Research-only GeoTIFF</h2></div></div>
-      <div class="panel download-card">
-        <span class="pill pill-stop">Not for upload</span>
-        <p><a class="download-button" href="docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif" download>Download the distinct GeoTIFF</a></p>
-        <p><strong>Name:</strong> <code>GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006</code><br><strong>Bytes:</strong> 381,558<br><strong>SHA-256:</strong> <code>c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6</code><br><strong>Grid:</strong> one-band float32; 3730 × 3292; EPSG:32611; 100 m transform; 40,000 prediction pixels; NaN outside the finite footprint.</p>
-        <p>Independent local byte/hash/Rasterio checks reproduce the receipt. The report fields explicitly say the holdout proxy gate failed, private-set validation is false, and leaderboard score is null. See <a href="evidence/h46b/submission_receipt.json">submission_receipt.json</a> and <a href="evidence/h46b/data_manifest.json">data_manifest.json</a>. A format receipt does not make the artifact eligible for submission.</p>
-        <p><strong>Form note:</strong> <a href="submission/FORM-NOTE.txt">copy-friendly text</a>. <strong>Status/instructions:</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/submission/INSTRUCTIONS.md">do not upload this artifact</a>.</p>
+      <div class="panel alert">
+        <span class="pill pill-stop">No eligible download · no slot authorized</span>
+        <p>The experiment runner generated a distinct output, and its byte/hash/grid checks passed, but the registered promotion gate failed. In accordance with the project's no-go rule, the GeoTIFF was removed from the current repository tree and is <strong>not linked from the current project site</strong>. It is not a submission candidate. An earlier public branch commit contains it, and the associated GitHub Actions artifact was still unexpired when checked; a deletion request returned HTTP 403 because the GitHub integration lacks permission. See <a href="evidence/h46b/publication_status.json">the publication-status receipt</a> for details. No DrivenData upload occurred.</p>
+        <p><strong>Recorded identifier:</strong> <code>GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006</code><br><strong>Runner receipt:</strong> 381,558 bytes; SHA-256 <code>c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6</code><br><strong>Format checks:</strong> one-band float32; 3730 × 3292; EPSG:32611; 100 m transform; 40,000 prediction pixels; NaN outside the finite footprint.</p>
+        <p>The report fields say proxy-gate false, private-set validation false, and leaderboard score null. See <a href="evidence/h46b/submission_receipt.json">submission_receipt.json</a>, <a href="evidence/h46b/publication_status.json">publication_status.json</a> and <a href="evidence/h46b/data_manifest.json">data_manifest.json</a>. The exact copy-friendly note in <a href="submission/FORM-NOTE.txt">FORM-NOTE.txt</a> is a research-status record, not an instruction to upload.</p>
+        <p><strong>Future actions:</strong> read <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/submission/INSTRUCTIONS.md">conditional instructions</a>. A materially changed recipe/source needs a new amendment and fresh confirmation folds; no slot is authorized by this result.</p>
       </div>
     </section>
 
@@ -165,9 +165,9 @@
       <div class="grid two-col">
         <article class="panel">
           <h3>Public leaderboard observations</h3>
-          <p>Independent official leaderboard inspection on <strong>2026-10-06</strong> showed 0.2778 at rank #13 and 0.3345 at rank #1. No TIFF receipt/hash crosswalk identifies the file behind the 0.2778 row; the 0.3345 row also has no verified file attribution here. These observations are not GEMSDOE43 scores and are not assigned to a sibling.</p>
-          <p>The later release-link review could not refresh the values: the page-fetch view returned only a JavaScript “Loading” shell and a sandbox <code>curl</code> request failed TLS. No raw HTML, screenshot or receipt was retained. Treat these strictly as dated observations, not an undated current snapshot. The record is in <a href="evidence/leaderboard_observation.json">leaderboard_observation.json</a>.</p>
-          <p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Open the official leaderboard</a>. Current leaderboard contents can change; preserve the observation date.</p>
+          <p>No refreshed public leaderboard rows are reproduced here. The project record retains only the earlier, dated snapshot described in the README and source register; no file/hash crosswalk is asserted for any row. H46-B and G43-CG01 have no DrivenData leaderboard scores.</p>
+          <p>DrivenData's <a href="https://www.drivendata.org/termsofuse/">Terms of Use</a> prohibit automatic or manual monitoring/copying without prior written consent. Do not refresh or reproduce leaderboard contents unless an authorized API or written permission is available. The official page is linked for direct access if authorized.</p>
+          <p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Open the official leaderboard</a>. No file attribution or current-score claim is made here.</p>
         </article>
         <article class="panel">
           <h3>Inputs and AI use</h3>

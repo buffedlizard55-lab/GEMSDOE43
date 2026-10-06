@@ -2,9 +2,9 @@
 
 ## Decision
 
-H46-B's preregistered source gates passed, so the frozen recipe was run once against the registered public-catalogue spatial-transfer proxy. **It did not pass the preregistered promotion gate. Do not submit this artifact or spend a submission slot on H46-B.** No private-set validation or leaderboard score was produced. The GeoTIFF is retained as a distinctly generated research artifact with a format/hash receipt, not as a promoted submission.
+H46-B's preregistered source gates passed, so the frozen recipe was run once against the registered public-catalogue spatial-transfer proxy. **It did not pass the preregistered promotion gate. Do not submit this artifact or spend a submission slot on H46-B.** No private-set validation or leaderboard score was produced. The format/hash receipt is retained, but the raster is removed from the current tree and is not linked from the project site. An earlier public branch commit and an unexpired Actions artifact may still expose the bytes; a deletion request was denied by GitHub's integration permissions. See [`publication_status.json`](../evidence/h46b/publication_status.json) before accessing any historical artifact.
 
-This amendment supersedes the earlier “holdout not yet run” status in the source-audit notes; it does not alter the frozen recipe, the registered fold design, or the original thresholds.
+This amendment supersedes the earlier “holdout not yet run” status in the source-audit notes; it does not alter the frozen recipe, the registered fold design, or the original thresholds. After the gate failed, the runner-generated file was removed from the current repository tree and no current project-site page links to it. The automated output had already been committed to public branch commit `e7592729ee9f20f28733edaee87242a78221ef2c` and uploaded as an Actions artifact for run `37455686781`. A deletion request for artifact `11408883292` returned HTTP 403 (“Resource not accessible by integration”); when checked, that artifact had not expired and was due to expire 2027-01-04. GitHub may also retain the earlier commit/PR history. [`evidence/h46b/publication_status.json`](../evidence/h46b/publication_status.json) records the access caveat; no DrivenData upload occurred.
 
 ## Frozen implementation and execution receipt
 
@@ -48,18 +48,18 @@ The unchanged incumbent is `H42 SH_basin_strong|sep4.0|N40000`. Its same-run fou
 
 This small positive mean is a public-catalogue proxy observation, not evidence that H46-B improves detection of new faults. The method was not tuned on these folds after seeing the result. These folds are spent for this registered confirmation; any materially different recipe needs a new dated preregistration and fresh confirmation regions before a slot is considered.
 
-## Research artifact and format receipt
+## Runner artifact receipt and current publication status
 
-The workflow generated a new artifact from the pinned feature inputs and frozen code; it is not a copied sibling submission:
+The workflow generated a new artifact from the pinned feature inputs and frozen code; it was not copied from a sibling. The failed promotion gate means the GeoTIFF is **not present in the current repository tree and is not linked from the current project site**. However, an earlier public branch commit contains it, and the Actions artifact from run `37455686781` was still unexpired when checked on 2026-10-06; GitHub denied the deletion request due to integration permissions. Access to that historical artifact depends on repository visibility and GitHub permissions. The receipt records what the runner produced:
 
-- File: [`docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif`](../docs/downloads/GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif)
-- Submission-style name (for identification only): `GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006`
-- Size: `381,558` bytes
+- Runner filename (identification only): `GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif`
+- Distinct identifier: `GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006`
+- Runner-reported size: `381,558` bytes
 - SHA-256: `c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6`
-- Format receipt: one-band `float32`; shape `3730 × 3292`; EPSG:32611; transform `(100, 0, 243350, 0, -100, 4508550)`; 40,000 positive prediction pixels; finite in-footprint values within `[0,1]`; `NaN` nodata outside the `5,167,373`-cell footprint. Receipt booleans are in `submission_receipt.json`; an independent local Rasterio read reproduced the file size, hash, grid, mask, and value range.
-- No organizer upload was made and no submission slot was used. The artifact receipt explicitly sets `holdout_proxy_gate_passed=false`, `private_set_validation=false`, and `leaderboard_score=null`.
+- Format receipt: one-band `float32`; shape `3730 × 3292`; EPSG:32611; transform `(100, 0, 243350, 0, -100, 4508550)`; 40,000 positive prediction pixels; finite in-footprint values within `[0,1]`; `NaN` nodata outside the `5,167,373`-cell footprint. Receipt booleans are in `evidence/h46b/submission_receipt.json`; an independent local Rasterio read reproduced the file size, hash, grid, mask, and value range before the no-go publication decision.
+- [`evidence/h46b/publication_status.json`](../evidence/h46b/publication_status.json) records the current-tree/site removal, historical-commit and Actions-artifact exposure, and denied artifact-deletion attempt. No organizer upload was made and no slot was used. The runner receipt sets `holdout_proxy_gate_passed=false`, `private_set_validation=false`, and `leaderboard_score=null`.
 
-The short form note and explicit non-submission instructions live in [`submission/FORM-NOTE.txt`](../submission/FORM-NOTE.txt) and [`submission/INSTRUCTIONS.md`](../submission/INSTRUCTIONS.md). They state that this file is research-only and not cleared for upload.
+The short research-status note and explicit non-submission instructions are [`submission/FORM-NOTE.txt`](../submission/FORM-NOTE.txt) and [`submission/INSTRUCTIONS.md`](../submission/INSTRUCTIONS.md). They are not an invitation to upload this file.
 
 ## Sources and access caveats
 

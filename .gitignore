@@ -1,18 +1,20 @@
-# Raw / mirrored inputs and temporary processing products
-/data/raw/
-/data/work/
-/data/external/
-*.part
-*.tmp
-
-# Python/cache/test products
+# Local environments and reproducible caches
+.venv/
+.cache/
 __pycache__/
+*.py[cod]
 .pytest_cache/
 .ruff_cache/
-.venv/
 .env
 
-# Local generated outputs (the reviewed deliverable is explicitly tracked under docs/downloads/)
-/outputs/
+# Raw/mirrored competition and external inputs are not redistributed from this repository.
+data/*
+!data/README.md
 
+# Temporary and generated artifacts
+*.partial
+*.assembling
+*.part
+*.tmp
+/outputs/
 /intake/

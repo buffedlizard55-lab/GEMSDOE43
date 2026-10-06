@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Official and owner-maintained sources, provenance, claim attribution and limitations for GEMSDOE43.">
+  <title>Sources &amp; provenance · GEMSDOE43</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a aria-current="page" href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a></nav>
+</div></header>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Source register · attribution first</div><h1>Trust claims by their source, not by their repetition.</h1><p>Official statements, owner-maintained results, local measurements, and model projections are separated below. Full URLs and claim-by-claim limits live in the repository source register.</p></div><div class="hero-side"><span class="badge caution">Input status</span><strong>Mirror-verified</strong><span>not organizer-authenticated</span></div></div></section>
+<main class="wrap">
+<section class="section" id="inputs"><div class="section-head"><div><div class="kicker">Inputs and irregularities</div><h2>What is present in this checkout</h2></div></div>
+  <div class="callout warn"><strong>Owner mirror is not an organizer download.</strong><p>DrivenData data access required login in this environment. The restore script fetched exact SHA-pinned owner mirrors through GitHub CLI and verified final byte count/hash against prior-project manifests; this proves internal consistency only. Obtain a fresh authorized organizer download before prize submission and compare it to the mirror.</p></div>
+  <div class="table-wrap" style="margin-top:15px"><table><thead><tr><th>Input</th><th>Measured facts</th><th>Provenance / use boundary</th></tr></thead><tbody>
+    <tr><td><code>training_features.tif</code></td><td>19 float32 bands, 3730×3292, EPSG:32611, 100-m grid; SHA-256 begins <code>4371c82e</code>.</td><td>Owner-published multi-part GitHub mirror. Hash not organizer-authenticated. CG01 reads bands named <code>rtp</code> and <code>iso_grav_anom</code>.</td></tr>
+    <tr><td><code>labels.tif</code></td><td>int8 values −1/0/1; 60,988 positives, 5,106,385 zeros, 7,111,787 outside cells.</td><td>Owner-published mirror. Used for holdout truth and training guard; not used in CG01 score-surface construction.</td></tr>
+    <tr><td><code>sample_submission.tif</code></td><td>60,988 cells equal 1; these cells match all label positives exactly. NaN outside footprint.</td><td><strong>IR-DATA-01:</strong> the mirrored values conflict with the task page's statement that the sample predicts total absence. Used only for grid/footprint—not as a prediction template.</td></tr>
+    <tr><td><code>lidar_scarp_features_u8.tif</code></td><td>12 bands on the exact 3730×3292 EPSG:32611 grid; 3,894,460 validity-mask cells; SHA-256 begins <code>d580bb8b</code>.</td><td>Owner-mirrored derivative of USGS 3DEP tiles. Reproduces H42 only; tile lineage and failed-tile coverage have not been independently rebuilt. Excluded from CG01.</td></tr>
+  </tbody></table></div>
+  <p class="small" style="margin-top:12px">Machine-readable details, full checksums, bounds, transforms, band ranges and validity counts: <code>evidence/input_audit.json</code> and <code>registry/data_sources.json</code>.</p>
+</section>
+<section class="section" id="h46-sources"><div class="section-head"><div><div class="kicker">H46 source audits · separate from validation</div><h2>Official geology sources and version caveat</h2></div></div>
+  <div class="grid">
+    <article class="card"><span class="source-id">USGS · NGB</span><h3><a href="https://pubs.usgs.gov/of/2002/0227/data.html">National Geochemical Database</a></h3><p>The H46-A source-only audit assessed eligible in-footprint stream-sediment records and assay support. It failed the frozen sample-count gates (451 / 447), so no H46-A model or holdout score was run. The source metadata warns of coordinate uncertainty for some records.</p></article>
+    <article class="card"><span class="source-id">USGS · SGMC v1.1</span><h3><a href="https://mrdata.usgs.gov/geology/state/">State geologic map compilation</a></h3><p>H46-B pinned the published v1.1 CA/NV polygon components and same-release age/lithology tables. Polygon <code>unit_link</code> joined to the tables; source hash/coverage and schema reports are in <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/sgmc_source_audit.json">the SGMC audit receipt</a>. Passing these source checks did not make the candidate promotion gate pass.</p></article>
+    <article class="card"><span class="source-id">USGS · newer release notice</span><h3><a href="https://doi.org/10.5066/P1A3DQZK">2026 GeMS SGMC release</a></h3><p>The USGS v1.1 catalog record recommends this newer GeMS release. It was not fetched, opened, or audited in the frozen H46-B experiment. It is not silently substituted for the pinned v1.1 source.</p></article>
+  </div>
+  <p class="small">Complete source receipts: <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/ngb_source_audit.json">NGB</a>, <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/sgmc_source_audit.json">SGMC v1.1</a>, and <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/h46b/data_manifest.json">H46-B input manifest</a>.</p>
+</section>
+<section class="section"><div class="section-head"><div><div class="kicker">Official challenge statements</div><h2>Organizer sources</h2></div></div>
+  <div class="grid">
+    <article class="card"><span class="source-id">DD-01 · competition</span><h3><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description</a></h3><p>Task, provided bands, labels, metric and single-band GeoTIFF output contract. Public board, private Phase 1 and final Phase 2 are distinct evaluations.</p></article>
+    <article class="card"><span class="source-id">DD-02 · rules</span><h3><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">GEMS Official Rules · Sept. 2026</a></h3><p>Requires registration for competition data access; requires one 100-m single-layer GeoTIFF; generative AI is allowed but must be disclosed in the narrative; scores differ across evaluation stages.</p></article>
+    <article class="card"><span class="source-id">DD-03 · staff reply</span><h3><a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">Known-fault scoring clarification</a></h3><p>DrivenData staff state that pixels corresponding to known USGS/INGENIOUS traces are masked from evaluation, including re-evaluation.</p></article>
+    <article class="card"><span class="source-id">DD-04 · staff reply</span><h3><a href="https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527/7">Hidden-test provenance question</a></h3><p>Staff declined to disclose the sources, fault types or coverage behind hidden test faults. Do not guess their composition.</p></article>
+    <article class="card"><span class="source-id">DD-05 · site policy</span><h3><a href="https://www.drivendata.org/termsofuse/">DrivenData Terms of Use</a></h3><p>Prohibits automatic access/monitoring/copying and manual monitoring/copying without prior written consent. No leaderboard scraping or periodic feed is implemented.</p></article>
+    <article class="card"><span class="source-id">DD-06 · dynamic</span><h3><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Official leaderboard</a></h3><p>Open the official page directly if authorized. This repository does not fetch or refresh it; the 2026-10-05 snapshot is historic only.</p></article>
+    <article class="card"><span class="source-id">DD-07 · organizer-linked code</span><h3><a href="https://github.com/drivendataorg/gems-prize-reference-solution">GEMS reference solution</a></h3><p>Notebook uses a supervised U-Net/ResNet18 ensemble with random 128×128 patch MC-CV and Tversky loss. Its split design is not the same as the spatial holdout used here.</p></article>
+  </div>
+</section>
+<section class="section"><div class="section-head"><div><div class="kicker">Owner reports and literature</div><h2>Useful, but not official score evidence</h2></div></div>
+  <div class="grid">
+    <article class="card"><span class="source-id">P-01 · owner report</span><h3><a href="https://buffedlizard55-lab.github.io/GEMSDOE41/">GEMSDOE41 / H42</a></h3><p>Prior H42 protocol and owner-reported local DTI 0.250744, independently reproduced by G43. Neither value is a DrivenData score.</p></article>
+    <article class="card"><span class="source-id">P-02 · owner PR</span><h3><a href="https://github.com/buffedlizard55-lab/GEMSDOE32/pull/9">GEMSDOE32 PR #9 · H33-2-B2</a></h3><p>Owner calls 0.2747 a projected live value; PR states no organizer score exists for its artifacts. Full attribution in the <a href="executive-summary.html#h33">executive summary</a>.</p></article>
+    <article class="card"><span class="source-id">LIT-01 · peer reviewed</span><h3><a href="https://doi.org/10.1029/2003JB002716">Gallardo &amp; Meju (2004)</a></h3><p>Cross-gradient structural coupling precedent. It supports operator plausibility, not an expected score increase for CG01.</p></article>
+  </div>
+</section>
+<section class="section"><div class="section-head"><div><div class="kicker">Potential external data</div><h2>Availability does not equal coverage</h2></div></div>
+  <div class="table-wrap"><table><thead><tr><th>Source</th><th>Slate use</th><th>Unresolved check</th></tr></thead><tbody>
+    <tr><td><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></td><td>Drainage topology / DEM geomorphology</td><td>Exact competition-footprint 1-m tiles and valid coverage are not acquired here.</td></tr>
+    <tr><td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN</a> · <a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7">ScienceBase record</a></td><td>Radiometric ratios and structural boundaries</td><td>Exact grids/channels, footprint overlap and resampling are unverified; the release metadata indicates CC0.</td></tr>
+    <tr><td><a href="https://earthquake.usgs.gov/fdsnws/event/1/">USGS FDSN</a></td><td>Hypocenter-plane coherence</td><td>One broad M≥2.5 query returned 4,260 events; this is not proof of complete or uniform catalog coverage.</td></tr>
+    <tr><td><a href="https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b">USGS conductance product</a> · <a href="https://doi.org/10.5066/P9TWT2LU">DOI</a></td><td>Depth-persistent electrical conductance</td><td>Metadata lists five depth intervals (2–200 km); files, grid, and overlap were not verified.</td></tr>
+  </tbody></table></div>
+</section>
+<section class="section"><div class="notice">Complete source register with claim-level limits, prior-method links and local receipt identifiers: <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/source_register.md">research/source_register.md</a>.</div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="research.html">Validation</a></span></div></footer>
+</body>
+</html>

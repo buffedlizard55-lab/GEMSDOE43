@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "as_of_utc": "2026-10-06",
+  "official_data_page": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+  "official_access_status": "login required; no DrivenData authentication was available in this session",
+  "mirror_caveat": "The files below are owner-published GitHub mirrors of competition inputs. SHA-256 values verify the mirror bytes against the prior-project manifest, not against a checksum published by DrivenData or DOE. The mirrors are used only as local inputs; raw files are not redistributed by this repository.",
+  "files": [
+    {
+      "id": "training_features",
+      "destination": "data/training_features.tif",
+      "repository": "buffedlizard55-lab/GEMSDOE",
+      "commit": "c0c06ac82178f26b94fce3397036ef8f12a2f3a0",
+      "parts": [
+        "data/bridge/gems-geodawn-numerical-features.tif.part-000",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-001",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-002",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-003",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-004"
+      ],
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "reported_properties_unverified_by_organizer": "19 float32 bands; prior-project manifest reports a -3.4028234663852886e+38 nodata sentinel"
+    },
+    {
+      "id": "labels",
+      "destination": "data/labels.tif",
+      "repository": "buffedlizard55-lab/GEMSDOE24",
+      "commit": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/labels.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093"
+    },
+    {
+      "id": "sample_submission",
+      "destination": "data/sample_submission.tif",
+      "repository": "buffedlizard55-lab/GEMSDOE24",
+      "commit": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/sample_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "caveat": "Prior-project manifest reports 60,988 pixels equal to 1 and notes that they coincide with known-fault labels despite the competition page calling the sample an absence template. This irregularity must be tested from the bytes and never treated as a positive prediction template."
+    },
+    {
+      "id": "h42_lidar_scarp_baseline_only",
+      "destination": "data/external/lidar_scarp_features_u8.tif",
+      "repository": "buffedlizard55-lab/GEMSDOE24",
+      "commit": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/external/lidar_scarp_features_u8.tif",
+      "bytes": 36943606,
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "purpose": "reproduce the published GEMSDOE41 H42 spatial-holdout baseline only; not an input to the G43-CG01 candidate",
+      "provenance_caveat": "Owner-published derivative of USGS 3DEP 1-m DEM tiles. The mirror hash is verified; the tile inventory, processing, and complete-coverage claim have not been independently re-derived in this checkout."
+    }
+  ]
+}
