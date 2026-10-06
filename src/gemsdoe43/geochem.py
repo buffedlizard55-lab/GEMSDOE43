@@ -106,6 +106,7 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
         for element in ASSAYS
     }
     rows_seen = 0
+    header_irregularities: list[str] = []
     type_counts: dict[str, int] = {}
     study_counts: dict[str, int] = {}
     parse_issues: dict[str, int] = {"short_row": 0, "bad_type": 0, "bad_location": 0,
@@ -117,6 +118,11 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
             header = [s.replace("\ufeff", "").strip() for s in next(reader)]
         except StopIteration as exc:
             raise ValueError("USGS NGB CSV is empty") from exc
+        if header and header[0] == "'ID":
+            # The downloaded official CSV begins with a stray apostrophe before its
+            # documented primary-key header. Keep this explicit and auditable.
+            header[0] = "ID"
+            header_irregularities.append("First CSV header cell is apostrophe-prefixed ('ID); normalized to the documented ID field")
         required = {"ID", "STUDY", "SAMPTYP", "LONGITUDE", "LATITUDE", *ASSAYS.values()}
         missing = sorted(required - set(header))
         if missing:
@@ -193,6 +199,7 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
 
     report = {
         "source_file": path.name,
+        "header_irregularities": header_irregularities,
         "source_rows_excluding_header": rows_seen,
         "eligible_stream_rows_with_coordinates": len(eligible),
         "valid_assay_samples_ge_3_of_6": sum(s.index is not None for s in scored),

@@ -17,7 +17,7 @@ from gemsdoe43.geochem import (
 
 def _make_csv(path):
     fields = [
-        "ID", "SAMPID", "SAMPTYP", "STUDY", "QUAD", "LONGITUDE", "LATITUDE",
+        "'ID", "SAMPID", "SAMPTYP", "STUDY", "QUAD", "LONGITUDE", "LATITUDE",
     ]
     for assay in ASSAYS.values():
         fields.extend([assay, ""])
@@ -54,6 +54,9 @@ def test_parser_excludes_substituted_censored_and_nonstream_samples(tmp_path):
     result = read_ngb_csv(csv_path)
     assert len(result.samples) == 4
     assert result.report["source_rows_excluding_header"] == 5
+    assert result.report["header_irregularities"] == [
+        "First CSV header cell is apostrophe-prefixed ('ID); normalized to the documented ID field"
+    ]
     assert result.report["eligible_stream_rows_with_coordinates"] == 4
     assert result.report["valid_assay_samples_ge_3_of_6"] == 3
     assert result.report["assay_quality_counts"]["Ag"]["substituted"] == 1
