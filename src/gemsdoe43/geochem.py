@@ -129,11 +129,18 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
             raise ValueError(f"USGS NGB schema is missing required columns: {missing}; first header cells={header[:12]!r}")
         col = {name: header.index(name) for name in required}
         assay_col = {el: header.index(name) for el, name in ASSAYS.items()}
-        # The report specifies that qualifier flags occupy the next column. The current
-        # CSV represents these with an empty header cell; fail closed if this changes.
+        # Where supplied, the USGS qualifier flag occupies the immediately following
+        # blank-name column. Some final assay fields have no separate flag column; inline
+        # `*` values are still excluded by _numeric, and the schema gap is recorded.
+        assay_flag_col: dict[str, int | None] = {}
         for element, idx in assay_col.items():
-            if idx + 1 >= len(header) or header[idx + 1] != "":
-                raise ValueError(f"Expected an empty adjacent USGS qualifier column after {ASSAYS[element]!r}")
+            if idx + 1 < len(header) and header[idx + 1] == "":
+                assay_flag_col[element] = idx + 1
+            else:
+                assay_flag_col[element] = None
+                header_irregularities.append(
+                    f"No separate blank-name qualifier column after {ASSAYS[element]}; inline markers will still be excluded"
+                )
 
         eligible: list[Sample] = []
         seen_ids: set[str] = set()
@@ -173,7 +180,9 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
             study_counts[study] = study_counts.get(study, 0) + 1
             values: dict[str, float] = {}
             for element, idx in assay_col.items():
-                value, state = _numeric(row[idx], row[idx + 1])
+                flag_idx = assay_flag_col[element]
+                qualifier = row[flag_idx] if flag_idx is not None and flag_idx < len(row) else ""
+                value, state = _numeric(row[idx], qualifier)
                 status_counts[element][state] += 1
                 if value is not None:
                     values[element] = value
@@ -206,6 +215,7 @@ def read_ngb_csv(path: str | Path) -> SampleSet:
         "stream_type_counts_before_media_filter": dict(sorted(type_counts.items(), key=lambda kv: int(kv[0]))),
         "eligible_study_counts": dict(sorted(study_counts.items())),
         "assay_fields": dict(ASSAYS),
+        "assay_qualifier_column_present": {element: assay_flag_col[element] is not None for element in ASSAYS},
         "assay_quality_counts": status_counts,
         "parse_issues": parse_issues,
         "rank_method": "tie-aware empirical percentiles within STUDY per assay; equal mean; require >=3/6",
