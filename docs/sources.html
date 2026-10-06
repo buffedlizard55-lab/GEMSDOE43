@@ -23,6 +23,14 @@
   </tbody></table></div>
   <p class="small" style="margin-top:12px">Machine-readable details, full checksums, bounds, transforms, band ranges and validity counts: <code>evidence/input_audit.json</code> and <code>registry/data_sources.json</code>.</p>
 </section>
+<section class="section" id="h46-sources"><div class="section-head"><div><div class="kicker">H46 source audits · separate from validation</div><h2>Official geology sources and version caveat</h2></div></div>
+  <div class="grid">
+    <article class="card"><span class="source-id">USGS · NGB</span><h3><a href="https://pubs.usgs.gov/of/2002/0227/data.html">National Geochemical Database</a></h3><p>The H46-A source-only audit assessed eligible in-footprint stream-sediment records and assay support. It failed the frozen sample-count gates (451 / 447), so no H46-A model or holdout score was run. The source metadata warns of coordinate uncertainty for some records.</p></article>
+    <article class="card"><span class="source-id">USGS · SGMC v1.1</span><h3><a href="https://mrdata.usgs.gov/geology/state/">State geologic map compilation</a></h3><p>H46-B pinned the published v1.1 CA/NV polygon components and same-release age/lithology tables. Polygon <code>unit_link</code> joined to the tables; source hash/coverage and schema reports are in <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/sgmc_source_audit.json">the SGMC audit receipt</a>. Passing these source checks did not make the candidate promotion gate pass.</p></article>
+    <article class="card"><span class="source-id">USGS · newer release notice</span><h3><a href="https://doi.org/10.5066/P1A3DQZK">2026 GeMS SGMC release</a></h3><p>The USGS v1.1 catalog record recommends this newer GeMS release. It was not fetched, opened, or audited in the frozen H46-B experiment. It is not silently substituted for the pinned v1.1 source.</p></article>
+  </div>
+  <p class="small">Complete source receipts: <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/ngb_source_audit.json">NGB</a>, <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/sgmc_source_audit.json">SGMC v1.1</a>, and <a href="https://buffedlizard55-lab.github.io/GEMSDOE43/evidence/h46b/data_manifest.json">H46-B input manifest</a>.</p>
+</section>
 <section class="section"><div class="section-head"><div><div class="kicker">Official challenge statements</div><h2>Organizer sources</h2></div></div>
   <div class="grid">
     <article class="card"><span class="source-id">DD-01 · competition</span><h3><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description</a></h3><p>Task, provided bands, labels, metric and single-band GeoTIFF output contract. Public board, private Phase 1 and final Phase 2 are distinct evaluations.</p></article>

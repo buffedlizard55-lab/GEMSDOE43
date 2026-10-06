@@ -1,0 +1,29 @@
+{
+  "experiment_id": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006",
+  "publication_decision": "withheld after preregistered promotion gate failed",
+  "promotion_gate_passed": false,
+  "private_set_validation": false,
+  "leaderboard_score": null,
+  "submission_slot_used": false,
+  "submission_slot_authorized": false,
+  "artifact_was_generated_in_runner": true,
+  "artifact_name": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006.tif",
+  "artifact_identifier": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006",
+  "bytes_reported": 381558,
+  "sha256_reported": "c51cf006c19f1993606a0b0b55467f0a74f0a1c13e747c3f592d55690d93a6f6",
+  "current_repository_tree_contains_geotiff": false,
+  "current_public_site_offers_download": false,
+  "historical_branch_commit_with_artifact": "e7592729ee9f20f28733edaee87242a78221ef2c",
+  "historical_actions_artifact": {
+    "id": 11408883292,
+    "name": "GEMSDOE43-H46B-SGMC-H42CONTACT-40K-20261006",
+    "workflow_run_id": 37455686781,
+    "created_at_utc": "2026-10-06T11:21:22Z",
+    "expires_at_utc": "2027-01-04T11:19:57Z",
+    "expired_when_checked": false,
+    "deletion_attempted": true,
+    "deletion_result": "HTTP 403 Resource not accessible by integration",
+    "note": "The GitHub integration could not delete the artifact. Download access is governed by repository visibility and GitHub permissions; the current project site does not link it."
+  },
+  "historical_access_note": "The runner output was committed to the public feature branch and uploaded as a GitHub Actions artifact before final no-go review. The TIFF has since been removed from the current tree and is not linked from the public research site, but the earlier commit remains in Git history and the Actions artifact had not expired when checked. No upload to DrivenData occurred."
+}

@@ -58,6 +58,32 @@ class MetricTests(unittest.TestCase):
         self.assertAlmostEqual(result["fp"], 5.0)
         self.assertEqual(result["dti"], 0.0)
 
+    def test_distance_weighted_tversky_matches_independent_small_array_oracle(self):
+        rng = np.random.default_rng(43)
+        truth = rng.random((17, 19)) < 0.06
+        pred = np.zeros((17, 19), dtype=np.float32)
+        emit = rng.random(pred.shape) < 0.05
+        pred[emit] = rng.uniform(0.2, 1.0, size=int(emit.sum()))
+        foot = rng.random(pred.shape) > 0.1
+        a = dti(pred, truth, foot)
+        b = dti_bruteforce(pred, truth, foot)
+        for key in ("tp", "fp", "fn", "mass", "dti"):
+            self.assertTrue(np.isclose(a[key], b[key], rtol=1e-11, atol=1e-11), key)
+
+    def test_masked_cells_do_not_contribute(self):
+        truth = np.zeros((12, 12), dtype=bool)
+        truth[5, 5] = True
+        pred = np.zeros((12, 12), dtype=np.float32)
+        pred[5, 5] = 1.0
+        pred[0, 0] = 1.0
+        footprint = np.zeros_like(truth)
+        footprint[4:8, 4:8] = True
+        result = dti(pred, truth, footprint)
+        self.assertEqual(result["mass"], 1.0)
+        self.assertEqual(result["tp"], 1.0)
+        self.assertEqual(result["fp"], 0.0)
+        self.assertGreater(result["dti"], 0.999999)
+
 
 if __name__ == "__main__":
     unittest.main()

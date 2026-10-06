@@ -4,11 +4,17 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.ruff_cache/
+.env
 
 # Raw/mirrored competition and external inputs are not redistributed from this repository.
 data/*
 !data/README.md
 
-# Temporary artifacts
+# Temporary and generated artifacts
 *.partial
 *.assembling
+*.part
+*.tmp
+/outputs/
+/intake/
