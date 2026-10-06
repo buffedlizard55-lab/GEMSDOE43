@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Independent H42 reproduction, G43-CG01 spatial holdout and reproducibility workflow.">
+  <title>Validation record · GEMSDOE43</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner">
+  <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+  <nav class="nav" aria-label="Primary navigation"><a href="index.html">Overview</a><a href="executive-summary.html">Summary &amp; submission guide</a><a href="hypotheses.html">Hypotheses</a><a aria-current="page" href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a></nav>
+</div></header>
+<section class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">Local evidence · reproducible holdout</div><h1>One baseline reproduced. One candidate rejected.</h1><p>G43 independently rebuilt the H42 comparison from pinned input layers, then ran the frozen CG01 operator on the same four-colour, 20-km blocks at the same 40,000-cell mass.</p></div><div class="hero-side"><span class="badge pass">H42 reproduction · pass</span><strong>0.250744</strong><span>mean DTI · local catalogue CV</span></div></div></section>
+<main class="wrap">
+<section class="section"><div class="callout warn"><strong>Interpretation ceiling</strong><p>This holdout masks out spatial blocks and asks whether a surface recovers known published catalogue traces in withheld areas. It is not the hidden competition truth and must not be presented as an expected public, private Phase 1, or Phase 2 score. DrivenData staff have not disclosed hidden-test sources, fault types, or coverage.</p></div></section>
+<section class="section" id="h42"><div class="section-head"><div><div class="kicker">Reference reproduction</div><h2>H42 matched within 1e-6</h2></div><span class="badge pass">All clean reference arms</span></div>
+  <div class="prose">
+    <p>The public GEMSDOE41 owner report identifies <code>SH_basin_strong|sep4.0|N40000</code> as its best valid arm, with mean DTI 0.250744 (fold range 0.242272–0.258025). G43 locally reimplements the field normalizations, owner-mirrored scarp decoder, geometric-mean surfaces, deterministic greedy packing, and DTI. The clean H42 model arms and controls in the saved report match at the declared 1e-6 tolerance. An archived owner arm marked <code>historical_h33_CONTAMINATED</code> is intentionally excluded: its raster is unavailable and the source itself calls it contaminated.</p>
+    <p>H42 uses detrended-elevation slope, a 12-band LiDAR scarp evidence derivative, and horizontal magnetic-gradient data. The H42 scarp mirror is for baseline reproduction only. It was not used in the G43-CG01 candidate.</p>
+    <p>The owner report is evidence of a prior-project result, not an organizer score. The local reproduction verifies the geometry and implementation of that validation recipe on G43's owner-mirrored inputs; it cannot authenticate those inputs or confirm a DrivenData leaderboard score.</p>
+    <p><a href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE41/main/scripts/holdout_h42.py">H42 protocol code</a> · <a href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE41/main/evidence/h42_holdout_20km.json">H42 owner report</a> · <a href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE41/main/scripts/build_h42_final.py">H42 builder</a></p>
+  </div>
+</section>
+<section class="section" id="cg01"><div class="section-head"><div><div class="kicker">Registered candidate</div><h2>G43-CG01 failed the gate</h2></div><span class="badge no-go">No-go</span></div>
+  <div class="grid">
+    <article class="card wide"><h3>Frozen operator</h3><p>Use only the competition RTP magnetic band and isostatic-gravity anomaly. At 2-, 4- and 8-cell Gaussian scales, compute gradient magnitudes and directions; normalize each strength at the footprint 99th percentile; calculate the geometric mean of magnitudes times the absolute direction cosine; aggregate by the median across scales. Stable greedy packing emits 40,000 cells at 4-cell spacing, with the same held-fold boundary and training-catalogue guards as H42.</p><p>The score surface did not read labels, the scarp layer, prior submission rasters, or leaderboard data. The exact recipe and gate were frozen in <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/registry/experiment.json">registry/experiment.json</a> before candidate scores were inspected.</p></article>
+    <article class="card"><h3>Outcome</h3><div class="metric"><strong>0.211567</strong></div><p>Mean DTI; minimum fold 0.204019; maximum 0.228287. It lost in all four folds.</p></article>
+    <article class="card"><h3>Equal-mass baseline</h3><div class="metric"><strong>0.250744</strong></div><p>Reproduced H42 mean. CG01's mean is lower by 0.039177.</p></article>
+    <article class="card full"><h3>Fold-by-fold results</h3><div class="table-wrap"><table><thead><tr><th>Fold</th><th>H42</th><th>CG01</th><th>CG01 − H42</th><th>Candidate win?</th></tr></thead><tbody>
+      <tr><td>0</td><td>0.242272</td><td>0.207406</td><td>−0.034866</td><td>No</td></tr>
+      <tr><td>1</td><td>0.247658</td><td>0.206557</td><td>−0.041101</td><td>No</td></tr>
+      <tr><td>2</td><td>0.255021</td><td>0.204019</td><td>−0.051002</td><td>No</td></tr>
+      <tr><td>3</td><td>0.258025</td><td>0.228287</td><td>−0.029738</td><td>No</td></tr>
+      <tr><td><strong>Mean</strong></td><td><strong>0.250744</strong></td><td><strong>0.211567</strong></td><td><strong>−0.039177</strong></td><td><strong>0/4</strong></td></tr>
+    </tbody></table></div></article>
+  </div>
+</section>
+<section class="section" id="h33"><div class="section-head"><div><div class="kicker">Owner-reported context</div><h2>H33-2-B2: 0.2747 is a projection</h2></div></div><div class="prose"><p>GEMSDOE32 PR #9 describes H33-2-B2 as deleting 2,545 pixels within a two-pixel catalogue buffer from a 40,199-pixel owner-reported B=1 base, leaving 37,654 pixels. The owner reports a calibrated four-fold mean of 0.2679205 and a model-projected live value of 0.2746732 (rounded to 0.2747), derived from owner-reported live anchors. The PR states that there is no organizer score for those artifacts. The projection is neither the four-fold mean nor an organizer-confirmed leaderboard score.</p><p>Official DrivenData staff clarified that known USGS/INGENIOUS pixels are masked, while nearby unmasked predictions still affect scoring. H33-2-B2 is an emission-pruning rule, not evidence that the removed cells are not faults. Read <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/pull/9">PR #9</a> and the <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff scoring reply</a>.</p></div></section>
+<section class="section" id="metric"><div class="section-head"><div><div class="kicker">Metric implementation</div><h2>Verified against brute force</h2></div></div>
+<div class="prose"><p>The metric module transcribes the official distance-weighted Tversky equations. For each truth pixel, <code>TPw</code> is the maximum nearby prediction × triangular kernel; each prediction mass pays <code>FPw = p × (1 − best kernel weight to truth)</code>; <code>FNw = |G| − TPw</code>. The kernel is <code>max(1 − d/3, 0)</code> on the 100-m grid, with α=0.2 and β=0.8.</p><p>Twelve offline tests pass, including 30 seeded random fractional rasters against a direct brute-force transcription, an explicit known-pixel exclusion test, 300-m boundary tests, packing spacing, and synthetic aligned-vs-orthogonal field edges. See <code>tests/</code>.</p><p><strong>Known-mask nuance:</strong> organizer staff said known USGS/INGENIOUS pixels are masked from real scoring. This local CV does not pass those pixels as `known`, because then its held-out catalogue positives would be removed from its own validation truth. This is deliberately a different instrument.</p></div></section>
+<section class="section" id="workflow"><div class="section-head"><div><div class="kicker">Reproducibility</div><h2>Run from a clean checkout</h2></div></div><pre><code>bash scripts/download_competition_data.sh
+.venv/bin/python scripts/audit_inputs.py
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -v
+PYTHONPATH=src .venv/bin/python scripts/run_holdout.py</code></pre><p class="small">The restore script verifies bytes against owner-published manifests. The audit writes `evidence/input_audit.json`; the spatial run writes `evidence/holdout_g43_cg01.json`. No leaderboard endpoint is read.</p></section>
+<section class="section"><div class="callout"><strong>No candidate raster is offered.</strong><p>G43-CG01 did not beat the baseline. The project will not disguise a no-go as a downloadable submission or consume a competition slot. The next candidate, if pursued, needs a new preregistered experiment and the same gate.</p></div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="sources.html">Source register</a></span></div></footer>
+</body>
+</html>

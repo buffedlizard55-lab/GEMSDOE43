@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Executive summary, validation decision and future submission guide for GEMSDOE43.">
+  <title>Executive summary &amp; submission guide · GEMSDOE43</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="topbar"><div class="wrap topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">G43</span><span>GEMSDOE43</span></a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="index.html">Overview</a><a aria-current="page" href="executive-summary.html">Summary &amp; submission guide</a>
+      <a href="hypotheses.html">Hypotheses</a><a href="research.html">Validation</a><a href="sources.html">Sources</a><a href="leaderboard.html">Leaderboard note</a>
+    </nav>
+  </div></header>
+  <section class="hero"><div class="wrap hero-grid">
+    <div><div class="eyebrow">Decision memo · 06 Oct 2026</div><h1>Keep the slot. Fix the evidence first.</h1>
+      <p>The baseline is reproducible; the new candidate is not better. This executive record preserves the no-go, explains the H33-2-B2 projection accurately, and provides a gated checklist for a future eligible submission.</p>
+    </div>
+    <div class="hero-side"><span class="badge no-go">No candidate eligible</span><strong>−0.039177</strong><span>CG01 mean shortfall vs H42 at equal mass</span></div>
+  </div></section>
+  <main class="wrap">
+    <section class="section"><div class="callout">
+      <strong>Decision: do not submit G43-CG01.</strong>
+      <p>Candidate mean DTI was 0.211567 against the independently reproduced H42 mean 0.250744, losing in all four spatial folds. This is a local holdout result; it is not evidence about the exact public/private score. A submission slot remains unused.</p>
+    </div></section>
+    <section class="section grid">
+      <article class="card"><span class="badge pass">Verified locally</span><h3>H42 reproduction</h3><p>All clean arms from the owner report were reimplemented from input layers under the published protocol. The selected arm matches the owner report within 1e-6 per fold and summary. The owner report itself is not organizer confirmation.</p><a href="research.html#h42">Open the holdout receipt →</a></article>
+      <article class="card"><span class="badge no-go">Rejected at gate</span><h3>G43-CG01</h3><p>RTP magnetic and isostatic-gravity gradient concordance at 2, 4 and 8 pixel smoothing scales. It achieved 0.211567 mean DTI, 0/4 wins, and therefore fails the registered promotion rule.</p><a href="hypotheses.html#cg01">Review the frozen operator →</a></article>
+      <article class="card"><span class="badge caution">Provenance caveat</span><h3>Inputs are owner mirrors</h3><p>Hashes establish byte integrity against owner manifests only; no organizer-issued checksums were available. The sample raster also has an unexpected positive-label mask.</p><a href="sources.html#inputs">Inspect provenance and irregularities →</a></article>
+    </section>
+
+    <section class="section" id="h33">
+      <div class="section-head"><div><div class="kicker">Score attribution</div><h2>What H33-2-B2's 0.2747 represents</h2></div></div>
+      <div class="prose">
+        <p><strong>It is a model-projected value reported by the owner, not an organizer-confirmed score.</strong> GEMSDOE32 PR #9 describes H33-2-B2 as a catalogue-distance removal arm. Its 40,199-pixel B=1 base was pruned again at a two-pixel catalogue buffer: 2,545 dots removed, 37,654 retained. The owner reports a four-fold calibrated mean of 0.2679205 (minimum 0.1784544) and a +0.0048695 margin over its local calibration base in all four folds.</p>
+        <p>The same evidence record labels the separate projected value as 0.2746732, rounded to 0.2747. That projection transfers a model calibrated from owner-reported live anchors (0.2600 and 0.2708) and includes estimated credit and a safety factor near 2.08. It is not the 0.2679205 fold mean and is not a new organizer leaderboard observation. The PR explicitly says the repository has no organizer score for its artifacts.</p>
+        <p>Official DrivenData staff separately clarified that known USGS/INGENIOUS pixels are masked from evaluation. Removing a nearby unmasked halo can still alter false-positive mass, but the removal rule is an emission-geometry decision—not proof that nearby pixels are or are not faults. Read the <a href="https://github.com/buffedlizard55-lab/GEMSDOE32/pull/9">owner PR</a> alongside the <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">organizer staff reply</a>.</p>
+        <p class="small">Full calculation, attribution, and caveats: <a href="research.html#h33">research page</a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE43/blob/main/research/h33_result_review.md">repository memo</a>.</p>
+      </div>
+    </section>
+
+    <section class="section" id="submission-guide">
+      <div class="section-head"><div><div class="kicker">Future use only · gated</div><h2>Submission guide</h2></div><p>These steps become actionable only after one candidate passes the registered holdout and all release audits. There is no current file to upload.</p></div>
+      <div class="grid">
+        <article class="card"><h3>1 · Confirm the gate</h3><p>Reproduce the selected H42 control. At equal mass, require the candidate mean to be strictly higher and at least 3 of 4 folds to win. Then run the full test suite and inspect all mismatches.</p></article>
+        <article class="card"><h3>2 · Audit a genuinely new raster</h3><p>Compare full pixel arrays against prior same-grid rasters (hash, support, correlation and top-mass overlap). Do not copy or rename a prior artifact. Confirm no labels or sample predictions leaked into the score.</p></article>
+        <article class="card"><h3>3 · Check portal format</h3><p>One band; float32; EPSG:32611; 100-m grid; bounds and transform match; finite [0,1] values in-area; null/NaN outside. Hash the final bytes and preserve the audit receipt.</p></article>
+        <article class="card"><h3>4 · Prepare the narrative</h3><p>Explain geology, data sources and licenses, limits, validation, and score attribution. Explicitly disclose that generative AI assisted research/code/documentation, how it was used, and which claims/results were independently checked.</p></article>
+        <article class="card"><h3>5 · Give the portal a short comment</h3><p>Use a concise factual note that names the unique candidate, summarizes its physical signal and validation, and points to the narrative for AI-use disclosure. Do not cite local holdout DTI as an official score.</p></article>
+        <article class="card"><h3>6 · Choose one final file</h3><p>The official rules require choosing a single final submission for both prize rounds. Verify the current official deadline and submission allowance in the organizer's rules before any upload.</p></article>
+      </div>
+      <div class="callout info" style="margin-top:16px"><strong>Portal comment template (do not use until the gate passes)</strong><p>“GEMSDOE43 [unique candidate name]: fault-confidence raster built from [physical signal]. Spatially blocked validation and limitations are documented in the accompanying narrative; generative-AI assistance is disclosed there.”</p></div>
+      <div class="notice" style="margin-top:15px"><strong>AI-use note for any future narrative:</strong> this project used generative AI assistance for source review, code drafting, test design, and documentation. The final submitter remains responsible for checking the scientific interpretation, data rights, raster bytes, and all claims against primary sources.</div>
+      <div class="button-row"><span class="button disabled" aria-disabled="true">Download unavailable · no-go</span><span class="small">No GeoTIFF or portal-ready file is currently published.</span></div>
+    </section>
+    <section class="section"><div class="callout warn"><strong>Do not over-read the validation.</strong><p>DrivenData staff said the sources, types, and coverage used for hidden test faults will not be disclosed. The catalogue holdout measures recovery of withheld mapped faults; it is a necessary screen, not a hidden-score forecast. <a href="https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527/7">Staff statement →</a></p></div></section>
+  </main>
+  <footer class="footer"><div class="wrap footer-inner"><span>GEMSDOE43 · Maximize P(Win) · Own the Outcome</span><span><a href="index.html">Overview</a><a href="sources.html">Source register</a></span></div></footer>
+</body>
+</html>
